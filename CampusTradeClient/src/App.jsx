@@ -18,7 +18,6 @@ import Admin from './Pages/Admin/Admin';
 import UserProfile from './Pages/UserProfile/UserProfile';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
-import FDFED from './FDFED';
 function App() {
 
   return (
@@ -37,7 +36,7 @@ function App() {
         </Routes>
         <Footer/>
 
-        {/* <FDFED /> */}
+      
         
         
       </div>

@@ -4,7 +4,7 @@ import React from 'react'
 
 const StyledBox = styled(Paper) ({
     overflow:'auto',
-    width:'50%',
+    width:'40%',
     height: '500px',
     margin:'20px',
     padding:'10px',
