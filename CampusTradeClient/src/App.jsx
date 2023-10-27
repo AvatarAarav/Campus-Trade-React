@@ -1,6 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 
 import './App.css';
@@ -11,8 +16,9 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import Admin from './Pages/Admin/Admin';
 import UserProfile from './Pages/UserProfile/UserProfile';
-import Navbar from './Components/Navbar/Navbar';
-import Footer from './Components/Footer/Footer';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
+import FDFED from './FDFED';
 function App() {
 
   return (
@@ -21,7 +27,7 @@ function App() {
       <div className="App">
         <Navbar/>
         <Routes>
-          <Route path="/" exact element={<Home/>} />
+          <Route path="/" exact element={<Admin/>} />
           <Route path="/ad" element={<AdPage/>} />
           <Route path="/login" exact element={<Login/>} />
           <Route path="/register" exact element={<Register/>} />
@@ -30,6 +36,10 @@ function App() {
           <Route path="/about" element={<AboutUs/>} />
         </Routes>
         <Footer/>
+
+        {/* <FDFED /> */}
+        
+        
       </div>
     </Router>
     </>
