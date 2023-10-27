@@ -2,7 +2,7 @@ import React from 'react'
 import FindUser from './FindUser'
 import Dashboard from './Dashboard'
 import Profile from './Profile'
-import CardContainer from '../../components/CardContainer'
+import CardContainer from '../../Components/CardContainer'
 import { Box } from '@mui/material'
 
 function Admin() {
