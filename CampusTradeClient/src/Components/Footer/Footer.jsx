@@ -22,6 +22,7 @@ const B = styled(Link) ({
 })
 function Footer() {
   return (
+    <>
     <Box sx={{backgroundColor:"lightgray",display:'flex',flexDirection:{xs:'column',sm:'row'},alignItems:'center',padding:'50px 0px'}}>
       <StyledBox sx={{display:{xs:'none',sm:'block'}}}>
         <Container>
@@ -64,6 +65,7 @@ function Footer() {
 
       
     </Box>
+    </>
   )
 }
 

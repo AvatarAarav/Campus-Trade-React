@@ -220,7 +220,7 @@ function Navbar() {
             variant="h5"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'cursive', fontWeight:'1000', color:theme.palette.primary.main }}
+            sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'cursive', fontWeight:'1000', color:theme.palette.text.primary }}
           >
             Campus Trade
           </Typography>
@@ -243,7 +243,7 @@ function Navbar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="theme.palette.secondary.main">
               <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon fontSize='lg' sx={{color:theme.palette.primary.dark}} onClick={handleOpenLogin} />
+                <NotificationsIcon fontSize='lg' sx={{color:theme.palette.text.primary}} onClick={handleOpenLogin} />
               </Badge>
             </IconButton>
             <IconButton
@@ -252,7 +252,7 @@ function Navbar() {
               
             >
               <Badge badgeContent={17} variant='dot' color="secondary">
-                <FavoriteRounded fontSize='lg' sx={{color:theme.palette.primary.dark}} onClick={handleOpenSignup}/>
+                <FavoriteRounded fontSize='lg' sx={{color:theme.palette.text.primary}} onClick={handleOpenSignup}/>
               </Badge>
             </IconButton>
             <IconButton
@@ -261,7 +261,7 @@ function Navbar() {
               
             >
               <Badge badgeContent={5} color="secondary">
-                <ShoppingCart fontSize='lg' sx={{color:theme.palette.primary.dark}} onClick={handleOpenSignup}/>
+                <ShoppingCart fontSize='lg' sx={{color:theme.palette.text.primary}} onClick={handleOpenSignup}/>
               </Badge>
             </IconButton>
             <IconButton
@@ -272,7 +272,7 @@ function Navbar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <Face fontSize='lg' sx={{color:theme.palette.primary.dark}} />
+              <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
