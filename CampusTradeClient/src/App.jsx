@@ -16,8 +16,10 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import Admin from './Pages/Admin/Admin';
 import UserProfile from './Pages/UserProfile/UserProfile';
-import Navbar from './Components/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
+
+
 function App() {
 
   return (
@@ -26,7 +28,7 @@ function App() {
       <div className="App">
         <Navbar/>
         <Routes>
-          <Route path="/" exact element={<Home/>} />
+          <Route path="/" exact element={<AdPage/>} />
           <Route path="/ad" element={<AdPage/>} />
           <Route path="/login" exact element={<Login/>} />
           <Route path="/register" exact element={<Register/>} />

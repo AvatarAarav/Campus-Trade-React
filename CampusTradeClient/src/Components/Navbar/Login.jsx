@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Box, IconButton, Typography } from '@mui/material'
+import { Box, IconButton, LinearProgress, Typography } from '@mui/material'
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import React, { useState, useTransition } from 'react'
 
@@ -53,8 +53,11 @@ const Login = ({openModalLogin, handleCloseLogin, toSignup}) => {
             }}
           >
             <Fade in={openModalLogin}>
+            
               <Box sx={style}>
+              
                 <Typography color='primary' sx={{fontSize:'xx-large', marginBottom:'20px'}} variant='h5' component='h5'>Login</Typography>
+                <LinearProgress />
                 <TextField
                   onChange={(e) => setemail(e.target.value)}
                   sx={{width: '300px', margin:'10px'}}

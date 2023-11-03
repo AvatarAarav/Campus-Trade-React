@@ -15,10 +15,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Toolbar from '@mui/material/Toolbar';
-import { Shop, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Face, FavoriteRounded, Shop, ShoppingBag, ShoppingCart, Visibility, VisibilityOff } from '@mui/icons-material';
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import Login from './Login';
 import Signup from './Signup';
+
+import { useTheme } from '@mui/material/styles';
 
 const Toolbaar = styled(Toolbar) ({
   display:'flex',
@@ -29,7 +31,7 @@ const Search = styled('div')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.25),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.5),
+    backgroundColor: '',
   },
   marginLeft: 0,
   width: '40%',
@@ -117,6 +119,7 @@ function Navbar() {
     }, 500);
   }
 
+  const theme = useTheme();
 
 
   const menuId = 'primary-search-account-menu';
@@ -144,6 +147,7 @@ function Navbar() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
+      
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -158,27 +162,39 @@ function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem sx={{color:theme.palette.text.secondary}}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon onClick={handleOpenLogin} />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon onClick={handleOpenSignup}/>
+          <Badge badgeContent={4} color="secondary">
+            <NotificationsIcon sx={{color:theme.palette.primary.dark}} onClick={handleOpenLogin} />
           </Badge>
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem sx={{color:theme.palette.text.secondary}}>
+        <IconButton
+          size="large"
+          aria-label="show 17 new items"
+          color="inherit"
+        >
+          <Badge variant='dot' badgeContent={17} color="secondary">
+            <FavoriteRounded sx={{color:theme.palette.primary.dark}} fontSize='lg' onClick={handleOpenSignup}/>
+          </Badge>
+        </IconButton>
+        <p>Wishlist</p>
+      </MenuItem>
+      <MenuItem sx={{color:theme.palette.text.secondary}}>
+        <IconButton
+          size="large"
+          aria-label="show 17 new items"
+          color="inherit"
+        >
+          <Badge variant='dot' badgeContent={17} color="secondary">
+            <ShoppingCart sx={{color:theme.palette.primary.dark}} fontSize='lg' onClick={handleOpenSignup}/>
+          </Badge>
+        </IconButton>
+        <p>Cart</p>
+      </MenuItem>
+      <MenuItem sx={{color:theme.palette.text.secondary}} fontSize='lg' onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -186,7 +202,7 @@ function Navbar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <Face sx={{color:theme.palette.primary.dark}} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -196,19 +212,19 @@ function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color='primary'>
-        <Toolbaar>
+      <AppBar position="static" sx={{backgroundColor:theme.palette.background.paper}} >
+        <Toolbaar >
           
-          <Shop sx={{display: {xs: 'block', sm: 'none'}}}/>
+          <Shop sx={{display: {xs: 'block', sm: 'none'}, color:theme.palette.secondary.main}}/>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'cursive', fontWeight:'1000', color:theme.palette.primary.main }}
           >
             Campus Trade
           </Typography>
-          <Search>
+          <Search sx={{backgroundColor:theme.palette.background.default,color:theme.palette.text.secondary}}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -217,20 +233,35 @@ function Navbar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+
+          <div style={{position:'absolute'}}>
+            <Login openModalLogin={openModalLogin} handleCloseLogin={handleCloseLogin} toSignup={toSignup} />
+            <Signup openModalSignup={openModalSignup} handleCloseSignup={handleCloseSignup} toLogin={toLogin}/>
+          </div>
+          
           
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon onClick={handleOpenLogin} />
+            <IconButton size="large" aria-label="show 4 new mails" color="theme.palette.secondary.main">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon fontSize='lg' sx={{color:theme.palette.primary.dark}} onClick={handleOpenLogin} />
               </Badge>
             </IconButton>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
-              color="inherit"
+              
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon onClick={handleOpenSignup}/>
+              <Badge badgeContent={17} variant='dot' color="secondary">
+                <FavoriteRounded fontSize='lg' sx={{color:theme.palette.primary.dark}} onClick={handleOpenSignup}/>
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              
+            >
+              <Badge badgeContent={5} color="secondary">
+                <ShoppingCart fontSize='lg' sx={{color:theme.palette.primary.dark}} onClick={handleOpenSignup}/>
               </Badge>
             </IconButton>
             <IconButton
@@ -240,9 +271,8 @@ function Navbar() {
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
             >
-              <AccountCircle />
+              <Face fontSize='lg' sx={{color:theme.palette.primary.dark}} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -252,14 +282,13 @@ function Navbar() {
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="inherit"
+              color="theme.palette.secondary.main"
             >
-              <MoreIcon />
+              <MoreIcon fontSize='lg' />
             </IconButton>
           </Box>
 
-          <Login openModalLogin={openModalLogin} handleCloseLogin={handleCloseLogin} toSignup={toSignup} />
-          <Signup openModalSignup={openModalSignup} handleCloseSignup={handleCloseSignup} toLogin={toLogin}/>
+          
           
         </Toolbaar>
       </AppBar>
