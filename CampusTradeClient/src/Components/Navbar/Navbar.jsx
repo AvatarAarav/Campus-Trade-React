@@ -19,7 +19,8 @@ import { Face, FavoriteRounded, Shop, ShoppingBag, ShoppingCart, Visibility, Vis
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import Login from './Login';
 import Signup from './Signup';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {login,logout} from '../../Store/UserSlice'
 import { useTheme } from '@mui/material/styles';
 
 const Toolbaar = styled(Toolbar) ({
@@ -119,6 +120,15 @@ function Navbar() {
     }, 500);
   }
 
+  const user = useSelector((state) => state.user);
+  console.log(user);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleMenuClose();
+  }
+
   const theme = useTheme();
 
 
@@ -140,7 +150,7 @@ function Navbar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Log Out</MenuItem>
     </Menu>
   );
 
@@ -202,7 +212,7 @@ function Navbar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <Face sx={{color:theme.palette.primary.dark}} />
+        {user.value && <Face sx={{color:theme.palette.primary.dark}} />}  
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -229,7 +239,7 @@ function Navbar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search for products, sellers and more"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
@@ -272,7 +282,7 @@ function Navbar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />
+              {user.value && <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
