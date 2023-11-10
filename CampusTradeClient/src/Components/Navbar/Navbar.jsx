@@ -19,8 +19,6 @@ import { Face, FavoriteRounded, Shop, ShoppingBag, ShoppingCart, Visibility, Vis
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import Login from './Login';
 import Signup from './Signup';
-import { useDispatch, useSelector } from 'react-redux';
-import {login,logout} from '../../Store/UserSlice'
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutReducer, loginReducer } from '../../Store/UserSlice';
@@ -78,7 +76,7 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const dispatch=useDispatch();
-  const login=useSelector(state=>state.user.loggedIn)
+  const loggedIn=useSelector(state=>state.user.loggedIn)
   // dispatch(loginReducer())  //for login
   // dispatch(logOutReducer()) //for logout
   const isMenuOpen = Boolean(anchorEl);
@@ -124,13 +122,10 @@ function Navbar() {
       handleOpenLogin();
     }, 500);
   }
-
-  const user = useSelector((state) => state.user);
-  console.log(user);
-  const dispatch = useDispatch();
+;
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logOutReducer())
     handleMenuClose();
   }
 
@@ -217,7 +212,7 @@ function Navbar() {
           aria-haspopup="true"
           color="inherit"
         >
-        {user.value && <Face sx={{color:theme.palette.primary.dark}} />}  
+        {loggedIn && <Face sx={{color:theme.palette.primary.dark}} />}  
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -287,7 +282,7 @@ function Navbar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              {user.value && <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />}
+              {loggedIn && <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

@@ -2,9 +2,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, IconButton, LinearProgress, Typography } from '@mui/material'
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import React, { useState, useTransition } from 'react'
-
+import { loginReducer } from '../../Store/UserSlice';
 import { useDispatch } from 'react-redux';
-import {login,logout} from '../../Store/UserSlice';
 
 const style = {
     display:'flex',
@@ -37,7 +36,7 @@ const Login = ({openModalLogin, handleCloseLogin, toSignup}) => {
 
     const handleLogin = () => {
       console.log(`email : ${email} password : ${password}`);
-      dispatch(login());
+      dispatch(loginReducer())
       handleCloseLogin();
     }
 
