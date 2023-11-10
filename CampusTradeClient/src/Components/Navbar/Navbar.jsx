@@ -8,24 +8,22 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Toolbar from '@mui/material/Toolbar';
 import { Face, FavoriteRounded, Shop, ShoppingBag, ShoppingCart, Visibility, VisibilityOff } from '@mui/icons-material';
-import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
+import { Backdrop, Button, ButtonGroup,Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import Login from './Login';
 import Signup from './Signup';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutReducer, loginReducer } from '../../Store/UserSlice';
+import { useNavigate } from 'react-router-dom';
 
-const Toolbaar = styled(Toolbar) ({
-  display:'flex',
-  justifyContent:'space-around',
+const Toolbaar = styled(Toolbar)({
+  display: 'flex',
+  justifyContent: 'space-around',
 })
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -74,11 +72,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate()
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const dispatch=useDispatch();
-  const loggedIn=useSelector(state=>state.user.loggedIn)
-  // dispatch(loginReducer())  //for login
-  // dispatch(logOutReducer()) //for logout
+  const dispatch = useDispatch();
+  const loggedIn = useSelector(state => state.user.loggedIn)
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -94,6 +91,7 @@ function Navbar() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+    navigate('/user')
     handleMobileMenuClose();
   };
 
@@ -122,7 +120,7 @@ function Navbar() {
       handleOpenLogin();
     }, 500);
   }
-;
+    ;
 
   const handleLogout = () => {
     dispatch(logOutReducer())
@@ -133,7 +131,7 @@ function Navbar() {
 
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = (
+  const renderSubMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
@@ -154,10 +152,18 @@ function Navbar() {
     </Menu>
   );
 
+  const renderLoginButton = (
+    <>
+      <ButtonGroup variant="text" aria-label="text button group">
+        <Button onClick={handleOpenLogin}>Login</Button>
+        <Button onClick={handleOpenSignup}>Register</Button>
+      </ButtonGroup>
+    </>
+  )
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
-      
+
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
@@ -172,39 +178,39 @@ function Navbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem sx={{color:theme.palette.text.secondary}}>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+      <MenuItem sx={{ color: theme.palette.text.secondary }}>
+        <IconButton size="large" aria-label="show 4 new mailsrenderLoginButton" color="inherit">
           <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon sx={{color:theme.palette.primary.dark}} onClick={handleOpenLogin} />
+            <NotificationsIcon sx={{ color: theme.palette.primary.dark }} onClick={handleOpenLogin} />
           </Badge>
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem sx={{color:theme.palette.text.secondary}}>
+      <MenuItem sx={{ color: theme.palette.text.secondary }}>
         <IconButton
           size="large"
           aria-label="show 17 new items"
           color="inherit"
         >
           <Badge variant='dot' badgeContent={17} color="secondary">
-            <FavoriteRounded sx={{color:theme.palette.primary.dark}} fontSize='lg' onClick={handleOpenSignup}/>
+            <FavoriteRounded sx={{ color: theme.palette.primary.dark }} fontSize='lg' onClick={handleOpenSignup} />
           </Badge>
         </IconButton>
         <p>Wishlist</p>
       </MenuItem>
-      <MenuItem sx={{color:theme.palette.text.secondary}}>
+      <MenuItem sx={{ color: theme.palette.text.secondary }}>
         <IconButton
           size="large"
           aria-label="show 17 new items"
           color="inherit"
         >
           <Badge variant='dot' badgeContent={17} color="secondary">
-            <ShoppingCart sx={{color:theme.palette.primary.dark}} fontSize='lg' onClick={handleOpenSignup}/>
+            <ShoppingCart sx={{ color: theme.palette.primary.dark }} fontSize='lg' onClick={handleOpenSignup} />
           </Badge>
         </IconButton>
         <p>Cart</p>
       </MenuItem>
-      <MenuItem sx={{color:theme.palette.text.secondary}} fontSize='lg' onClick={handleProfileMenuOpen}>
+      <MenuItem sx={{ color: theme.palette.text.secondary }} fontSize='lg' onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -212,7 +218,7 @@ function Navbar() {
           aria-haspopup="true"
           color="inherit"
         >
-        {loggedIn && <Face sx={{color:theme.palette.primary.dark}} />}  
+          <Face sx={{ color: theme.palette.primary.dark }} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -222,19 +228,19 @@ function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{backgroundColor:theme.palette.background.paper}} >
+      <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper }} >
         <Toolbaar >
-          
-          <Shop sx={{display: {xs: 'block', sm: 'none'}, color:theme.palette.secondary.main}}/>
+
+          <Shop sx={{ display: { xs: 'block', sm: 'none' }, color: theme.palette.secondary.main }} />
           <Typography
             variant="h5"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' },fontFamily:'cursive', fontWeight:'1000', color:theme.palette.text.primary }}
+            sx={{ display: { xs: 'none', sm: 'block' }, fontFamily: 'cursive', fontWeight: '1000', color: theme.palette.text.primary }}
           >
             Campus Trade
           </Typography>
-          <Search sx={{backgroundColor:theme.palette.background.default,color:theme.palette.text.secondary}}>
+          <Search sx={{ backgroundColor: theme.palette.background.default, color: theme.palette.text.secondary }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -244,34 +250,34 @@ function Navbar() {
             />
           </Search>
 
-          <div style={{position:'absolute'}}>
+          <div style={{ position: 'absolute' }}>
             <Login openModalLogin={openModalLogin} handleCloseLogin={handleCloseLogin} toSignup={toSignup} />
-            <Signup openModalSignup={openModalSignup} handleCloseSignup={handleCloseSignup} toLogin={toLogin}/>
+            <Signup openModalSignup={openModalSignup} handleCloseSignup={handleCloseSignup} toLogin={toLogin} />
           </div>
-          
-          
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+
+          {loggedIn ? <><Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="theme.palette.secondary.main">
               <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon fontSize='lg' sx={{color:theme.palette.text.primary}} onClick={handleOpenLogin} />
+                <NotificationsIcon fontSize='lg' sx={{ color: theme.palette.primary.main }} onClick={handleOpenLogin} />
               </Badge>
             </IconButton>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
-              
+
             >
               <Badge badgeContent={17} variant='dot' color="secondary">
-                <FavoriteRounded fontSize='lg' sx={{color:theme.palette.text.primary}} onClick={handleOpenSignup}/>
+                <FavoriteRounded fontSize='lg' sx={{ color: theme.palette.primary.main }} onClick={handleOpenSignup} />
               </Badge>
             </IconButton>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
-              
+
             >
               <Badge badgeContent={5} color="secondary">
-                <ShoppingCart fontSize='lg' sx={{color:theme.palette.text.primary}} onClick={handleOpenSignup}/>
+                <ShoppingCart fontSize='lg' sx={{ color: theme.palette.primary.main }} onClick={handleOpenSignup} />
               </Badge>
             </IconButton>
             <IconButton
@@ -282,28 +288,34 @@ function Navbar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              {loggedIn && <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />}
+              {loggedIn && <Face fontSize='lg' sx={{ color: theme.palette.primary.main }} />}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="theme.palette.secondary.main"
-            >
-              <MoreIcon fontSize='lg' />
-            </IconButton>
-          </Box>
+          <IconButton
+            size="large"
+            aria-label="show more"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            onClick={handleMobileMenuOpen}
+            color="theme.palette.secondary.main"
+          >
+            <MoreIcon fontSize='lg' />
+          </IconButton>
+        </Box></>
+          :
+          renderLoginButton
+          }
+          
 
-          
-          
+
+
         </Toolbaar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
+      {renderSubMenu}
+
+      
     </Box>
   )
 }

@@ -3,9 +3,9 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#2196f3', // Primary color
-      light: '#6ec6ff', // Lighter shade
-      dark: '#0069c0', // Darker shade
+      main: '#212121', // Primary color
+      light: '#4f4f4f', // Lighter shade
+      dark: '#000000', // Darker shade
     },
     secondary: {
       main: '#ff4081', // Secondary color
