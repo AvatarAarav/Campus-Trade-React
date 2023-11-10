@@ -2,6 +2,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Box, IconButton, LinearProgress, Typography } from '@mui/material'
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import React, { useState, useTransition } from 'react'
+import { loginReducer } from '../../Store/UserSlice';
+import { useDispatch } from 'react-redux';
 
 const style = {
     display:'flex',
@@ -33,9 +35,13 @@ const Login = ({openModalLogin, handleCloseLogin, toSignup}) => {
     const [password,setpassword] = useState('');
 
     const handleLogin = () => {
-      alert(`email : ${email}, password : ${password}`)
       console.log(`email : ${email} password : ${password}`);
+      dispatch(loginReducer())
+      handleCloseLogin();
     }
+
+    const dispatch = useDispatch();
+
 
   return (
     <Box>
@@ -53,21 +59,24 @@ const Login = ({openModalLogin, handleCloseLogin, toSignup}) => {
             }}
           >
             <Fade in={openModalLogin}>
-            
+                
               <Box sx={style}>
-              
-                <Typography color='primary' sx={{fontSize:'xx-large', marginBottom:'20px'}} variant='h5' component='h5'>Login</Typography>
+                <Box sx={{width:'330px',position:'absolute',top:0}}>
                 <LinearProgress />
+                </Box>
+                
+                <Typography color='secondary' sx={{fontSize:'xx-large', marginBottom:'20px'}} variant='h5' component='h5'>Login</Typography>
+                
                 <TextField
                   onChange={(e) => setemail(e.target.value)}
                   sx={{width: '300px', margin:'10px'}}
-                  // error
+                  error
                   id="outlined-error"
                   label="email"
                   defaultValue=""
                 />
                 <FormControl sx={{ width: '300px', margin:'10px' }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                  <InputLabel htmlFor="outlined-adornment-password">password</InputLabel>
                   <OutlinedInput
                   onChange={(e) => setpassword(e.target.value)}
                     id="outlined-adornment-password"
@@ -84,12 +93,12 @@ const Login = ({openModalLogin, handleCloseLogin, toSignup}) => {
                         </IconButton>
                       </InputAdornment>
                     }
-                    label="Password"
+                    label="password"
                   />
                 </FormControl>
-                <FormControlLabel control={<Checkbox defaultChecked />} label="admin" />
-                <Button sx={{width: '300px', margin:'10px'}} variant='contained' onClick={handleLogin}>Login</Button>
-                <Button sx={{width: '300px', margin:'10px'}} variant='outlined' onClick={toSignup}>Register</Button>
+                <FormControlLabel control={<Checkbox defaultChecked />} label="Admin" />
+                <Button color='secondary' sx={{width: '300px', margin:'10px'}} variant='contained' onClick={handleLogin}>Login</Button>
+                <Button color='secondary' sx={{width: '300px', margin:'10px'}} variant='outlined' onClick={toSignup}>Register</Button>
               </Box>
             </Fade>
           </Modal>

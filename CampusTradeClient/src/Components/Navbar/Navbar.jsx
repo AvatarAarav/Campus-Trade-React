@@ -19,7 +19,6 @@ import { Face, FavoriteRounded, Shop, ShoppingBag, ShoppingCart, Visibility, Vis
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import Login from './Login';
 import Signup from './Signup';
-
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutReducer, loginReducer } from '../../Store/UserSlice';
@@ -77,7 +76,7 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const dispatch=useDispatch();
-  const login=useSelector(state=>state.user.loggedIn)
+  const loggedIn=useSelector(state=>state.user.loggedIn)
   // dispatch(loginReducer())  //for login
   // dispatch(logOutReducer()) //for logout
   const isMenuOpen = Boolean(anchorEl);
@@ -123,6 +122,12 @@ function Navbar() {
       handleOpenLogin();
     }, 500);
   }
+;
+
+  const handleLogout = () => {
+    dispatch(logOutReducer())
+    handleMenuClose();
+  }
 
   const theme = useTheme();
 
@@ -145,7 +150,7 @@ function Navbar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Log Out</MenuItem>
     </Menu>
   );
 
@@ -207,7 +212,7 @@ function Navbar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <Face sx={{color:theme.palette.primary.dark}} />
+        {loggedIn && <Face sx={{color:theme.palette.primary.dark}} />}  
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -234,7 +239,7 @@ function Navbar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search for products, sellers and more"
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
@@ -277,7 +282,7 @@ function Navbar() {
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
             >
-              <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />
+              {loggedIn && <Face fontSize='lg' sx={{color:theme.palette.text.primary}} />}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

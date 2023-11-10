@@ -15,7 +15,7 @@ import AdPage from './Pages/AdPage/AdPage';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import Admin from './Pages/Admin/Admin';
-import UserProfile from './Pages/UserProfile/UserProfile';
+// import UserProfile from './Pages/UserProfile/UserProfile';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import ProfileX from './Pages/UserProfile/ProfileX';
@@ -27,12 +27,12 @@ function App() {
       <div className="App">
         <Navbar/>
         <Routes>
-          <Route path="/" exact element={<ProfileX/>} />
+          <Route path="/" exact element={<AdPage />} />
           <Route path="/ad" element={<AdPage/>} />
           <Route path="/login" exact element={<Login/>} />
           <Route path="/register" exact element={<Register/>} />
           <Route path="/admin" exact element={<Admin/>} />
-          <Route path="/user" exact element={<UserProfile/>} />
+          <Route path="/user" exact element={<ProfileX/>} />
           <Route path="/about" element={<AboutUs/>} />
         </Routes>
         <Footer/>
