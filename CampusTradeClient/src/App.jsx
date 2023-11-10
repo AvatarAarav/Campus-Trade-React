@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 
 
 import './App.css';
-// import Home from './Pages/Home/Home';
+import Home from './Pages/Home/Home';
 import AboutUs from './Pages/AboutUs/AboutUs';
 import AdPage from './Pages/AdPage/AdPage';
 import Login from './Pages/Login/Login';
