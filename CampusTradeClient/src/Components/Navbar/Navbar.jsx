@@ -22,6 +22,8 @@ import Signup from './Signup';
 import { useDispatch, useSelector } from 'react-redux';
 import {login,logout} from '../../Store/UserSlice'
 import { useTheme } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOutReducer, loginReducer } from '../../Store/UserSlice';
 
 const Toolbaar = styled(Toolbar) ({
   display:'flex',
@@ -75,7 +77,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const dispatch=useDispatch();
+  const login=useSelector(state=>state.user.loggedIn)
+  // dispatch(loginReducer())  //for login
+  // dispatch(logOutReducer()) //for logout
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
