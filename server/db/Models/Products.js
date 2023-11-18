@@ -9,12 +9,16 @@ const ProductSchema = new mongoose.Schema(
         email: String,
         age: String,
         price: Number,
-        img_type: String,
+        img_type: [String],
+        tags : [String],
+        features : [String],
+        views : {type: Number,default:0 },
+        likes : {type: Number,default:0 },
         chats:[{
             from:String,message:String
         }],
         report:{type:Number,default:0},
-        img_content: { type: Buffer, contentType: String },
+        img_content: [{ type: Buffer, contentType: String }],
     }
 );
 
