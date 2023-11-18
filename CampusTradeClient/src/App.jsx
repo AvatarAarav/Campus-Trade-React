@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 
 
 import './App.css';
-// import Home from './Pages/Home/Home';
+import Home from './Pages/Home/Home';
 import AboutUs from './Pages/AboutUs/AboutUs';
 import AdPage from './Pages/AdPage/AdPage';
 import Login from './Pages/Login/Login';
@@ -28,7 +28,7 @@ function App() {
       <div className="App">
         <Navbar/>
         <Routes>
-          <Route path="/" exact element={<Adform />} />
+          <Route path="/" exact element={<Home/>} />
           <Route path="/ad" element={<AdPage/>} />
           <Route path="/login" exact element={<Login/>} />
           <Route path="/register" exact element={<Register/>} />
