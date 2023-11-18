@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Container, Grid, Typography, Paper, Box, Chip, Stack, Divider } from '@mui/material';
+import { Container, Grid, Typography, Paper, Box, Chip, Stack, Divider, Slider, Slide, ImageListItem, ImageList } from '@mui/material';
 import { TextField, Button } from '@mui/material';
 import {PieChart} from '@mui/x-charts/PieChart'
 import football from '../../assets/football.jpg'
 import theme from '../../theme';
-import { CurrencyRupee, Error, Favorite, Mail, ShoppingCart, Star } from '@mui/icons-material';
+import { CurrencyRupee, Error, Favorite, Info, Mail, ShoppingCart, Star } from '@mui/icons-material';
 function AdPage() {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
@@ -42,7 +42,39 @@ function AdPage() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={7}>
           <Paper elevation={3}>
-            <img src={football} alt='none' style={{ width: '100%' }} />
+            <ImageList variant="masonry" cols={1} gap={2}>
+              
+                <ImageListItem >
+                  <img
+                    srcSet={football}
+                    src={football}
+                    alt='none'
+                    loading="lazy"
+                  />
+                </ImageListItem>
+
+                <ImageListItem >
+                  <img
+                    srcSet={football}
+                    src={football}
+                    alt='none'
+                    loading="lazy"
+                  />
+                </ImageListItem>
+
+                <ImageListItem >
+                  <img
+                    srcSet={football}
+                    src={football}
+                    alt='none'
+                    loading="lazy"
+                  />
+                </ImageListItem>
+
+                
+              
+            </ImageList>
+            {/* <img src={football} alt='none' style={{ width: '100%' }} /> */}
           </Paper>
         </Grid>
         <Grid item xs={12} sm={5}>
@@ -112,7 +144,7 @@ function AdPage() {
             
           </Box>
           <Container sx={{  padding:'10px 0px',backgroundColor:'whitesmoke', display:'flex' ,gap:'10px', alignItems:'center'}}>
-            <Box><Mail color='primary' sx={{fontSize:'60px'}}  /></Box>
+            <Box><Info color='primary' sx={{fontSize:'60px'}}  /></Box>
             <Typography component='span' variant='body1'>We highly recommend you to contact the seller if you have any queries regarding the product.</Typography>
           </Container>
           <hr />
