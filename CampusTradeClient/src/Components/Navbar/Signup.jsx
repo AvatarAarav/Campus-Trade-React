@@ -36,8 +36,40 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
   const [password, setpassword] = useState('');
 
   const handleSignup = () => {
-    alert(`name : ${name}, email : ${email}, password : ${password}`)
-    console.log(`email : ${email} password : ${password}`);
+
+    const userData = {
+      name: name,
+      college_name: collegename,
+      email: email,
+      password: password
+    };
+  
+    fetch('http://localhost:3000/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Handle successful response from the API
+        console.log('Signup successful:', data);
+        // You might want to do something with the response data here
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('There was a problem with the signup:', error);
+        // You might want to show an error message to the user
+      });
+
+    // alert(`name : ${name}, email : ${email}, password : ${password}`)
+    // console.log(`email : ${email} password : ${password}`);
   }
 
   return (

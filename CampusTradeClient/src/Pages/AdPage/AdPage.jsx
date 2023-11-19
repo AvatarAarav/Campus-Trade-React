@@ -4,7 +4,10 @@ import { TextField, Button } from '@mui/material';
 import {PieChart} from '@mui/x-charts/PieChart'
 import football from '../../assets/football.jpg'
 import theme from '../../theme';
-import { CurrencyRupee, Error, Favorite, Info, Mail, ShoppingCart, Star } from '@mui/icons-material';
+
+import ChatBox, { ChatFrame } from 'react-chat-plugin';
+
+import { Chat, CurrencyRupee, Error, Favorite, Info, Mail, ShoppingCart, SmartToy, Star } from '@mui/icons-material';
 function AdPage() {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
@@ -32,6 +35,84 @@ function AdPage() {
       onSendMessage(message);
       setMessage(''); // Clear the message input
     }
+  };
+
+
+
+
+  // npm chat plugin
+  const [attr, setAttr] = useState({
+    showChatbox: false,
+    showIcon: true,
+    messages: [
+      {
+        text: 'current user has joined the conversation',
+        timestamp: 1578366389250,
+        type: 'notification',
+      },
+      {
+        author: {
+          username: 'user1',
+          id: 1,
+          avatarUrl: '',
+        },
+        text: 'Hi',
+        type: 'text',
+        timestamp: 1578366393250,
+      },
+      {
+        author: { username: 'Bot', id: 2, avatarUrl: '' },
+        text: 'Show two buttons',
+        type: 'text',
+        timestamp: 1578366425250,
+        buttons: [
+          {
+            type: 'URL',
+            title: 'Yahoo',
+            payload: 'http://www.yahoo.com',
+          },
+          {
+            type: 'URL',
+            title: 'Example',
+            payload: 'http://www.example.com',
+          },
+        ],
+      },
+      {
+        author: {
+          username: 'user1',
+          id: 1,
+          avatarUrl: '',
+        },
+        text: "What's up?",
+        type: 'text',
+        timestamp: 1578366425250,
+        hasError: false,
+      },
+    ],
+  });
+  const handleClickIcon = () => {
+    // toggle showChatbox and showIcon
+    setAttr({
+      ...attr,
+      showChatbox: !attr.showChatbox,
+      showIcon: !attr.showIcon,
+    });
+  };
+  const handleOnSendMessage = (message) => {
+    setAttr({
+      ...attr,
+      messages: attr.messages.concat({
+        author: {
+          username: 'user1',
+          id: 1,
+          avatarUrl: '',
+        },
+        text: message,
+        type: 'text',
+        timestamp: +new Date(),
+      }),
+    });
   };
 
 
@@ -220,7 +301,7 @@ function AdPage() {
       </Grid>
     </Container>
     <Container>
-      <Grid container spacing={3}>
+      {/* <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{padding:'30px'}}>
             <Typography variant="h6" gutterBottom>
@@ -246,7 +327,35 @@ function AdPage() {
             </Button>
           </Paper>
         </Grid>
-      </Grid>
+      </Grid> */}
+
+
+
+
+
+      {/*npm chat plugin */}
+
+      <ChatFrame 
+        chatbox={
+          <ChatBox
+            onSendMessage={handleOnSendMessage}
+            userId={1}
+            messages={attr.messages}
+            width={'500px'}
+            showTypingIndicator={true}
+            activeAuthor={{ username: 'Bot', id: 2, avatarUrl: '' }}
+          />
+        }
+        icon={<Chat/>}
+        clickIcon={handleClickIcon}
+        showChatbox={attr.showChatbox}
+        showIcon={attr.showIcon}
+        iconStyle={{display:'flex',justifyContent:'center',alignItems:'center', width:'50px',height:'50px', background: 'orange', }}
+      >
+        <div style={{padding:'10px',backgroundColor:'dodgerblue',color:'white',borderRadius:'10px',borderBottomRightRadius:'0px' }}>
+          👋 Hey, Wanna try our new chatting feature ?
+        </div>
+      </ChatFrame>
     </Container>
 
     </Container>
