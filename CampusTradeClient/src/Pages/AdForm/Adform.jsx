@@ -10,7 +10,7 @@ const Adform = () => {
     const [age,setage] = useState('');
     const [desc,setdesc] = useState('');
     const [subtitle,setsubtitle] = useState('');
-    const [images,setimages] = useState({});
+    const [images,setimages] = useState();
 
 
     const [tags, settags] = useState([]);
@@ -19,6 +19,7 @@ const Adform = () => {
 
         const handleFileUpload = (event) => {
             const files = (event.target.files);
+            setimages(files);
             // Do something with the uploaded files, like send them to a server or process them
             console.log('Uploaded files:', files);
         };
@@ -30,6 +31,7 @@ const Adform = () => {
     
         // Perform basic form validation
         if (title!=='' && price!=='' && age!=='' && desc!=='' && subtitle!=='' && tags.length !==0 && features.length!==0 && images.length!==0) {
+            console.log(images);
           console.log('Form submitted successfully!');
         } else {
           alert('please provide relevant information...!');
