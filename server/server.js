@@ -3,7 +3,7 @@ import bodyParser from "body-parser"; //module to read the body of post request
 import mongoose from "mongoose";
 import Users from "./db/Models/User.js";
 import Admins from "./db/Models/Admins.js";
-
+import cors from "cors";
 import apiRouter from "./Router/apiRouter.js";
 import { getUserPage } from "./controllers/getUserPage.js";
 import { getDevsPage } from "./controllers/getDevsPage.js";
@@ -12,6 +12,15 @@ import { dirname } from "path"; //function to get directory name
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url)); //saving the directory name
 // app.use(cors);
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false })); //decoding the data in body
 app.use(bodyParser.json()); //for post requests //decoding the data in body
 
@@ -46,20 +55,24 @@ app.get("/register", (req, res) => {
 });
 
 const PORT = 3000;
-// mongoose.connect('mongodb+srv://Parthbh:Parthiiits@123@cluster0.appxzmy.mongodb.net/?retryWrites=true&w=majority',  {
-//      useNewUrlParser: true,
-//      useUnifiedTopology: true,
-//      family: 4,
-//  })
 mongoose
   .connect(
-    "mongodb+srv://Aarav-Nigam:XtwpTt4aolWGmkzn@cluster0.kd8i4tz.mongodb.net/CampusTradeDB?retryWrites=true&w=majority",
+    "mongodb+srv://Parthbh:Parthiiits%40123@cluster0.appxzmy.mongodb.net/?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       family: 4,
     }
   )
+  // mongoose
+  //   .connect(
+  //     "mongodb+srv://Aarav-Nigam:XtwpTt4aolWGmkzn@cluster0.kd8i4tz.mongodb.net/CampusTradeDB?retryWrites=true&w=majority",
+  //     {
+  //       useNewUrlParser: true,
+  //       useUnifiedTopology: true,
+  //       family: 4,
+  //     }
+  //   )
 
   .then(() => {
     app.listen(PORT, () => {

@@ -46,6 +46,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
 
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [admin, setadmin] = useState(false);
 
   const handleLogin = async () => {
     console.log("login clicked.");
@@ -55,8 +56,10 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: { email, password },
+        body: JSON.stringify({ admin, email, password }),
       });
+
+      console.log(response);
 
       const data = await response.json();
 
