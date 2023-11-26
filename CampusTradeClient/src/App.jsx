@@ -16,7 +16,7 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import Admin from './Pages/Admin/Admin';
 // import UserProfile from './Pages/UserProfile/UserProfile';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import ProfileX from './Pages/UserProfile/ProfileX';
 import Adform from './Pages/AdForm/Adform';
