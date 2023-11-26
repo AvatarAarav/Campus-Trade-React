@@ -1,16 +1,85 @@
-import React, { useState } from 'react'
-import { Container, Grid, Typography, Paper, Box, Chip, Stack, Divider, Slider, Slide, ImageListItem, ImageList } from '@mui/material';
-import { TextField, Button } from '@mui/material';
-import {PieChart} from '@mui/x-charts/PieChart'
-import football from '../../assets/football.jpg'
-import theme from '../../theme';
+import React, { useState } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  Paper,
+  Box,
+  Chip,
+  Stack,
+  Divider,
+  Slider,
+  Slide,
+  ImageListItem,
+  ImageList,
+} from "@mui/material";
+import { TextField, Button } from "@mui/material";
+import { PieChart } from "@mui/x-charts/PieChart";
+import football from "../../assets/football.jpg";
+import theme from "../../theme";
+import bg1 from "../../assets/bg1.jpg";
+import bg2 from "../../assets/bg2.jpg";
+import bg3 from "../../assets/bg3.jpg";
+import ChatBox, { ChatFrame } from "react-chat-plugin";
 
-import ChatBox, { ChatFrame } from 'react-chat-plugin';
+import {
+  Chat,
+  CurrencyRupee,
+  Error,
+  Favorite,
+  Info,
+  Mail,
+  ShoppingCart,
+  SmartToy,
+  Star,
+} from "@mui/icons-material";
 
-import { Chat, CurrencyRupee, Error, Favorite, Info, Mail, ShoppingCart, SmartToy, Star } from '@mui/icons-material';
+// # SCSS
+// import "react-image-gallery/styles/scss/image-gallery.scss";
+
+// // # CSS
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+
 function AdPage() {
-  const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
+  // we should get this ad as a prop to this page
+  const [ad, setad] = useState({
+    title: "C-Type charger",
+    price: "300",
+    age: "6 months old",
+    desc: "its a cool c type charger, very durable and long. i have been using it from 5 months and there were no complaints. recently i lost my android phone and bought a new i phone so i dont need this c type charger anymore. this is of white color and comes with a charger box. it supports 80 watts fast charging and also suitable for mobiles which support 40 watts charging also.",
+    subtitle: "mobile charger",
+    tags: ["accessory", "mobile", "electronic"],
+    features: [
+      "fast charging",
+      "80 watts",
+      "plastic",
+      "durable",
+      "shock proof",
+    ],
+    images: [
+      {
+        original: "https://picsum.photos/id/1018/30/60/",
+        thumbnail: "https://picsum.photos/id/1018/250/150/",
+      },
+      {
+        original: "https://picsum.photos/id/1015/1000/600/",
+        thumbnail: "https://picsum.photos/id/1015/250/150/",
+      },
+      {
+        original: "https://picsum.photos/id/1019/500/900/",
+        thumbnail: "https://picsum.photos/id/1019/250/150/",
+      },
+    ],
+    date: new Date(),
+    likes: 10,
+    views: 30,
+    sellerMail: "aarav.n21@iiits.in",
+  });
+
+  // Mail form
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubjectChange = (e) => {
     setSubject(e.target.value);
@@ -22,23 +91,12 @@ function AdPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., send an email to the seller)
+    // open Mail to (e.g., send an email to the seller)
+    let f = `mailto:${ad.sellerMail}?subject=${subject}&body=${message}`;
+    window.open(f, "_self");
+    setMessage("");
+    setSubject("");
   };
-
-
-
-
-  // chat form
-  const handleSendClick = () => {
-    if (message.trim() !== '') {
-      // Call the provided callback to send the message
-      onSendMessage(message);
-      setMessage(''); // Clear the message input
-    }
-  };
-
-
-
 
   // npm chat plugin
   const [attr, setAttr] = useState({
@@ -46,46 +104,46 @@ function AdPage() {
     showIcon: true,
     messages: [
       {
-        text: 'current user has joined the conversation',
+        text: "current user has joined the conversation",
         timestamp: 1578366389250,
-        type: 'notification',
+        type: "notification",
       },
       {
         author: {
-          username: 'user1',
+          username: "user1",
           id: 1,
-          avatarUrl: '',
+          avatarUrl: "",
         },
-        text: 'Hi',
-        type: 'text',
+        text: "Hi",
+        type: "text",
         timestamp: 1578366393250,
       },
       {
-        author: { username: 'Bot', id: 2, avatarUrl: '' },
-        text: 'Show two buttons',
-        type: 'text',
+        author: { username: "Bot", id: 2, avatarUrl: "" },
+        text: "Show two buttons",
+        type: "text",
         timestamp: 1578366425250,
         buttons: [
           {
-            type: 'URL',
-            title: 'Yahoo',
-            payload: 'http://www.yahoo.com',
+            type: "URL",
+            title: "Yahoo",
+            payload: "http://www.yahoo.com",
           },
           {
-            type: 'URL',
-            title: 'Example',
-            payload: 'http://www.example.com',
+            type: "URL",
+            title: "Example",
+            payload: "http://www.example.com",
           },
         ],
       },
       {
         author: {
-          username: 'user1',
+          username: "user1",
           id: 1,
-          avatarUrl: '',
+          avatarUrl: "",
         },
         text: "What's up?",
-        type: 'text',
+        type: "text",
         timestamp: 1578366425250,
         hasError: false,
       },
@@ -104,266 +162,289 @@ function AdPage() {
       ...attr,
       messages: attr.messages.concat({
         author: {
-          username: 'user1',
+          username: "user1",
           id: 1,
-          avatarUrl: '',
+          avatarUrl: "",
         },
         text: message,
-        type: 'text',
+        type: "text",
         timestamp: +new Date(),
       }),
     });
   };
 
-
-
   return (
-    <Box sx={{display:'flex',flexDirection:'column', marginTop:'50px'}}>
-    <Container>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={7}>
-          <Paper elevation={3}>
-            <ImageList variant="masonry" cols={1} gap={2}>
-              
-                <ImageListItem >
-                  <img
-                    srcSet={football}
-                    src={football}
-                    alt='none'
-                    loading="lazy"
-                  />
-                </ImageListItem>
+    <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
+      <Container>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={7}>
+            <Paper elevation={3}>
+              <ImageGallery items={ad.images} />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <Typography variant="h4" color="text.primary">
+              {ad.title}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+              {ad.subtitle}
+            </Typography>
+            <Typography variant="h4" color="green" gutterBottom>
+              {ad.price}
+              <CurrencyRupee fontSize="small" />
+            </Typography>
+            <Typography
+              variant="h5"
+              component="span"
+              color="text.primary"
+              gutterBottom
+            >
+              {ad.age}
+            </Typography>
+            <Typography component="span">
+              {" "}
+              / ad posted on {ad.date.toLocaleDateString()}
+            </Typography>
+            <hr />
+            <Typography variant="subtitle1">Tags</Typography>
+            <Container
+              sx={{
+                padding: "10px",
+                backgroundColor: "",
+                display: "flex",
+                justifyContent: "start",
+                flexWrap: "wrap",
+                gap: "5px",
+              }}
+            >
+              {ad.tags.map((i) => (
+                <Chip label={i} size="small" color="secondary" />
+              ))}
+            </Container>
+            <hr />
 
-                <ImageListItem >
-                  <img
-                    srcSet={football}
-                    src={football}
-                    alt='none'
-                    loading="lazy"
-                  />
-                </ImageListItem>
-
-                <ImageListItem >
-                  <img
-                    srcSet={football}
-                    src={football}
-                    alt='none'
-                    loading="lazy"
-                  />
-                </ImageListItem>
-
-                
-              
-            </ImageList>
-            {/* <img src={football} alt='none' style={{ width: '100%' }} /> */}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={5}>
-          <Typography variant="h4" color='text.primary' >
-            Football
-          </Typography>
-          <Typography variant="subtitle1" color='text.secondary' gutterBottom>
-            white football for kids, veterans
-          </Typography>
-          <Typography variant="h4" color="green" gutterBottom>
-            1,999<CurrencyRupee fontSize='small' />
-          </Typography>
-          <Typography variant="h5" component='span' color="text.primary" gutterBottom>
-            3 months old /
-          </Typography>
-          <Typography component='span'> ad posted 2 weeks ago</Typography>
-          <hr />
-          <Typography variant='subtitle1'>Tags</Typography>
-          <Container  sx={{padding:'10px',backgroundColor:'',display:'flex',justifyContent:'start', flexWrap:'wrap',gap:'5px'}}>
-            <Chip label="#games" size='small' color="primary" />
-            <Chip label="#sports" size='small' color="primary" />
-            <Chip label="#kids" size='small' color="success" />
-            <Chip label="#games" size='small' color="primary" />
-            <Chip label="#outdoor" size='small' color="success" />
-            <Chip label="#sports" size='small' color="primary" />
-          </Container>
-          <hr />
-          
-          
-          <Box sx={{display:'flex',marginTop:'30px',flexDirection: 'row'}}>
-            <Box sx={{flex:'1'}}>
-            <Box sx={{display:'flex', alignItems:'center'}}><Star color='secondary' fontSize='medium'/><Typography variant='h5'>Features</Typography></Box>
-              <ul>
-                <li>Bouncy</li>
-                <li>pump provided</li>
-                <li>easy to play</li>
-                <li>water proof</li>
-              </ul>
-            </Box>
-            <Box sx={{flex:'1',backgroundColor:'', position:'relative'}}>
-              <Typography marginLeft='60px' variant='h5'>Likes / Views</Typography>
-              <PieChart
-                series={[
-                  {
-                    data: [
-                      { id: 0, value: 40, color: '#ff4081', },
-                      { id: 1, value: 60, color: '#2196f3', },
-                    ],
-                    innerRadius: 90,
-                    outerRadius: 100,
-                    paddingAngle: -3,
-                    cornerRadius: 5,
-                    startAngle: 0,
-                    endAngle: 360,
-                    cx: 140,
-                    cy: 120,
-                  },
-                ]}
-                width={300}
-                height={300}
-              />
-              <Box sx={{position:'absolute', top:'110px',left:'95px'}}>
-                <Typography variant='h3'>40%</Typography>
-                <Typography variant='p'>people liked this</Typography>
+            <Box
+              sx={{
+                display: "flex",
+                marginTop: "30px",
+                flexDirection: { xs: "column", lg: "row" },
+                alignItems: "center",
+              }}
+            >
+              <Box sx={{ flex: "1" }}>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Star color="secondary" fontSize="medium" />
+                  <Typography variant="h5">Features</Typography>
+                </Box>
+                <ul>
+                  {ad.features.map((i) => (
+                    <li>{i}</li>
+                  ))}
+                </ul>
+              </Box>
+              <Box
+                sx={{ flex: "1", backgroundColor: "", position: "relative" }}
+              >
+                <Typography marginLeft="60px" variant="h5">
+                  Likes / Views
+                </Typography>
+                <PieChart
+                  series={[
+                    {
+                      data: [
+                        {
+                          id: 0,
+                          value: (ad.likes * 100) / ad.views,
+                          color: "#ff4081",
+                        },
+                        {
+                          id: 1,
+                          value: 100 - (ad.likes * 100) / ad.views,
+                          color: "#2196f3",
+                        },
+                      ],
+                      innerRadius: 90,
+                      outerRadius: 100,
+                      paddingAngle: -3,
+                      cornerRadius: 5,
+                      startAngle: 0,
+                      endAngle: 360,
+                      cx: 140,
+                      cy: 120,
+                    },
+                  ]}
+                  width={300}
+                  height={300}
+                />
+                <Box sx={{ position: "absolute", top: "110px", left: "90px" }}>
+                  <Typography variant="h3">
+                    {((ad.likes * 100) / ad.views).toFixed(1)}%
+                  </Typography>
+                  <Typography variant="p">people liked this</Typography>
+                </Box>
               </Box>
             </Box>
-            
-          </Box>
-          <Container sx={{  padding:'10px 0px',backgroundColor:'whitesmoke', display:'flex' ,gap:'10px', alignItems:'center'}}>
-            <Box><Info color='primary' sx={{fontSize:'60px'}}  /></Box>
-            <Typography component='span' variant='body1'>We highly recommend you to contact the seller if you have any queries regarding the product.</Typography>
-          </Container>
-          <hr />
-          <Box sx={{display:'flex',alignItems:'center', gap:'12px'}}>
-              <Button size='large' variant="contained" color='primary' startIcon={<ShoppingCart />}>
+            <Container
+              sx={{
+                padding: "10px 0px",
+                backgroundColor: "whitesmoke",
+                display: "flex",
+                gap: "10px",
+                alignItems: "center",
+              }}
+            >
+              <Box>
+                <Info color="primary" sx={{ fontSize: "60px" }} />
+              </Box>
+              <Typography component="span" variant="body1">
+                We highly recommend you to contact the seller if you have any
+                queries regarding the product.
+              </Typography>
+            </Container>
+            <hr />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", lg: "row" },
+                gap: "12px",
+              }}
+            >
+              <Button
+                size="large"
+                variant="contained"
+                color="primary"
+                startIcon={<ShoppingCart />}
+              >
                 Add to cart
               </Button>
-              <Button size='large' variant="outlined" color='secondary' startIcon={<Favorite />}>
+              <Button
+                size="large"
+                variant="outlined"
+                color="secondary"
+                startIcon={<Favorite />}
+              >
                 wishlist
               </Button>
-              <Button size='large' variant="contained" color='warning' startIcon={<Error />}>
+              <Button
+                size="large"
+                variant="contained"
+                color="warning"
+                startIcon={<Error />}
+              >
                 report
               </Button>
-          </Box>
-          <hr />
-          <Typography variant="h6">Product Description</Typography>
-          <Typography variant="body1" fontFamily='cursive' paragraph>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto tempore omnis, ratione voluptates repellendus officia culpa qui placeat? Eaque, tempore.
-          </Typography>
-          <Typography variant="body1" fontFamily='cursive' paragraph>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit quisquam magni, inventore repellat quis laborum corrupti eligendi possimus. Doloremque molestias totam quo alias sapiente, cum minima impedit facilis earum asperiores!
-          </Typography>
-          <Typography variant="body1" fontFamily='cursive' paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, exercitationem.
-          </Typography>
-          <hr />
-        </Grid>
-        
-      </Grid>
-      
-    </Container>
-  
-    
-    <Container sx={{display:'flex', marginTop:'100px'}}>
-    <Container>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper elevation={3} sx={{padding:'30px'}}>
-            <Mail color='secondary' fontSize='large' sx={{marginRight:'10px'}} />
-            <Typography variant="h6" color='text.secondary' component='span' gutterBottom>
-              Contact the Seller
+            </Box>
+            <hr />
+            <Typography variant="h6">Product Description</Typography>
+            <Typography variant="body1" fontFamily="cursive" paragraph>
+              {ad.desc}
             </Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                label="Subject"
-                fullWidth
-                variant="filled"
-                margin="normal"
-                value={subject}
-                onChange={handleSubjectChange}
-              />
-              <TextField
-                label="Message"
-                fullWidth
-                variant="standard"
-                margin="normal"
-                multiline
-                rows={4}
-                value={message}
-                onChange={handleMessageChange}
-              />
-              <Button
-                variant="contained"
-                color="secondary"
-                type="submit"
-                style={{ marginTop: '10px' }}
-              >
-                Send Mail
-              </Button>
-            </form>
-          </Paper>
+            <hr />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
-    <Container>
-      {/* <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper elevation={3} sx={{padding:'30px'}}>
-            <Typography variant="h6" gutterBottom>
-              Group Chat ( still pending )
-            </Typography>
-            <TextField
-              label="Type your message"
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              multiline
-              rows={4}
-              value={message}
-              onChange={handleMessageChange}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSendClick}
-              style={{ marginTop: '10px' }}
+      </Container>
+
+      <Container sx={{ display: "flex", marginTop: "100px" }}>
+        <Container
+          sx={{
+            padding: { xs: "0px", lg: "50px" },
+            backgroundSize: "cover",
+            backgroundImage: `url(${bg2})`,
+          }}
+        >
+          <Grid container spacing={0}>
+            <Grid item xs={12} lg={6}>
+              <Paper elevation={3} sx={{ padding: "30px" }}>
+                <Mail
+                  color="secondary"
+                  fontSize="large"
+                  sx={{ marginRight: "10px" }}
+                />
+                <Typography
+                  variant="h6"
+                  color="text.secondary"
+                  component="span"
+                  gutterBottom
+                >
+                  Contact the Seller
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                  <TextField
+                    label="Subject"
+                    fullWidth
+                    variant="filled"
+                    margin="normal"
+                    value={subject}
+                    onChange={handleSubjectChange}
+                  />
+                  <TextField
+                    label="Message"
+                    fullWidth
+                    variant="standard"
+                    margin="normal"
+                    multiline
+                    rows={4}
+                    value={message}
+                    onChange={handleMessageChange}
+                  />
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    style={{ marginTop: "10px" }}
+                  >
+                    Send Mail
+                  </Button>
+                </form>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+        <Container sx={{ position: "absolute" }}>
+          {/*npm chat plugin */}
+
+          <ChatFrame
+            chatbox={
+              <ChatBox
+                onSendMessage={handleOnSendMessage}
+                userId={1}
+                messages={attr.messages}
+                width={"500px"}
+                showTypingIndicator={true}
+                activeAuthor={{ username: "Bot", id: 2, avatarUrl: "" }}
+              />
+            }
+            icon={<Chat />}
+            clickIcon={handleClickIcon}
+            showChatbox={attr.showChatbox}
+            showIcon={attr.showIcon}
+            iconStyle={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "50px",
+              height: "50px",
+              background: "orange",
+            }}
+          >
+            <div
+              style={{
+                padding: "10px",
+                backgroundColor: "dodgerblue",
+                color: "white",
+                borderRadius: "10px",
+                borderBottomRightRadius: "0px",
+              }}
             >
-              Send
-            </Button>
-          </Paper>
-        </Grid>
-      </Grid> */}
-
-
-
-
-
-      {/*npm chat plugin */}
-
-      <ChatFrame 
-        chatbox={
-          <ChatBox
-            onSendMessage={handleOnSendMessage}
-            userId={1}
-            messages={attr.messages}
-            width={'500px'}
-            showTypingIndicator={true}
-            activeAuthor={{ username: 'Bot', id: 2, avatarUrl: '' }}
-          />
-        }
-        icon={<Chat/>}
-        clickIcon={handleClickIcon}
-        showChatbox={attr.showChatbox}
-        showIcon={attr.showIcon}
-        iconStyle={{display:'flex',justifyContent:'center',alignItems:'center', width:'50px',height:'50px', background: 'orange', }}
-      >
-        <div style={{padding:'10px',backgroundColor:'dodgerblue',color:'white',borderRadius:'10px',borderBottomRightRadius:'0px' }}>
-          👋 Hey, Wanna try our new chatting feature ?
-        </div>
-      </ChatFrame>
-    </Container>
-
-    </Container>
-    <br />
-    <br />
+              👋 Hey, Wanna try our new chatting feature ?
+            </div>
+          </ChatFrame>
+        </Container>
+      </Container>
+      <br />
+      <br />
     </Box>
-
-  )
+  );
 }
 
-export default AdPage
+export default AdPage;
