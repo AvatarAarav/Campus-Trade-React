@@ -32,6 +32,7 @@ import { getadadmindetailAPI } from "../controllers/getadadmindetail.js"
 import {deleteAdminadAPI} from "../controllers/deleteAdminad.js"
 import { deleteAdminuserAPI } from "../controllers/deleteAdminuser.js";
 import { sendOTP } from "../controllers/Mailer.js";
+import { Payment } from "../controllers/Payment.js";
 const router = express.Router();
 
 router.get('/products', getAllProductsAPI)
@@ -75,5 +76,7 @@ router.get('/admin/:email/deleteuser/:aid',deleteAdminuserAPI)
 
 
 router.post('/send-otp',sendOTP);
+
+router.post('/create-order',Payment)
 
 export default router
