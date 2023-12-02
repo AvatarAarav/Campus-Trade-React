@@ -38,7 +38,7 @@ function UserData({ user, onEditProfile ,userRating}) {
             Email: {user.email}
           </Typography>
           <Typography variant="body1" sx={{ color: "#fff" }}>
-            College: {user.college}
+            College: {user.college_name}
           </Typography>
           <Typography variant="body1" sx={{ color: "#fff" }}>
             Year: {user.year}
@@ -68,7 +68,7 @@ function UserData({ user, onEditProfile ,userRating}) {
           }}
         >
           <Button
-            onClick={onEditProfile}
+            onClick={onEditProfile} href="/updateprofile"
             sx={{
               margin: "5px",
               height: "50px",
@@ -166,9 +166,10 @@ function UserProfile() {
       "https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png",
     name: "Harshan",
     email: "rathodharshan4@gmail.com",
-    college: "IIIT Sricity",
+    college_name: "IIIT Sricity",
     year: "2023",
     branch: "CSE",
+
   });
   const [userRating, setUserRating] = useState(5);
   const [adsPosted, setAdsPosted] = useState(7);
