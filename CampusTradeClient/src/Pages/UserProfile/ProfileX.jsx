@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
-import { Box, Button, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, Typography, Rating } from "@mui/material";
 import theme from "../../theme";
 import desktop from "../../assets/bg5.jpg";
 
-function UserData({ user, onEditProfile }) {
+function UserData({ user, onEditProfile ,userRating, onRateUser}) {
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -40,6 +40,16 @@ function UserData({ user, onEditProfile }) {
           </Typography>
           <Typography variant="body1" sx={{ color: "#fff" }}>
             Branch: {user.branch}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#fff" }}>
+            Rating:{" "}
+            <Rating
+              name="user-rating"
+              value={userRating}
+              precision={0.5}
+              readOnly
+              sx={{ color: "" }}
+            />
           </Typography>
         </Box>
 
@@ -154,7 +164,7 @@ function UserProfile() {
     year: "2023",
     branch: "CSE",
   });
-
+  const [userRating, setUserRating] = useState(5);
   const [adsPosted, setAdsPosted] = useState(7);
   const [adsBought, setAdsBought] = useState(8);
 
@@ -191,7 +201,10 @@ function UserProfile() {
     setBoughtAds((prevAds) => [...prevAds, newAd]);
     setAdsBought(adsBought + 1);
   };
-
+  const handleRateUser = (rating) => {
+    setUserRating(rating);
+    // You can implement logic to send the rating to the server or perform other actions
+  };
   return (
     <Box
       sx={{
@@ -203,7 +216,7 @@ function UserProfile() {
     >
       <Box sx={{ backgroundColor: theme.palette.background.light, padding: "30px" }}>
         <Box sx={{ display: "flex" }}>
-          <UserData user={user} onEditProfile={handleEditProfile} />
+          <UserData user={user} onEditProfile={handleEditProfile} userRating={userRating}/>
           <UserEarnings {...earnings} />
         </Box>
       </Box>
