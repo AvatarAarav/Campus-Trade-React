@@ -35,6 +35,7 @@ function App() {
           <Route path="/admin" exact element={<Admin/>} />
           <Route path="/user" exact element={<ProfileX/>} />
           <Route path="/about" element={<AboutUs/>} />
+          <Route path="/user/Ad" element={<Adform/>} />
         </Routes>
         <Footer/>
 

@@ -3,8 +3,13 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Box, Button, Card, CardContent, CardMedia, Typography, Rating } from "@mui/material";
 import theme from "../../theme";
 import desktop from "../../assets/bg5.jpg";
+import { useNavigate } from 'react-router-dom';
 
-function UserData({ user, onEditProfile ,userRating, onRateUser}) {
+function UserData({ user, onEditProfile ,userRating}) {
+  const navigate = useNavigate()
+  function go_to_ad(){
+    navigate("/user/Ad")
+  }
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -80,6 +85,7 @@ function UserData({ user, onEditProfile ,userRating, onRateUser}) {
             Edit Profile
           </Button>
           <Button
+           onClick={go_to_ad}
             sx={{
               margin: "5px",
               height: "50px",
