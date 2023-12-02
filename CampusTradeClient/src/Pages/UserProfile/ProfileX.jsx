@@ -147,7 +147,7 @@ function AdCard({ ad }) {
 function UserProfile() {
   const [user, setUser] = useState({
     profileIcon:
-      "https://media.licdn.com/dms/image/D5603AQGNWbFM14-pvg/profile-displayphoto-shrink_800_800/0/1691730643282?e=2147483647&v=beta&t=ZA4LcfBqZT6HW4QKslEZv4tXz7BVXamW7YRObMbSQ64",
+      "https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png",
     name: "Harshan",
     email: "rathodharshan4@gmail.com",
     college: "IIIT Sricity",
