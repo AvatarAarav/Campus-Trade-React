@@ -7,7 +7,6 @@ import {
   Fade,
   FormControl,
   FormControlLabel,
-  FormHelperText,
   InputAdornment,
   InputLabel,
   Modal,
@@ -116,7 +115,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
               error
               id="outlined-error"
               label="email"
-              defaultValue=""
+              value={email}
             />
             <FormControl
               sx={{ width: "300px", margin: "10px" }}
@@ -142,6 +141,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
                   </InputAdornment>
                 }
                 label="password"
+                value={password}
               />
             </FormControl>
             <FormControlLabel
@@ -162,7 +162,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
               variant="outlined"
               onClick={toSignup}
             >
-              Register
+              Don't have a Account?
             </Button>
             <GoogleLoginButton />
           </Box>

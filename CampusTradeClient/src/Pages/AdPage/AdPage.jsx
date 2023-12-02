@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import axios from 'axios';
+
 import {
   Container,
   Grid,
@@ -45,7 +47,7 @@ function AdPage() {
   // we should get this ad as a prop to this page
   const [ad, setad] = useState({
     title: "C-Type charger",
-    price: "300",
+    price: 300,
     age: "6 months old",
     desc: "its a cool c type charger, very durable and long. i have been using it from 5 months and there were no complaints. recently i lost my android phone and bought a new i phone so i dont need this c type charger anymore. this is of white color and comes with a charger box. it supports 80 watts fast charging and also suitable for mobiles which support 40 watts charging also.",
     subtitle: "mobile charger",
@@ -76,6 +78,47 @@ function AdPage() {
     views: 30,
     sellerMail: "aarav.n21@iiits.in",
   });
+
+  //razorpay 
+  const [orderId, setOrderId] = useState('');
+
+  const createOrder = async () => {
+    try {
+      const response = await axios.post('http://localhost:3000/api/create-order');
+      setOrderId(response.data.id);
+    } catch (error) {
+      console.error('Error creating order:', error);
+    }
+  };
+
+  const displayRazorpay = async () => {
+    const options = {
+      key: 'rzp_test_HBOeWhcpQppyPx',
+      amount: ad.price*100, // Amount in paise (Example: 50000 paise = ₹500)
+      currency: 'INR',
+      name: 'Campus Trade',
+      description: 'Test Payment',
+      order_id: orderId,
+      handler: function (response) {
+        console.log(response);
+      },
+      prefill: {
+        name: 'Test User',
+        email: 'test@example.com',
+        contact: '9999999999',
+      },
+      theme: {
+        color: '#F37254',
+      },
+    };
+    const razorpayInstance = new window.Razorpay(options);
+    razorpayInstance.open();
+  };
+
+  const handlePayment = async()=>{
+    await createOrder()
+    await displayRazorpay()
+  }
 
   // Mail form
   const [subject, setSubject] = useState("");
@@ -313,9 +356,10 @@ function AdPage() {
                 size="large"
                 variant="contained"
                 color="primary"
+                onClick={handlePayment}
                 startIcon={<ShoppingCart />}
               >
-                Add to cart
+                Buy Now
               </Button>
               <Button
                 size="large"
