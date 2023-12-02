@@ -31,7 +31,7 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
   };
 
   const [name, setname] = useState('');
-  const [collegename, setcollegename] = useState('');
+  const [college_name, setcollege_name] = useState('');
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
 
@@ -47,8 +47,17 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
 
   const handleSignup = () => {
 
-  
-    fetch('http://localhost:3000/api/signup', {
+  console.log("hi there")
+
+const userData = 
+{
+  name,
+  college_name,
+  email,
+  password,otp
+}
+
+    fetch('http://localhost:3000/api/user/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -106,8 +115,8 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               sx={{ width: '300px', margin: '10px' }}
               // error
               id="outlined-error2"
-              value={collegename}
-              onChange={(e) => setcollegename(e.target.value)}
+              value={college_name}
+              onChange={(e) => setcollege_name(e.target.value)}
               label="college name"
             />
             <TextField
