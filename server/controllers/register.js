@@ -11,12 +11,10 @@ export const addUserAPI = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ error: 'Email already exists' });
         }
-        const otpp = req.body.otp
-
-        const existingotp = await OTP.findOne({ otpNumber: otpp })
+        const existingotp = await OTP.findOne({ email })
 
         if (existingotp) {
-            if (email !== existingotp.email) {
+            if ( req.body.otp !== existingotp.otpNumber) {
                 return res.status(400).json({ error: 'invalid otp' });
             }
         }
@@ -31,13 +29,11 @@ export const addUserAPI = async (req, res) => {
         userDat.save()
             .then(() => {
                 console.log(":success")
-                // res.status(200).render('index',{user :userData});
                 res.status(200)
-                console.log(userDat)
+                res.json({id:userDat.id});
             })
             .catch(() => {
                 console.log("failed")
-                // res.render(`index`,{user : undefined})
             })
 
     } catch (error) {

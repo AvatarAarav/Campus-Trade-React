@@ -38,9 +38,6 @@ function App() {
           <Route path="/user/Ad" element={<Adform/>} />
         </Routes>
         <Footer/>
-
-      
-        
         
       </div>
     </Router>

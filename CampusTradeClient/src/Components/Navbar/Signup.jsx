@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material'
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton';
+import { sendOtpAPI, signUpAPI } from '../../apis';
 
 const style = {
   display: 'flex',
@@ -35,51 +36,21 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
 
-  const handleOTP=()=>{
-    fetch('http://localhost:3000/api/send-otp',{
-      method:'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body:JSON.stringify({email})
-    })
+  const handleOTP = () => {
+    sendOtpAPI(email)
   }
-
   const handleSignup = () => {
 
-  console.log("hi there")
 
-const userData = 
-{
-  name,
-  college_name,
-  email,
-  password,otp
-}
+    const userData =
+    {
+      name,
+      college_name,
+      email,
+      password, otp
+    }
 
-    fetch('http://localhost:3000/api/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Handle successful response from the API
-        console.log('Signup successful:', data);
-        // You might want to do something with the response data here
-      })
-      .catch(error => {
-        // Handle errors
-        console.error('There was a problem with the signup:', error);
-        // You might want to show an error message to the user
-      });
+    signUpAPI(userData)
 
     // alert(`name : ${name}, email : ${email}, password : ${password}`)
     // console.log(`email : ${email} password : ${password}`);
