@@ -55,7 +55,7 @@ function Footer() {
         <List>
           <ListItem><Typography variant='h6' component='h6'>About</Typography></ListItem>
           <ListItem><A href="#" underline="none">Contact</A></ListItem>
-          <ListItem><A href="#" underline="none">Team</A></ListItem>
+          <ListItem><A href="/about" underline="none">Team</A></ListItem>
           <ListItem><A href="#" underline="none">Support</A></ListItem>
         </List>
       </StyledBox>
