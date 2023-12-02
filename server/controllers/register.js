@@ -14,7 +14,7 @@ export const addUserAPI = async (req, res) => {
         const existingotp = await OTP.findOne({ email })
 
         if (existingotp) {
-            if ( req.body.otp !== existingotp.otpNumber) {
+            if ( req.body.otp != existingotp.otpNumber) {
                 return res.status(400).json({ error: 'invalid otp' });
             }
         }
@@ -23,7 +23,6 @@ export const addUserAPI = async (req, res) => {
         }
 
 
-        // console.log("User Added")
         const { otp, ...userData } = req.body;
         const userDat = await Users(userData)
         userDat.save()
