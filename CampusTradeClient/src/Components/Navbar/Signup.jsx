@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material'
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton';
+import { sendOtpAPI, signUpAPI } from '../../apis';
 
 const style = {
   display: 'flex',
@@ -31,46 +32,25 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
   };
 
   const [name, setname] = useState('');
-  const [collegename, setcollegename] = useState('');
+  const [college_name, setcollege_name] = useState('');
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
 
-  const handleOTP=()=>{
-    fetch('http://localhost:3000/api/send-otp',{
-      method:'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body:JSON.stringify({email})
-    })
+  const handleOTP = () => {
+    sendOtpAPI(email)
   }
-
   const handleSignup = () => {
 
-  
-    fetch('http://localhost:3000/api/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Handle successful response from the API
-        console.log('Signup successful:', data);
-        // You might want to do something with the response data here
-      })
-      .catch(error => {
-        // Handle errors
-        console.error('There was a problem with the signup:', error);
-        // You might want to show an error message to the user
-      });
+
+    const userData =
+    {
+      name,
+      college_name,
+      email,
+      password, otp
+    }
+
+    signUpAPI(userData)
 
     // alert(`name : ${name}, email : ${email}, password : ${password}`)
     // console.log(`email : ${email} password : ${password}`);
@@ -106,8 +86,8 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               sx={{ width: '300px', margin: '10px' }}
               // error
               id="outlined-error2"
-              value={collegename}
-              onChange={(e) => setcollegename(e.target.value)}
+              value={college_name}
+              onChange={(e) => setcollege_name(e.target.value)}
               label="college name"
             />
             <TextField
