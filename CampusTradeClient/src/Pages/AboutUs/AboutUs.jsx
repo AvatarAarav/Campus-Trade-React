@@ -21,11 +21,17 @@ function createCard(contact) {
 function AboutUs() {
   return (
     <div>
-      <h1 className="heading">My Contacts</h1>
-      <div className='c2'>
-            {contacts.map(createCard)}
+      <div className="container">
+        <h1 className="heading">Team Members</h1>
+          <div className="row justify-content-center">
+            {contacts.slice(0, 3).map(createCard)} 
+          </div>
+
+          <div className="row justify-content-center">
+            {contacts.slice(3, 5).map(createCard)}
+          </div>
+          <br/><br/><br/><br/><br/>
       </div>
-      <br/>
     </div>
   )
 }
