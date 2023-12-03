@@ -34,6 +34,7 @@ import {deleteAdminadAPI} from "../controllers/deleteAdminad.js"
 import { deleteAdminuserAPI } from "../controllers/deleteAdminuser.js";
 import { sendOTP } from "../controllers/Mailer.js";
 import { Payment } from "../controllers/Payment.js";
+import { GoogleLoginAPI } from "../controllers/GoogleLogin.js";
 const router = express.Router();
 
 router.get('/products', getAllProductsAPI)
@@ -90,7 +91,7 @@ router.get('/user/allEmail/', getAllUsersEmailAPI)
 router.get('/admin/:id/delete/:aid',deleteAdminadAPI)
 router.get('/admin/:email/deleteuser/:aid',deleteAdminuserAPI)
 
-router.post('/user/google',)
+router.post('/user/google',GoogleLoginAPI)
 router.post('/send-otp',sendOTP);
 
 router.post('/create-order',Payment)
