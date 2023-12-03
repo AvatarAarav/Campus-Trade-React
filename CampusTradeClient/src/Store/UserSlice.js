@@ -8,6 +8,8 @@ const initialState = {
     email: '',
     password: '',
     college_name: '',
+    year: '',
+    branch: '',
     ads: [],
     report: [],
   }
