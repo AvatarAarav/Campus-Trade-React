@@ -9,7 +9,7 @@ const initialState = {
     subtitle: "",
     tags: [],
     features: [],
-    images: [],
+    img_id: [],
     date: "",
     likes: 0,
     views: 0,
@@ -17,9 +17,11 @@ const initialState = {
   },
 };
 
-export const fetchAdDetails = createAsyncThunk("api", async (id) => {
+export const fetchAdDetails = createAsyncThunk("Product/fetch", async (id) => {
   try {
+    // console.log(id);
     const response = await fetchAdDetailsApi(id);
+    // console.log(response);
     return response.data;
   } catch (err) {
     return err.message;
