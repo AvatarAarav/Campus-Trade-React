@@ -1,5 +1,5 @@
 import express from "express";
-import path from "path"
+import path from "path";
 import multer from "multer"; //module to handle file submission
 import { submitForm } from "../controllers/Add_Product.js";
 import { addUserAPI } from "../controllers/register.js";
@@ -11,9 +11,9 @@ import { getProductAPI } from "../controllers/getProduct.js";
 import { getAdObjectAPI } from "../controllers/getAdObject.js";
 import { getUserCardsAPI } from "../controllers/getUserCards.js";
 import { getUserPage } from "../controllers/getUserPage.js";
-import { getSearchResultAPI } from "../controllers/getSearchResult.js"
-import { getUpdateAdAPI } from "../controllers/getUpdateAd.js"
-import { updateFormAPI } from "../controllers/Update_form.js"
+import { getSearchResultAPI } from "../controllers/getSearchResult.js";
+import { getUpdateAdAPI } from "../controllers/getUpdateAd.js";
+import { updateFormAPI } from "../controllers/Update_form.js";
 import { delProductAPI } from "../controllers/deleteAd.js";
 import { buyProductApi } from "../controllers/buyProductApi.js";
 import { ProfileUpdateAPI } from "../controllers/ProfileUpdate.js";
@@ -26,73 +26,75 @@ import { postAddChatAPI } from "../controllers/postAddChat.js";
 import { getProductChatsAPI } from "../controllers/getProductChats.js";
 import { reportProductApi } from "../controllers/reportProductApi.js";
 import { getAllUsersEmailAPI } from "../controllers/getAllUsersEmail.js";
-import { getuserdetailAPI } from "../controllers/getuserdetail.js"
-import { getadadmindetailAPI } from "../controllers/getadadmindetail.js"
+import { getuserdetailAPI } from "../controllers/getuserdetail.js";
+import { getadadmindetailAPI } from "../controllers/getadadmindetail.js";
 
-
-import {deleteAdminadAPI} from "../controllers/deleteAdminad.js"
+import { deleteAdminadAPI } from "../controllers/deleteAdminad.js";
 import { deleteAdminuserAPI } from "../controllers/deleteAdminuser.js";
 import { sendOTP } from "../controllers/Mailer.js";
 import { Payment } from "../controllers/Payment.js";
 const router = express.Router();
 
-router.get('/products', getAllProductsAPI)
+router.get("/products", getAllProductsAPI);
 
 // Set up the multer middleware to handle file uploads
 // const upload = multer({ dest: 'uploads/' });
 
-
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        console.log("hi there")
-        cb(null, 'uploads/');
-
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    },
+  destination: function (req, file, cb) {
+    // console.log("hi there")
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
 });
 
 const upload = multer({ storage: storage });
 
+router.get("/ad/:id", getProductAPI);
+router.get("/ad/buy/:id/uid/:uid", buyProductApi);
+router.get("/ad/report/:id/uid/:uid", reportProductApi);
+router.get("/ad/remove/:id/uid/:uid", removeProductApi);
+router.get("/ad/delete/:id/mail/:eid", delProductAPI);
+router.post("/form", upload.array("images", 5), submitForm);
 
-router.get('/ad/:id', getProductAPI)
-router.get('/ad/buy/:id/uid/:uid', buyProductApi)
-router.get('/ad/report/:id/uid/:uid', reportProductApi)
-router.get('/ad/remove/:id/uid/:uid', removeProductApi)
-router.get('/ad/delete/:id/mail/:eid', delProductAPI)
-router.post('/form', upload.array('images',5), submitForm)
+router.post(
+  "/update_form/:id/update/:email",
+  upload.single("photo"),
+  updateFormAPI
+);
+router.post("/user/register", addUserAPI);
+router.post("/user/login", checkLoginAPI);
+router.get("/user/allEmail", getAllUsersEmailAPI);
+router.post("/user", getUserData);
+router.get("/allusers", getAllUsersAPI);
+router.get("/user/:email", getUserCardsAPI);
+router.post("/user/adCreate", getAdFormAPI);
+router.get("/adObject/:id", getAdObjectAPI);
+router.get("/search_result", getSearchResultAPI);
+router.get("/admin_product", getAdminProductAPI);
+router.get("/search_admin_user", getAdminUserAPI);
+router.get("/user/ad_update/:email/mail/:id", getUpdateAdAPI);
+router.post("/user/UpdateProfile", ProfileUpdateAPI);
+router.post("/user/changeProfile", ChangeProfileAPI);
+router.post("/ad/id/:id/chat/:email/", postAddChatAPI);
+router.get("/ad/chat/:id", getProductChatsAPI);
 
-router.post('/update_form/:id/update/:email', upload.single('photo'), updateFormAPI)
-router.post('/user/register', addUserAPI)
-router.post('/user/login', checkLoginAPI)
-router.get('/user/allEmail', getAllUsersEmailAPI)
-router.post('/user', getUserData)
-router.get('/allusers', getAllUsersAPI)
-router.get('/user/:email', getUserCardsAPI)
-router.post('/user/adCreate', getAdFormAPI)
-router.get('/adObject/:id', getAdObjectAPI)
-router.get('/search_result', getSearchResultAPI)
-router.get('/admin_product', getAdminProductAPI)
-router.get('/search_admin_user', getAdminUserAPI)
-router.get('/user/ad_update/:email/mail/:id', getUpdateAdAPI)
-router.post('/user/UpdateProfile', ProfileUpdateAPI)
-router.post('/user/changeProfile', ChangeProfileAPI)
-router.post('/ad/id/:id/chat/:email/', postAddChatAPI)
-router.get('/ad/chat/:id', getProductChatsAPI)
+router.get("/user/adminlink/:id/admin/:aid", getuserdetailAPI);
+router.get("/admin_ads/:id/admin/:aid", getadadmindetailAPI);
 
-router.get('/user/adminlink/:id/admin/:aid', getuserdetailAPI)
-router.get('/admin_ads/:id/admin/:aid', getadadmindetailAPI)
+router.get("/user/allEmail/", getAllUsersEmailAPI);
 
+router.get("/admin/:id/delete/:aid", deleteAdminadAPI);
+router.get("/admin/:email/deleteuser/:aid", deleteAdminuserAPI);
 
-router.get('/user/allEmail/', getAllUsersEmailAPI)
+router.post("/user/google");
+router.post("/send-otp", sendOTP);
 
-router.get('/admin/:id/delete/:aid',deleteAdminadAPI)
-router.get('/admin/:email/deleteuser/:aid',deleteAdminuserAPI)
+router.post("/create-order", Payment);
 
-router.post('/user/google',)
-router.post('/send-otp',sendOTP);
-
-router.post('/create-order',Payment)
-
-export default router
+export default router;
