@@ -17,9 +17,9 @@ await Products.deleteOne({_id : ad._id})
         
        await Users.deleteOne({_id : userData._id})
     
-        res.status(200).render('adminPortal',{user:admindata})
+        res.status(200).json({user:admindata})
     } catch (error) {
         console.error(`${error.message}!!`)
-        res.render('index',{user : undefined});
+        res.json({user : undefined});
     }
 } 

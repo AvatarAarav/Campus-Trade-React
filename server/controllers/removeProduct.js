@@ -10,7 +10,7 @@ export const removeProductApi = async (req, res) => {
             userData.ads.splice(index, 1); // 2nd parameter means remove one item only
         }
         userData.save()
-        res.status(200).render('USER_PROFILE', {user: userData });
+        res.status(200).json( {user: userData });
     } catch (error) {
         console.error(`${error.message}!!`)
         res.status(404).send(`${error.message}!!`)

@@ -14,12 +14,12 @@ export const ChangeProfileAPI = async (req, res) => {
     );
    
     if (userData) {
-      res.status(200).render('USER_PROFILE', { user: userData });
+      res.status(200).json({ user: userData });
     } else {
-      res.render('index', { user: undefined });
+      res.json({ user: undefined });
     }
   } catch (error) {
     console.error(`${error.message}!!`);
-    res.render('index', { user: undefined });
+    res.json({ user: undefined });
   }
 };

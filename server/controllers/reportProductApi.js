@@ -10,7 +10,7 @@ export const reportProductApi=async (req,res)=>{
         userData.report.unshift(product._id);
         await userData.save()
         await product.save()
-        res.status(200).render('ad_details',{ad:product,user:userData});
+        res.status(200).json({ad:product,user:userData});
     } catch (error) {
         console.error(`${error.message}!!`)
         res.status(404).send(`${error.message}!!`)

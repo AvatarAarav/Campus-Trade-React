@@ -6,9 +6,9 @@ export const deleteAdminadAPI=async (req,res)=>{
         const aid = req.params.aid;
         await Products.deleteOne({_id:id})
         const admindata =await Admins.findOne({_id: aid})
-        res.status(200).render('adminPortal',{user:admindata})
+        res.status(200).json({user:admindata})
     } catch (error) {
         console.error(`${error.message}!!`)
-        res.render('index',{user : undefined});
+        res.json({user : undefined});
     }
 }

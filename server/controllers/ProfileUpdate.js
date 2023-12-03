@@ -5,10 +5,10 @@ export const ProfileUpdateAPI=async (req,res)=>{
        
         const userData=await Users.find({email:req.body.email})
       
-        res.status(200).render('Update_profile',{user :userData[0]});
+        res.status(200).json({user :userData[0]});
     } catch (error) {
         console.error(`${error.message}!!`)
        
-        res.render('index',{user : undefined});
+        res.json({user : undefined});
     }
 }
