@@ -1,4 +1,10 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  Check,
+  CheckBox,
+  CheckBoxOutlineBlank,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import { Box, IconButton, LinearProgress, Typography } from "@mui/material";
 import {
   Backdrop,
@@ -28,7 +34,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "330px",
+  width: "430px",
   bgcolor: "background.paper",
   borderRadius: 2,
   boxShadow: 24,
@@ -97,15 +103,16 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
       >
         <Fade in={openModalLogin}>
           <Box sx={style}>
-            <Box sx={{ width: "330px", position: "absolute", top: 0 }}>
+            {/* <Box sx={{ width: "430px", position: "absolute", top: 0 }}>
               <LinearProgress />
-            </Box>
+            </Box> */}
 
             <Typography
               color="secondary"
               sx={{ fontSize: "xx-large", marginBottom: "20px" }}
               variant="h5"
               component="h5"
+              fontFamily="cursive"
             >
               Login
             </Typography>
@@ -113,10 +120,10 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
             <TextField
               onChange={(e) => setemail(e.target.value)}
               sx={{ width: "300px", margin: "10px" }}
-              error
-              id="outlined-error"
+              error={false}
+              id="email"
               label="email"
-              defaultValue=""
+              value={email}
             />
             <FormControl
               sx={{ width: "300px", margin: "10px" }}
@@ -127,7 +134,8 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
               </InputLabel>
               <OutlinedInput
                 onChange={(e) => setpassword(e.target.value)}
-                id="outlined-adornment-password"
+                id="password"
+                value={password}
                 type={showPassword ? "text" : "password"}
                 endAdornment={
                   <InputAdornment position="end">
@@ -144,13 +152,13 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
                 label="password"
               />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Admin"
-            />
+            <Box onClick={(e) => setadmin(!admin)}>
+              {admin ? <CheckBox /> : <CheckBoxOutlineBlank />}
+              Admin
+            </Box>
             <Button
               color="secondary"
-              sx={{ width: "300px", margin: "10px" }}
+              sx={{ width: "180px", margin: "10px" }}
               variant="contained"
               onClick={handleLogin}
             >
@@ -158,7 +166,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
             </Button>
             <Button
               color="secondary"
-              sx={{ width: "300px", margin: "10px" }}
+              sx={{ width: "180px", margin: "10px" }}
               variant="outlined"
               onClick={toSignup}
             >
