@@ -162,7 +162,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
             >
               Don't have a Account?
             </Button>
-            <GoogleLoginButton />
+            <GoogleLoginButton closeModal={handleCloseLogin} />
           </Box>
         </Fade>
       </Modal>

@@ -27,7 +27,7 @@ const oauth2Client = new google.auth.OAuth2(
 export const submitForm = async (req, res) => {
   try {
     // console.log(req.body)
-    const id = "656acec9b2448b094c9ca6e6";
+    // const id = "656acec9b2448b094c9ca6e6";
     const images = req.body.images;
     let arr = [];
 
@@ -84,7 +84,9 @@ export const submitForm = async (req, res) => {
     }
     const uppath = `..//server`;
 
-    console.log(req.body);
+    console.log("Add_Product.js logs");
+    console.log("req.body : ", req.body);
+    console.log("req.body.adData : ", req.body.adData);
 
     // Access the uploaded files using req.files
     const uploadedFiles = req.files.map((file) => file.path);
@@ -117,14 +119,17 @@ export const submitForm = async (req, res) => {
 
     console.log("hi there hello");
     console.log(arr);
-
-    const newProduct = await Products({ ...req.body, img_id: arr, id: id });
+    const p = JSON.parse(req.body.adData);
+    const newProduct = await Products({
+      ...p,
+      img_id: arr,
+    });
     // const udata=await Users.find({email:req.body.email})
     newProduct
       .save()
       .then(() => {
         // res.status(200).render('index',{user :udata[0]});
-        console.log("successful saved");
+        console.log("successful saved : ", newProduct);
       })
       .catch(() => {
         // res.render('index',{user : undefined});

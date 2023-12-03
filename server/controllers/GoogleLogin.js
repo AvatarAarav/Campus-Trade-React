@@ -1,43 +1,29 @@
 import Users from "../db/Models/User.js";
-import Admins from "../db/Models/Admins.js";
-import Products from "../db/Models/Products.js";
-export const checkLoginAPI = async (req, res) => {
-  try {
-    if (req.body.admin) {
-      const adminData = await Admins.find({ email: req.body.email });
-      const activeUser = await Users.count();
-      const productsCount = await Products.count();
-      const reported = await Products.find({ report: { $ne: 0 } }).count();
-      if (adminData.length === 0)  {
-        res.status(200).json({id:-1});
-        return
-      }
-      if (adminData[0].password == req.body.password) {
-        const data = {
-          activeUser: activeUser,
-          productsCount: productsCount,
-          reported: reported,
-          ...adminData[0]._doc,
-        };
-        res.status(200).json({id:userData[0]._id});
-      } else {
-        res.status(200).json({id:-1});
-      }
-    } else {
-      const userData = await Users.find({ email: req.body.email });
-      if (userData.length === 0) {
-        res.status(200).json({id:-1});
-        return;
-      }
-      if (userData[0].password == req.body.password) {
+export const GoogleLoginAPI = async (req, res) => {
+    const email = req.body.email
+    
+    const userData = await Users.findOne({ email: email });
+    if (userData) {
+      if (userData.password == req.body.sub) {
         res.status(200).json({id:userData[0]._id});
       } else {
         res.status(200).json({id:-1});
       }
     }
-    // console.log(`user=${userData}`)
-  } catch (error) {
-    console.error(`${error.message}!!`);
-    res.status(200).json({id:-1});
-  }
+    else{
+        const newUser={
+            name:req.body.name,
+            email:req.body.email,
+            password:req.body.sub,
+        }
+        const userDat = await Users(newUser)
+        userDat.save()
+            .then((data) => {
+                res.status(200)
+                res.json({id:userDat.id});
+            })
+            .catch(() => {
+                console.log("failed")
+            })
+    }
 };
