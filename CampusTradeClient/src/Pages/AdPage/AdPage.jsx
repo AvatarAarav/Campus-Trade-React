@@ -45,6 +45,7 @@ import ImageGallery from "react-image-gallery";
 
 function AdPage() {
   // we should get this ad as a prop to this page
+  const socket = io('http://localhost:3000', { transports : ['websocket'] });
   const [ads, setads] = useState({
     title: "C-Type charger",
     price: 300,
@@ -239,8 +240,11 @@ function AdPage() {
         timestamp: +new Date(),
       }),
     });
+    socket.emit('chat message', message);
   };
-
+  socket.on('chat message',(message)=>{
+    console.log(message)
+  })
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
       <Container>

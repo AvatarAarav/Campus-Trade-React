@@ -1,5 +1,8 @@
 import express from "express"; //module to make requests
 import bodyParser from "body-parser"; //module to read the body of post request
+import http from 'http'
+import {Server} from 'socket.io'
+
 import mongoose from "mongoose";
 import Users from "./db/Models/User.js";
 import Admins from "./db/Models/Admins.js";
@@ -11,8 +14,9 @@ const app = express(); //function to handle requests , app is an object to handl
 import { dirname } from "path"; //function to get directory name
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url)); //saving the directory name
-// app.use(cors);
 
+const server = http.createServer(app);
+const io = new Server(server);
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -54,6 +58,22 @@ app.get("/register", (req, res) => {
   res.render("register", { user: undefined });
 });
 
+// Socket.io event handling
+io.on('connection', (socket) => {
+  console.log('User connected');
+
+  // Handle incoming messages
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg); // Broadcast message to all clients
+  });
+
+  // Handle disconnect
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+
+
 const PORT = 3000;
 mongoose
   .connect(
@@ -64,18 +84,10 @@ mongoose
       family: 4,
     }
   )
-  // mongoose
-  //   .connect(
-  //     "mongodb+srv://Aarav-Nigam:XtwpTt4aolWGmkzn@cluster0.kd8i4tz.mongodb.net/CampusTradeDB?retryWrites=true&w=majority",
-  //     {
-  //       useNewUrlParser: true,
-  //       useUnifiedTopology: true,
-  //       family: 4,
-  //     }
-  //   )
+
 
   .then(() => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server is listening at port ${PORT}`);
     });
   })
