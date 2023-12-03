@@ -16,7 +16,7 @@ import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
 import { productADDAPI } from "../../apis";
 import { BackHand, Keyboard } from "@mui/icons-material";
-
+import { useNavigate } from "react-router-dom";
 const Adform = () => {
   const [name, setname] = useState("");
   const [price, setprice] = useState("");
@@ -29,6 +29,7 @@ const Adform = () => {
   const [features, setFeatures] = useState([]);
 
   const id = useSelector((state) => state.user.userDetails._id);
+  const navigate = useNavigate();
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
@@ -62,21 +63,23 @@ const Adform = () => {
       formData.append("images", images[i]);
     }
     const adData = {
-      id,
-      name,
-      price,
-      age,
-      description,
-      subname,
-      tags,
-      features,
+      id: id,
+      name: name,
+      price: price,
+      age: age,
+      description: description,
+      subname: subname,
+      tags: tags,
+      features: features,
     };
 
+    console.log("addata : ", adData);
     formData.append("adData", JSON.stringify(adData));
 
     // console.log([... formData])
     console.log([...formData]);
     productADDAPI(formData);
+    navigate("/user");
   };
 
   return (
