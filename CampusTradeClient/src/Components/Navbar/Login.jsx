@@ -13,7 +13,6 @@ import {
   Fade,
   FormControl,
   FormControlLabel,
-  FormHelperText,
   InputAdornment,
   InputLabel,
   Modal,
@@ -21,10 +20,11 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState, useTransition } from "react";
-import { loginReducer } from "../../Store/UserSlice";
+import { fetchUserDetails, loginReducer } from "../../Store/UserSlice";
 import { useDispatch } from "react-redux";
 
 import GoogleLoginButton from "./GoogleLoginButton";
+import { checkLoginAPI } from "../../apis";
 
 const style = {
   display: "flex",
@@ -55,26 +55,12 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
   const [admin, setadmin] = useState(false);
 
   const handleLogin = async () => {
-    console.log("login clicked.");
     try {
-      const response = await fetch("http://localhost:3000/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ admin, email, password }),
-      });
+      const response = await checkLoginAPI(admin,email,password);
+      const data = await response.data;
+      dispatch(fetchUserDetails(data.id))
 
-      console.log(response);
-
-      const data = await response.json();
-
-      // Handle the response data accordingly based on your application's logic
       console.log("Login response:", data);
-      // Example: If successful login, redirect to a new page
-      // if (data.loggedIn) {
-      //   history.push('/dashboard');
-      // }
     } catch (error) {
       console.error("Error:", error);
       // Handle error, e.g., display an error message to the user
@@ -150,6 +136,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
                   </InputAdornment>
                 }
                 label="password"
+                value={password}
               />
             </FormControl>
             <Box onClick={(e) => setadmin(!admin)}>
@@ -170,7 +157,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
               variant="outlined"
               onClick={toSignup}
             >
-              Register
+              Don't have a Account?
             </Button>
             <GoogleLoginButton />
           </Box>

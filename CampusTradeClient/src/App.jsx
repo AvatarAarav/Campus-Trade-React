@@ -20,6 +20,7 @@ import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import ProfileX from './Pages/UserProfile/ProfileX';
 import Adform from './Pages/AdForm/Adform';
+import UpdateProfileForm from './Pages/UserProfile/UpdateProfileForm';
 function App() {
 
   return (
@@ -35,11 +36,10 @@ function App() {
           <Route path="/admin" exact element={<Admin/>} />
           <Route path="/user" exact element={<ProfileX/>} />
           <Route path="/about" element={<AboutUs/>} />
+          <Route path="/user/Ad" element={<Adform/>} />
+          <Route path="/updateprofile" element={<UpdateProfileForm/>} />
         </Routes>
         <Footer/>
-
-      
-        
         
       </div>
     </Router>

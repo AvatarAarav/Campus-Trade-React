@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material'
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton';
+import { sendOtpAPI, signUpAPI } from '../../apis';
 
 const style = {
   display: 'flex',
@@ -23,7 +24,7 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
 
 
   const [showPassword, setShowPassword] = useState(false);
-
+  const [otp, setOtp] = useState('');
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -31,42 +32,25 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
   };
 
   const [name, setname] = useState('');
-  const [collegename, setcollegename] = useState('');
+  const [college_name, setcollege_name] = useState('');
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
 
+  const handleOTP = () => {
+    sendOtpAPI(email)
+  }
   const handleSignup = () => {
 
-    const userData = {
-      name: name,
-      college_name: collegename,
-      email: email,
-      password: password
-    };
-  
-    fetch('http://localhost:3000/api/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Handle successful response from the API
-        console.log('Signup successful:', data);
-        // You might want to do something with the response data here
-      })
-      .catch(error => {
-        // Handle errors
-        console.error('There was a problem with the signup:', error);
-        // You might want to show an error message to the user
-      });
+
+    const userData =
+    {
+      name,
+      college_name,
+      email,
+      password, otp
+    }
+
+    signUpAPI(userData)
 
     // alert(`name : ${name}, email : ${email}, password : ${password}`)
     // console.log(`email : ${email} password : ${password}`);
@@ -94,17 +78,17 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               sx={{ width: '300px', margin: '10px' }}
               // error
               id="outlined-error1"
+              value={name}
               onChange={(e) => setname(e.target.value)}
               label="username"
-              defaultValue=""
             />
             <TextField
               sx={{ width: '300px', margin: '10px' }}
               // error
               id="outlined-error2"
-              onChange={(e) => setcollegename(e.target.value)}
+              value={college_name}
+              onChange={(e) => setcollege_name(e.target.value)}
               label="college name"
-              defaultValue=""
             />
             <TextField
               sx={{ width: '300px', margin: '10px' }}
@@ -112,7 +96,16 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               id="outlined-error3"
               onChange={(e) => setemail(e.target.value)}
               label="email"
-              defaultValue=""
+              value={email}
+            />
+            <Button sx={{ width: '200px', margin: '10px' }} variant='contained' onClick={handleOTP}>Generate OTP</Button>
+            <TextField
+              sx={{ width: '300px', margin: '10px' }}
+              // error
+              id="outlined-error4"
+              onChange={(e) => setOtp(e.target.value)}
+              label="OTP"
+              value={otp}
             />
             <FormControl sx={{ width: '300px', margin: '10px' }} variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">new password</InputLabel>
@@ -120,6 +113,7 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
                 id="outlined-adornment-password"
                 onChange={(e) => setpassword(e.target.value)}
                 type={showPassword ? 'text' : 'password'}
+                value={password}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -136,8 +130,8 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               />
             </FormControl>
             <Button sx={{ width: '300px', margin: '10px' }} variant='contained' onClick={handleSignup}>Signup</Button>
-            <Button sx={{ width: '300px', margin: '10px' }} variant='outlined' onClick={toLogin}>Login</Button>
-            <GoogleLoginButton/>
+            <Button sx={{ width: '300px', margin: '10px' }} variant='outlined' onClick={toLogin}>Already Have a account</Button>
+            <GoogleLoginButton />
           </Box>
         </Fade>
       </Modal>

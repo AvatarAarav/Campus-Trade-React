@@ -1,94 +1,186 @@
-import  { useState } from "react";
-import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { Box, Button, Card, CardContent, CardMedia, Typography, Rating } from "@mui/material";
+import theme from "../../theme";
+import desktop from "../../assets/bg5.jpg";
+import { useNavigate } from 'react-router-dom';
 
-function UserData() {
-  const userDataStyle = {
-    textAlign: "center",
-    margin: "20px",
-  };
-
-  const imgStyle = {
-    maxWidth: "100px",
-    borderRadius: "50%",
-  };
-
-  const buttonStyle = {
-    margin: "5px",
-  };
-
+function UserData({ user, onEditProfile ,userRating}) {
+  const navigate = useNavigate()
+  function go_to_ad(){
+    navigate("/user/Ad")
+  }
   return (
-    <div style={userDataStyle}>
-      <img alt="Profile" style={imgStyle} />
-      <h2 style={{ fontSize: "24px" }}>harshan</h2>
-      <p>Email: rathodharshan4@gmail.com</p>
-      <p>College: IIIT</p>
-      <p>Year: 2023</p>
-      <p>Branch: CSE</p>
-      <button onClick={() => {}} style={buttonStyle}>
-        Edit Profile
-      </button>
-      <button style={buttonStyle}>Post Ad</button>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          margin: "50px",
+          display: "flex",
+          maxWidth: "75%",
+          border: "1px solid",
+          padding: "10px",
+          borderRadius: "20px",
+          backgroundColor: theme.palette.primary.light,
+        }}
+      >
+        <Box className="redbox" sx={{ padding: "20px", color: "secondary" }}>
+          <img
+            src={user.profileIcon}
+            alt="Profile"
+            style={{ maxWidth: "200px", borderRadius: "100%" }}
+          />
+        </Box>
+        <Box sx={{ padding: "20px" }}>
+          <Typography variant="h2" sx={{ fontSize: "50px", color: "#fff" }}>
+            {user.name}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#fff" }}>
+            Email: {user.email}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#fff" }}>
+            College: {user.college_name}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#fff" }}>
+            Year: {user.year}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#fff" }}>
+            Branch: {user.branch}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "#fff" }}>
+            Rating:{" "}
+            <Rating
+              name="user-rating"
+              value={userRating}
+              precision={0.5}
+              readOnly
+              sx={{ color: "" }}
+            />
+          </Typography>
+        </Box>
+
+        <Box
+          className="btns"
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            minWidth: "350px",
+            marginTop: "200px",
+          }}
+        >
+          <Button
+            onClick={onEditProfile} href="/updateprofile"
+            sx={{
+              margin: "5px",
+              height: "50px",
+              transition: "background-color 0.3s ease",
+              backgroundColor: theme.palette.secondary.main,
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              "&:hover": {
+                backgroundColor: theme.palette.secondary.light,
+              },
+            }}
+          >
+            Edit Profile
+          </Button>
+          <Button
+           onClick={go_to_ad}
+            sx={{
+              margin: "5px",
+              height: "50px",
+              transition: "background-color 0.3s ease",
+              backgroundColor: theme.palette.secondary.main,
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              "&:hover": {
+                backgroundColor: theme.palette.secondary.light,
+              },
+            }}
+          >
+            +Post Ad
+          </Button>
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 }
 
-
-function UserEarnings() {
-  const earningsStyle = {
-    margin: "20px",
-  };
-
+function UserEarnings({ adsPosted, adsBought, earnings, adsBoughtMoney, profit }) {
   return (
-    <div style={earningsStyle}>
-      <p>Ads Posted:7</p>
-      <p>Ads Bought:8</p>
-      <p>Earnings: 500</p>
-      <p>Ads Bought Money: 1000</p>
-      <p>Profit: -500</p>
-    </div>
+    <Box
+      sx={{
+        margin: "55px",
+        marginTop: "70px",
+        border: "2px solid",
+        padding: "30px",
+        borderRadius: "20px",
+        backgroundColor: theme.palette.primary.light,
+      }}
+    >
+      <Typography variant="body1" sx={{ color: "#fff" }}>
+        Ads Posted: {adsPosted}
+      </Typography>
+      <Typography variant="body1" sx={{ color: "#fff" }}>
+        Ads Bought: {adsBought}
+      </Typography>
+      <Typography variant="body1" sx={{ color: "#fff" }}>
+        Earnings: {earnings}
+      </Typography>
+      <Typography variant="body1" sx={{ color: "#fff" }}>
+        Ads Money: {adsBoughtMoney}
+      </Typography>
+      <Typography variant="body1" sx={{ color: "#fff" }}>
+        Profit: {profit}
+      </Typography>
+    </Box>
   );
 }
 
-function AdCard() {
+function AdCard({ ad }) {
   return (
-    <Card style={{ maxWidth: 200, margin: 10 }}>
-      <CardMedia component="img" height="140"  alt="Ad" />
+    <Card sx={{ maxWidth: "200px", margin: "10px" }}>
+      <CardMedia component="img" height="140" src={ad.photo} alt="Ad" />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
-          Cost:900
+          Cost: {ad.cost}
         </Typography>
-        <Button variant="contained" color="primary" style={{ marginRight: 5 }}>
+        <Button variant="contained" color="primary" sx={{ marginRight: "5px" }}>
           Remove
         </Button>
         <Button variant="contained" color="secondary">
           Like
+        </Button>
+        <Button variant="contained" color="primary" sx={{ marginTop: "5px" }}>
+          Buy Now!
         </Button>
       </CardContent>
     </Card>
   );
 }
 
-
-
 function UserProfile() {
-  const user = {
-    profileIcon: "profile.jpg",
-    name: "John Doe",
-    email: "john@example.com",
-    college: "Sample College",
+  const [user, setUser] = useState({
+    profileIcon:
+      "https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png",
+    name: "Harshan",
+    email: "rathodharshan4@gmail.com",
+    college_name: "IIIT Sricity",
     year: "2023",
-    branch: "Computer Science",
-  };
+    branch: "CSE",
 
-  const [adsPosted, setAdsPosted] = useState(2);
-  const [adsBought, setAdsBought] = useState(2);
+  });
+  const [userRating, setUserRating] = useState(5);
+  const [adsPosted, setAdsPosted] = useState(7);
+  const [adsBought, setAdsBought] = useState(8);
 
   const earnings = {
     adsPosted,
     adsBought,
-    earnings: 1000, // You can replace this with your actual earnings calculation
-    adsBoughtMoney: 500, // You can replace this with your actual data
-    profit: 500, // You can replace this with your actual profit calculation
+    earnings: 500,
+    adsBoughtMoney: 1000,
+    profit: -500,
   };
 
   const [postedAds, setPostedAds] = useState([
@@ -100,26 +192,6 @@ function UserProfile() {
     { photo: "ad3.jpg", cost: 40 },
     { photo: "ad4.jpg", cost: 25 },
   ]);
-
-  function AdsPosted() {
-    return (
-      <div>
-        {postedAds.map((ad, index) => (
-          <AdCard key={index} ad={ad} />
-        ))}
-      </div>
-    );
-  }
-  
-  function AdsBought() {
-    return (
-      <div>
-        {boughtAds.map((ad, index) => (
-          <AdCard key={index} ad={ad} />
-        ))}
-      </div>
-    );
-  }
 
   const handleEditProfile = () => {
     // Implement the edit profile functionality here
@@ -136,22 +208,61 @@ function UserProfile() {
     setBoughtAds((prevAds) => [...prevAds, newAd]);
     setAdsBought(adsBought + 1);
   };
-
+  const handleRateUser = (rating) => {
+    setUserRating(rating);
+    // You can implement logic to send the rating to the server or perform other actions
+  };
   return (
-    <div>
-      <UserData user={user} onEditProfile={handleEditProfile} />
-      <UserEarnings {...earnings} />
-      <h3>Ads Posted</h3>
-      <AdsPosted postedAds={postedAds} />
-      <h3>Ads Bought</h3>
-      <AdsBought boughtAds={boughtAds} />
-      <Button onClick={handlePostAd} variant="contained" color="primary">
-        Post Ad
-      </Button>
-      <Button onClick={handleBuyAd} variant="contained" color="secondary">
-        Buy Ad
-      </Button>
-    </div>
+    <Box
+      sx={{
+        background: `url(${desktop})`, // Replace with the actual path to your image
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "50vh",
+      }}
+    >
+      <Box sx={{ backgroundColor: theme.palette.background.light, padding: "30px" }}>
+        <Box sx={{ display: "flex" }}>
+          <UserData user={user} onEditProfile={handleEditProfile} userRating={userRating}/>
+          <UserEarnings {...earnings} />
+        </Box>
+      </Box>
+      <Typography
+        variant="h3"
+        sx={{
+          textAlign: "center",
+          border: "1px solid",
+          margin: "20px",
+          backgroundColor: theme.palette.primary.light,
+          color: "#fff",
+        }}
+      >
+        Ads Posted
+      </Typography>
+      <Box sx={{ display: "flex" }}>
+        {postedAds.map((ad, index) => (
+          <AdCard key={index} ad={ad} />
+        ))}
+      </Box>
+
+      <Typography
+        variant="h3"
+        sx={{
+          textAlign: "center",
+          border: "1px solid",
+          margin: "20px",
+          backgroundColor: theme.palette.primary.light,
+          color: "#fff",
+        }}
+      >
+        Ads Bought
+      </Typography>
+      <Box sx={{ display: "flex" }}>
+        {boughtAds.map((ad, index) => (
+          <AdCard key={index} ad={ad} />
+        ))}
+      </Box>
+    </Box>
   );
 }
 
