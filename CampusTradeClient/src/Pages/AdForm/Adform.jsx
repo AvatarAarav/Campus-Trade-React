@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { TagsInput } from "react-tag-input-component";
 import photo from "../../assets/desktop.jpg";
 import bg1 from "../../assets/bg1.jpg";
@@ -26,6 +27,8 @@ const Adform = () => {
 
   const [tags, settags] = useState([]);
   const [features, setFeatures] = useState([]);
+
+  const id = useSelector((state) => state.user.userDetails._id);
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
@@ -53,26 +56,27 @@ const Adform = () => {
     } else {
       alert("please provide relevant information...!");
     }
-     const formData = new FormData();
-  // Append each selected file to the FormData object
-  for (let i = 0; i < images.length; i++) {
-    formData.append("images", images[i]);
-  }
-    const adData =
-    {
+    const formData = new FormData();
+    // Append each selected file to the FormData object
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+    const adData = {
+      id,
       name,
       price,
       age,
-      description, subname,
-      tags,features
-    }
+      description,
+      subname,
+      tags,
+      features,
+    };
 
-    formData.append('adData', JSON.stringify(adData));
+    formData.append("adData", JSON.stringify(adData));
 
     // console.log([... formData])
-    console.log([...formData])
-productADDAPI(formData)
-
+    console.log([...formData]);
+    productADDAPI(formData);
   };
 
   return (

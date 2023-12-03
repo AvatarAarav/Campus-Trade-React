@@ -5,11 +5,7 @@ import theme from "../../theme";
 import desktop from "../../assets/bg5.jpg";
 import { useNavigate } from 'react-router-dom';
 
-function UserData({ user, onEditProfile ,userRating}) {
-  const navigate = useNavigate()
-  function go_to_ad(){
-    navigate("/user/Ad")
-  }
+function UserData({ user, onEditProfile ,postad,userRating}) {
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -68,7 +64,7 @@ function UserData({ user, onEditProfile ,userRating}) {
           }}
         >
           <Button
-            onClick={onEditProfile} href="/updateprofile"
+            onClick={onEditProfile} 
             sx={{
               margin: "5px",
               height: "50px",
@@ -85,7 +81,7 @@ function UserData({ user, onEditProfile ,userRating}) {
             Edit Profile
           </Button>
           <Button
-           onClick={go_to_ad}
+          onClick={postad}
             sx={{
               margin: "5px",
               height: "50px",
@@ -161,6 +157,7 @@ function AdCard({ ad }) {
 }
 
 function UserProfile() {
+  const navigate = useNavigate()
   const [user, setUser] = useState({
     profileIcon:
       "https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png",
@@ -192,11 +189,14 @@ function UserProfile() {
     { photo: "ad3.jpg", cost: 40 },
     { photo: "ad4.jpg", cost: 25 },
   ]);
-
+  
+ 
   const handleEditProfile = () => {
-    // Implement the edit profile functionality here
+    navigate('/updateprofile')
   };
-
+  const go_to_ad = () => {
+    navigate('/user/Ad');
+  };
   const handlePostAd = () => {
     const newAd = { photo: "new_ad.jpg", cost: 60 };
     setPostedAds((prevAds) => [...prevAds, newAd]);
@@ -223,7 +223,7 @@ function UserProfile() {
     >
       <Box sx={{ backgroundColor: theme.palette.background.light, padding: "30px" }}>
         <Box sx={{ display: "flex" }}>
-          <UserData user={user} onEditProfile={handleEditProfile} userRating={userRating}/>
+          <UserData user={user} onEditProfile={handleEditProfile} postad={go_to_ad} userRating={userRating}/>
           <UserEarnings {...earnings} />
         </Box>
       </Box>
