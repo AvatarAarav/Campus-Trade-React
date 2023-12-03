@@ -52,34 +52,57 @@ export const submitForm = async (req, res) => {
 
     // const upload = multer({ storage: storage });
 
-    // Your Google Drive API setup and other configurations go here
-    async function uploadfile(folderPath, filename, arrr) {
-      try {
-        const response = await drive.files.create({
-          requestBody: {
-            name: `${filename}.jpg`,
-            mimeType: "image/jpg",
-          },
-          media: {
-            mimeType: "image/jpg",
-            body: fs.createReadStream(folderPath),
-          },
-        });
-        arrr.push(response.data.id);
-        console.log(response.data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    const uppath = `E:\\Campus-Trade-React\\server`;
+        // Your Google Drive API setup and other configurations go here
+        async function uploadfile(folderPath, filename, arrr) {
+            try {
+                const response = await drive.files.create(
+                    {
+                        requestBody: {
+                            name: `${filename}.jpg`,
+                            mimeType: 'image/jpg'
+                        },
+                        media: {
+                            mimeType: 'image/jpg',
+                            body: fs.createReadStream(folderPath)
 
-    console.log(req.body);
+                        }
+                    }
+                )
+                const fileId = response.data.id;
+
+                // Set the file to be publicly accessible
+                await drive.permissions.create({
+                    fileId: fileId,
+                    requestBody: {
+                        role: 'reader',
+                        type: 'anyone',
+                    },
+                });
+                
+
+
+                arrr.push(response.data.id)
+                console.log(response.data)
+            } catch (error) {
+                console.log(error.message)
+            }
+
+        }
+        const uppath = `E:\\Campus-Trade-React\\server`
+
+        console.log(req.body)
 
     // Access the uploaded files using req.files
     const uploadedFiles = req.files.map((file) => file.path);
 
     console.log("Uploaded Files:", uploadedFiles);
 
+        // Call the processing function and delete files sequentially
+        for (const file of uploadedFiles) {
+            try {
+               
+                const filename = path.basename(file);
+                console.log(filename);
     // Call the processing function and delete files sequentially
     for (const file of uploadedFiles) {
       try {

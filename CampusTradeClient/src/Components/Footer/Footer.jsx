@@ -2,7 +2,7 @@ import { Instagram, LinkedIn, Mail } from '@mui/icons-material'
 import { Avatar, Box, Container, Link, List, ListItem, Typography, styled } from '@mui/material'
 import React from 'react'
 import logopic from '../../assets/CT.svg'
-
+import { useNavigate } from 'react-router-dom';
 const StyledBox = styled(Box) ({
   flex:1,
 
@@ -22,6 +22,11 @@ const B = styled(Link) ({
   }
 })
 function Footer() {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate('/about');
+  };
   return (
     <>
     <Box sx={{backgroundColor:"lightgray",display:'flex',flexDirection:{xs:'column',sm:'row'},alignItems:'center',padding:'50px 0px'}}>
@@ -55,7 +60,7 @@ function Footer() {
         <List>
           <ListItem><Typography variant='h6' component='h6'>About</Typography></ListItem>
           <ListItem><A href="#" underline="none">Contact</A></ListItem>
-          <ListItem><A href="/about" underline="none">Team</A></ListItem>
+          <ListItem><A  onClick={() => handleNavigation("/about")} underline="none">Team</A></ListItem>
           <ListItem><A href="#" underline="none">Support</A></ListItem>
         </List>
       </StyledBox>
