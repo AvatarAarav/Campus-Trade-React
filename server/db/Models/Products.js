@@ -15,7 +15,13 @@ const ProductSchema = new mongoose.Schema(
         views : {type: Number,default:0 },
         likes : {type: Number,default:0 },
         chats:[{
-            from:String,message:String
+            author:{
+                username:String,
+                id:Number
+            },
+            text:String,
+            type:String,
+            timestamp:Number
         }],
         report:{type:Number,default:0},
        img_id : [String]

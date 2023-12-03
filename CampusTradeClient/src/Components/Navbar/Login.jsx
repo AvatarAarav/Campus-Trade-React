@@ -58,15 +58,19 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
     try {
       const response = await checkLoginAPI(admin,email,password);
       const data = await response.data;
-      dispatch(fetchUserDetails(data.id))
-
-      console.log("Login response:", data);
+      console.log(data)
+      if(data.id==-1){
+        alert('Email or Password is incorrect');
+      }
+      else{
+        dispatch(fetchUserDetails(data.id))
+        dispatch(loginReducer());
+      }
     } catch (error) {
       console.error("Error:", error);
       // Handle error, e.g., display an error message to the user
     }
     // console.log(`email : ${email} password : ${password}`);
-    dispatch(loginReducer());
     handleCloseLogin();
   };
 
@@ -136,7 +140,6 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
                   </InputAdornment>
                 }
                 label="password"
-                value={password}
               />
             </FormControl>
             <Box onClick={(e) => setadmin(!admin)}>

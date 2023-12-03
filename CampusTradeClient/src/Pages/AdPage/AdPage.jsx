@@ -149,6 +149,7 @@ function AdPage() {
       {
         text: "current user has joined the conversation",
         timestamp: 1578366389250,
+        
         type: "notification",
       },
       {
@@ -454,7 +455,7 @@ function AdPage() {
                 userId={1}
                 messages={attr.messages}
                 width={"500px"}
-                showTypingIndicator={true}
+                showTypingIndicator={false}
                 activeAuthor={{ username: "Bot", id: 2, avatarUrl: "" }}
               />
             }

@@ -90,7 +90,7 @@ router.get('/user/allEmail/', getAllUsersEmailAPI)
 router.get('/admin/:id/delete/:aid',deleteAdminadAPI)
 router.get('/admin/:email/deleteuser/:aid',deleteAdminuserAPI)
 
-
+router.post('/user/google',)
 router.post('/send-otp',sendOTP);
 
 router.post('/create-order',Payment)
