@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { Box, Button, Card, CardContent, CardMedia, Typography, Rating } from "@mui/material";
 import theme from "../../theme";
-import desktop from "../../assets/bg5.jpg";
+import desktop from "../../assets/desktop.jpg";
 import { useNavigate } from 'react-router-dom';
 import {  useSelector } from 'react-redux';
 
@@ -18,7 +18,8 @@ function UserData({ user, onEditProfile ,postad,userRating}) {
           border: "1px solid",
           padding: "10px",
           borderRadius: "20px",
-          backgroundColor: theme.palette.primary.light,
+         
+          backgroundColor: "rgba(66, 66, 66, 0.8)",
         }}
       >
         <Box className="redbox" sx={{ padding: "20px", color: "secondary" }}>
@@ -115,29 +116,29 @@ function UserEarnings({ adsPosted, adsBought, earnings, adsBoughtMoney, profit }
         border: "2px solid",
         padding: "30px",
         borderRadius: "20px",
-        backgroundColor: theme.palette.primary.light,
+        backgroundColor: "rgba(66, 66, 66, 0.8)",
       }}
     >
       <Typography variant="body1" sx={{ color: "#fff" }}>
-        Ads Posted: {adsPosted}
+        Ads Posted:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {adsPosted}
       </Typography>
       <Typography variant="body1" sx={{ color: "#fff" }}>
-        Ads Bought: {adsBought}
+        Ads Bought:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {adsBought}
       </Typography>
       <Typography variant="body1" sx={{ color: "#fff" }}>
-        Earnings: {earnings}
+        Earnings:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {earnings}
       </Typography>
       <Typography variant="body1" sx={{ color: "#fff" }}>
-        Ads Money: {adsBoughtMoney}
+        Ads Money: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{adsBoughtMoney}
       </Typography>
       <Typography variant="body1" sx={{ color: "#fff" }}>
-        Profit: {profit}
+        Profit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{profit}
       </Typography>
     </Box>
   );
 }
 
-function AdCard({ ad }) {
+function AdCard({ ad, flag }) {
   return (
     <Card sx={{ maxWidth: "200px", margin: "10px" }}>
       <CardMedia component="img" height="140" src={ad.photo} alt="Ad" />
@@ -145,15 +146,17 @@ function AdCard({ ad }) {
         <Typography gutterBottom variant="h6" component="div">
           Cost: {ad.cost}
         </Typography>
-        <Button variant="contained" color="primary" sx={{ marginRight: "5px" }}>
-          Remove
-        </Button>
+        
+        {!flag && (
+          <Button variant="contained" color="primary" sx={{ marginRight: "5px" }}>
+            Remove
+          </Button>
+        )}
+        
         <Button variant="contained" color="secondary">
           Like
         </Button>
-        <Button variant="contained" color="primary" sx={{ marginTop: "5px" }}>
-          Buy Now!
-        </Button>
+        
       </CardContent>
     </Card>
   );
@@ -168,8 +171,8 @@ function UserProfile() {
 
 
   const [userRating, setUserRating] = useState(5);
-  const [adsPosted, setAdsPosted] = useState(7);
-  const [adsBought, setAdsBought] = useState(8);
+  const [adsPosted, setAdsPosted] = useState(700);
+  const [adsBought, setAdsBought] = useState(800);
 
   const earnings = {
     adsPosted,
@@ -240,7 +243,7 @@ function UserProfile() {
       </Typography>
       <Box sx={{ display: "flex" }}>
         {postedAds.map((ad, index) => (
-          <AdCard key={index} ad={ad} />
+          <AdCard key={index} ad={ad} flag={true} />
         ))}
       </Box>
 
@@ -258,7 +261,7 @@ function UserProfile() {
       </Typography>
       <Box sx={{ display: "flex" }}>
         {boughtAds.map((ad, index) => (
-          <AdCard key={index} ad={ad} />
+          <AdCard key={index} ad={ad} flag={false}/>
         ))}
       </Box>
     </Box>
