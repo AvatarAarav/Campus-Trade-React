@@ -6,10 +6,10 @@ const ProductSchema = new mongoose.Schema(
         name: String,
         type: String,
         description: String,
-        email: String,
+        id: String,
         age: String,
         price: Number,
-        img_type: [String],
+       subname : String,
         tags : [String],
         features : [String],
         views : {type: Number,default:0 },
@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema(
             from:String,message:String
         }],
         report:{type:Number,default:0},
-        img_content: [{ type: Buffer, contentType: String }],
+       img_id : [String]
     }
 );
 

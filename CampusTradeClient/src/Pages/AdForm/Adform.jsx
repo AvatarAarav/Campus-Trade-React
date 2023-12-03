@@ -13,15 +13,15 @@ import photo from "../../assets/desktop.jpg";
 import bg1 from "../../assets/bg1.jpg";
 import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
-
+import { productADDAPI } from "../../apis";
 import { BackHand, Keyboard } from "@mui/icons-material";
 
 const Adform = () => {
-  const [title, settitle] = useState("");
+  const [name, setname] = useState("");
   const [price, setprice] = useState("");
   const [age, setage] = useState("");
-  const [desc, setdesc] = useState("");
-  const [subtitle, setsubtitle] = useState("");
+  const [description, setdescription] = useState("");
+  const [subname, setsubname] = useState("");
   const [images, setimages] = useState();
 
   const [tags, settags] = useState([]);
@@ -39,20 +39,40 @@ const Adform = () => {
 
     // Perform basic form validation
     if (
-      title !== "" &&
+      name !== "" &&
       price !== "" &&
       age !== "" &&
-      desc !== "" &&
-      subtitle !== "" &&
+      description !== "" &&
+      subname !== "" &&
       tags.length !== 0 &&
       features.length !== 0 &&
       images.length !== 0
     ) {
-      console.log(images);
+      // console.log(images);
       console.log("Form submitted successfully!");
     } else {
       alert("please provide relevant information...!");
     }
+     const formData = new FormData();
+  // Append each selected file to the FormData object
+  for (let i = 0; i < images.length; i++) {
+    formData.append("images", images[i]);
+  }
+    const adData =
+    {
+      name,
+      price,
+      age,
+      description, subname,
+      tags,features
+    }
+
+    formData.append('adData', JSON.stringify(adData));
+
+    // console.log([... formData])
+    console.log([...formData])
+productADDAPI(formData)
+
   };
 
   return (
@@ -95,10 +115,10 @@ const Adform = () => {
           </Typography>
 
           <TextField
-            id="title"
-            onChange={(e) => settitle(e.target.value)}
-            value={title}
-            label="Title *"
+            id="name"
+            onChange={(e) => setname(e.target.value)}
+            value={name}
+            label="name *"
             placeholder="name of the product"
             variant="outlined"
           />
@@ -120,13 +140,13 @@ const Adform = () => {
             variant="outlined"
           />
           <TextField
-            id="desc"
-            label="Description *"
+            id="description"
+            label="descriptionription *"
             multiline
             rows={5}
-            onChange={(e) => setdesc(e.target.value)}
-            value={desc}
-            placeholder="Add a long description for better understanding."
+            onChange={(e) => setdescription(e.target.value)}
+            value={description}
+            placeholder="Add a long descriptionription for better understanding."
           />
         </Container>
         <Container
@@ -142,10 +162,10 @@ const Adform = () => {
             Additional Details
           </Typography>
           <TextField
-            id="subtitle"
-            onChange={(e) => setsubtitle(e.target.value)}
-            value={subtitle}
-            label="Sub Title *"
+            id="subname"
+            onChange={(e) => setsubname(e.target.value)}
+            value={subname}
+            label="Sub name *"
             placeholder="Type of the product"
             variant="outlined"
           />
@@ -197,6 +217,7 @@ const Adform = () => {
                 id="file-upload"
                 required
                 type="file"
+                name="images"
                 onChange={handleFileUpload}
                 style={{ position: "absolute", display: "none" }}
                 multiple // Allow multiple file selection

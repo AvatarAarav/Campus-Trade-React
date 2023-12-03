@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path"
 import multer from "multer"; //module to handle file submission
 import { submitForm } from "../controllers/Add_Product.js";
 import { addUserAPI } from "../controllers/register.js";
@@ -38,7 +39,21 @@ const router = express.Router();
 router.get('/products', getAllProductsAPI)
 
 // Set up the multer middleware to handle file uploads
-const upload = multer({ dest: 'uploads/' });
+// const upload = multer({ dest: 'uploads/' });
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log("hi there")
+        cb(null, 'uploads/');
+
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({ storage: storage });
 
 
 router.get('/ad/:id/email/:eid', getProductAPI)
@@ -46,7 +61,8 @@ router.get('/ad/buy/:id/uid/:uid', buyProductApi)
 router.get('/ad/report/:id/uid/:uid', reportProductApi)
 router.get('/ad/remove/:id/uid/:uid', removeProductApi)
 router.get('/ad/delete/:id/mail/:eid', delProductAPI)
-router.post('/form', upload.single('photo'), submitForm)
+router.post('/form', upload.array('images',5), submitForm)
+
 router.post('/update_form/:id/update/:email', upload.single('photo'), updateFormAPI)
 router.post('/user/register', addUserAPI)
 router.post('/user/login', checkLoginAPI)
