@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from 'axios';
-
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
   Grid,
@@ -45,7 +45,7 @@ import ImageGallery from "react-image-gallery";
 
 function AdPage() {
   // we should get this ad as a prop to this page
-  const [ad, setad] = useState({
+  const [ads, setads] = useState({
     title: "C-Type charger",
     price: 300,
     age: "6 months old",
@@ -61,12 +61,14 @@ function AdPage() {
     ],
     images: [
       {
-        original: "https://picsum.photos/id/1018/30/60/",
-        thumbnail: "https://picsum.photos/id/1018/250/150/",
+        original:
+          "https://drive.google.com/uc?export=view&id=1BSQHacJVKa7xdpMHwwNh0oH9MxG896Pm",
+        thumbnail:
+          "https://drive.google.com/uc?export=view&id=1BSQHacJVKa7xdpMHwwNh0oH9MxG896Pm",
       },
       {
         original: "https://picsum.photos/id/1015/1000/600/",
-        thumbnail: "https://picsum.photos/id/1015/250/150/",
+        thumbnail: "https://picsum.photos/id/1015/1000/600/",
       },
       {
         original: "https://picsum.photos/id/1019/500/900/",
@@ -79,46 +81,68 @@ function AdPage() {
     sellerMail: "aarav.n21@iiits.in",
   });
 
-  //razorpay 
-  const [orderId, setOrderId] = useState('');
+  //
+  const ad = useSelector((state) => state.product.adDetails);
+
+  // console.log("ad fetched from store", ad);
+
+  const constructImageLinks = (imageIds) => {
+    return imageIds.map((imageId) => {
+      const link = `https://drive.google.com/uc?export=view&id=${imageId}`;
+      return {
+        original: link,
+        thumbnail: link,
+      };
+    });
+  };
+
+  // console.log("ad.img_is : ", ad.img_id);
+  const images = constructImageLinks(ad.img_id);
+
+  // console.log(images);
+
+  //razorpay
+  const [orderId, setOrderId] = useState("");
 
   const createOrder = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/create-order');
+      const response = await axios.post(
+        "http://localhost:3000/api/create-order"
+      );
       setOrderId(response.data.id);
     } catch (error) {
-      console.error('Error creating order:', error);
+      console.error("Error creating order:", error);
     }
   };
 
   const displayRazorpay = async () => {
     const options = {
-      key: 'rzp_test_HBOeWhcpQppyPx',
-      amount: ad.price*100, // Amount in paise (Example: 50000 paise = ₹500)
-      currency: 'INR',
-      name: 'Campus Trade',
-      description: 'Test Payment',
+      key: "rzp_test_HBOeWhcpQppyPx",
+      amount: ad.price * 100, // Amount in paise (Example: 50000 paise = ₹500)
+      currency: "INR",
+      name: "Campus Trade",
+      description: "Test Payment",
       order_id: orderId,
       handler: function (response) {
         console.log(response);
       },
       prefill: {
-        name: 'Test User',
-        email: 'test@example.com',
-        contact: '9999999999',
+        name: "Test User",
+        email: "test@example.com",
+        contact: "9999999999",
       },
       theme: {
-        color: '#F37254',
+        color: "#F37254",
       },
     };
     const razorpayInstance = new window.Razorpay(options);
     razorpayInstance.open();
   };
 
-  const handlePayment = async()=>{
-    await createOrder()
-    await displayRazorpay()
-  }
+  const handlePayment = async () => {
+    await createOrder();
+    await displayRazorpay();
+  };
 
   // Mail form
   const [subject, setSubject] = useState("");
@@ -149,7 +173,7 @@ function AdPage() {
       {
         text: "current user has joined the conversation",
         timestamp: 1578366389250,
-        
+
         type: "notification",
       },
       {
@@ -223,15 +247,15 @@ function AdPage() {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={7}>
             <Paper elevation={3}>
-              <ImageGallery items={ad.images} />
+              <ImageGallery items={images} />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={5}>
             <Typography variant="h4" color="text.primary">
-              {ad.title}
+              {ad.name}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-              {ad.subtitle}
+              {ad.subname}
             </Typography>
             <Typography variant="h4" color="green" gutterBottom>
               {ad.price}
@@ -247,7 +271,7 @@ function AdPage() {
             </Typography>
             <Typography component="span">
               {" "}
-              / ad posted on {ad.date.toLocaleDateString()}
+              {/* / ad posted on {ad.date.toLocaleDateString()} */}
             </Typography>
             <hr />
             <Typography variant="subtitle1">Tags</Typography>
@@ -382,7 +406,7 @@ function AdPage() {
             <hr />
             <Typography variant="h6">Product Description</Typography>
             <Typography variant="body1" fontFamily="cursive" paragraph>
-              {ad.desc}
+              {ad.description}
             </Typography>
             <hr />
           </Grid>
