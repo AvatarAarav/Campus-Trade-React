@@ -8,3 +8,4 @@ export const checkLoginAPI=(admin,email,password)=>API.post('/user/login',{admin
 export const sendOtpAPI=(email)=>API.post('/send-otp',{email})
 export const signUpAPI=(userData)=>API.post('/user/register',userData)
 export const productADDAPI =(adData)=> API.post('/form',adData)
+export const googleLoginAPI=(googleObject)=>API.post('/user/google',googleObject)

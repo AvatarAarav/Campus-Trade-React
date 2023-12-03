@@ -9,6 +9,7 @@ function GoogleLoginButton() {
             onSuccess={credentialResponse => {
                 const details=jwtDecode(credentialResponse.credential);
                 console.log(details)
+                
             }}
             onError={() => {
                 console.log('Login Failed');

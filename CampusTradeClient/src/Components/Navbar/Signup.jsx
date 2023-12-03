@@ -4,6 +4,7 @@ import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHe
 import React, { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton';
 import { sendOtpAPI, signUpAPI } from '../../apis';
+import { useDispatch } from 'react-redux';
 
 const style = {
   display: 'flex',
@@ -22,7 +23,7 @@ const style = {
 
 const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
 
-
+  const dispatch=useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const [otp, setOtp] = useState('');
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -39,7 +40,7 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
   const handleOTP = () => {
     sendOtpAPI(email)
   }
-  const handleSignup = () => {
+  const handleSignup = async() => {
 
 
     const userData =
@@ -51,9 +52,15 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
     }
 
     signUpAPI(userData)
-
-    // alert(`name : ${name}, email : ${email}, password : ${password}`)
-    // console.log(`email : ${email} password : ${password}`);
+      .then((response)=>{
+        const data =response.data;
+        dispatch(fetchUserDetails(data.id))
+        dispatch(loginReducer());
+      })
+      .catch((error)=>{ 
+        alert(error.response.data.error);
+      })
+      handleCloseSignup()
   }
 
   return (

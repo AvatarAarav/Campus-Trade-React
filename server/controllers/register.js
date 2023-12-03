@@ -2,11 +2,7 @@ import OTP from "../db/Models/OTP.js";
 import Users from "../db/Models/User.js";
 export const addUserAPI = async (req, res) => {
     try {
-        // const { name, collegename, email, password,otp } = req.body;
-
-        // const userData= await Users(req.body)
         const email = req.body.email
-
         const existingUser = await Users.findOne({ email: email });
         if (existingUser) {
             return res.status(400).json({ error: 'Email already exists' });
@@ -34,9 +30,9 @@ export const addUserAPI = async (req, res) => {
             .catch(() => {
                 console.log("failed")
             })
-
+        
     } catch (error) {
         console.error(`${error.message}!!`)
-        
+        return res.status(400).json({ error: 'ERROR!!!' });
     }
 }
