@@ -81,6 +81,19 @@ export const submitForm = async (req, res) => {
                         }
                     }
                 )
+                const fileId = response.data.id;
+
+                // Set the file to be publicly accessible
+                await drive.permissions.create({
+                    fileId: fileId,
+                    requestBody: {
+                        role: 'reader',
+                        type: 'anyone',
+                    },
+                });
+                
+
+
                 arrr.push(response.data.id)
                 console.log(response.data)
             } catch (error) {
@@ -101,9 +114,7 @@ export const submitForm = async (req, res) => {
         // Call the processing function and delete files sequentially
         for (const file of uploadedFiles) {
             try {
-                // console.log(file)
-                // console.log(file.filename)
-                // cosole.log(file.filePath)
+               
                 const filename = path.basename(file);
                 console.log(filename);
 

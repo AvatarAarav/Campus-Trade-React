@@ -56,7 +56,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-router.get('/ad/:id/email/:eid', getProductAPI)
+router.get('/ad/:id', getProductAPI)
 router.get('/ad/buy/:id/uid/:uid', buyProductApi)
 router.get('/ad/report/:id/uid/:uid', reportProductApi)
 router.get('/ad/remove/:id/uid/:uid', removeProductApi)
