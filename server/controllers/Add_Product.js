@@ -101,7 +101,7 @@ export const submitForm = async (req, res) => {
             }
 
         }
-        const uppath = `E:\\Campus-Trade-React\\server`
+        const uppath = `..//server`
 
         console.log(req.body)
 
