@@ -4,6 +4,8 @@ import { Box, Button, Card, CardContent, CardMedia, Typography, Rating } from "@
 import theme from "../../theme";
 import desktop from "../../assets/bg5.jpg";
 import { useNavigate } from 'react-router-dom';
+import {  useSelector } from 'react-redux';
+
 
 function UserData({ user, onEditProfile ,postad,userRating}) {
   return (
@@ -20,11 +22,12 @@ function UserData({ user, onEditProfile ,postad,userRating}) {
         }}
       >
         <Box className="redbox" sx={{ padding: "20px", color: "secondary" }}>
-          <img
-            src={user.profileIcon}
-            alt="Profile"
-            style={{ maxWidth: "200px", borderRadius: "100%" }}
-          />
+        <img
+             src="https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png"
+             alt="Profile"
+             style={{ maxWidth: "200px", borderRadius: "50%" }}
+        />
+
         </Box>
         <Box sx={{ padding: "20px" }}>
           <Typography variant="h2" sx={{ fontSize: "50px", color: "#fff" }}>
@@ -158,16 +161,12 @@ function AdCard({ ad }) {
 
 function UserProfile() {
   const navigate = useNavigate()
-  const [user, setUser] = useState({
-    profileIcon:
-      "https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png",
-    name: "Harshan",
-    email: "rathodharshan4@gmail.com",
-    college_name: "IIIT Sricity",
-    year: "2023",
-    branch: "CSE",
+  
+  const user=useSelector(state=>state.user.userDetails)
+   
 
-  });
+
+
   const [userRating, setUserRating] = useState(5);
   const [adsPosted, setAdsPosted] = useState(7);
   const [adsBought, setAdsBought] = useState(8);
