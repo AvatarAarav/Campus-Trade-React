@@ -73,7 +73,7 @@ router.post("/user/login", checkLoginAPI);
 router.get("/user/allEmail", getAllUsersEmailAPI);
 router.post("/user", getUserData);
 router.get("/allusers", getAllUsersAPI);
-router.get("/user/:email", getUserCardsAPI);
+router.get("/user/:id", getUserCardsAPI);
 router.post("/user/adCreate", getAdFormAPI);
 router.get("/adObject/:id", getAdObjectAPI);
 router.get("/search_result", getSearchResultAPI);
