@@ -84,14 +84,16 @@ function Navbar() {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const handleProfile=()=>{
+    navigate('/user')
+    handleMenuClose()
+  }
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    navigate('/user')
     handleMobileMenuClose();
   };
 
@@ -124,6 +126,7 @@ function Navbar() {
 
   const handleLogout = () => {
     dispatch(logOutReducer())
+    navigate('/')
     handleMenuClose();
   }
 
@@ -147,7 +150,7 @@ function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleProfile}>Profile</MenuItem>
       <MenuItem onClick={handleLogout}>Log Out</MenuItem>
     </Menu>
   );
@@ -236,6 +239,7 @@ function Navbar() {
             variant="h5"
             noWrap
             component="div"
+            onClick={()=>{navigate('/')}}
             sx={{ display: { xs: 'none', sm: 'block' }, fontFamily: 'cursive', fontWeight: '1000', color: theme.palette.text.primary }}
           >
             Campus Trade

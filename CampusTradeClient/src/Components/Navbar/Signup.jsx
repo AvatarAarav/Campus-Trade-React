@@ -3,6 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material'
 import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import GoogleLoginButton from './GoogleLoginButton';
+import { fetchUserDetails, loginReducer } from "../../Store/UserSlice";
 import { sendOtpAPI, signUpAPI } from '../../apis';
 import { useDispatch } from 'react-redux';
 
@@ -138,7 +139,7 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
             </FormControl>
             <Button sx={{ width: '300px', margin: '10px' }} variant='contained' onClick={handleSignup}>Signup</Button>
             <Button sx={{ width: '300px', margin: '10px' }} variant='outlined' onClick={toLogin}>Already Have a account</Button>
-            <GoogleLoginButton />
+            <GoogleLoginButton closeModal={handleCloseSignup}/>
           </Box>
         </Fade>
       </Modal>
