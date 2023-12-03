@@ -8,7 +8,7 @@ export const buyProductApi=async (req,res)=>{
         const product=await Products.findById(id)
         userData.ads.unshift(product._id);
         await userData.save()
-        res.status(200).render('ad_details',{ad:product,user:userData});
+        res.status(200).json({ad:product,user:userData});
     } catch (error) {
         console.error(`${error.message}!!`)
         res.status(404).send(`${error.message}!!`)

@@ -9,7 +9,7 @@ export const updateFormAPI=async (req,res)=>{
         const Updating_product = await Products.findById(productId);
        
         if (!Updating_product) {
-            return res.status(404).render('error', { message: 'Product not found' });
+            return res.status(404).json({ message: 'Product not found' });
         }
         Updating_product.name = req.body.name;
         Updating_product.type = req.body.type;
@@ -23,9 +23,9 @@ export const updateFormAPI=async (req,res)=>{
         await Updating_product.save();
         const udata = await Users.find({ email: req.params.email });
 
-        res.status(200).render('USER_PROFILE', { user: udata[0] });
+        res.status(200).json( { user: udata[0] });
     } catch (error) {
         console.error(`${error.message}!!`)
-        res.status(500).render('error', { message: 'Internal server error' });
+        res.status(500).json({ message: 'Internal server error' });
     }
 }

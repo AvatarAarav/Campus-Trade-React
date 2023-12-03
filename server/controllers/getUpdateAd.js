@@ -6,7 +6,7 @@ export const getUpdateAdAPI=async (req,res)=>{
         const product=await Products.findById(id)
         const userData=await Users.find({email:req.params.email})
         // console.log(product)
-        res.status(200).render('Update_ad',{ad:product,user :userData[0]});
+        res.status(200).json({ad:product,user :userData[0]});
     } catch (error) {
         console.error(`${error.message}!!`)
         res.status(404).send(`${error.message}!!`)
