@@ -35,6 +35,7 @@ import { sendOTP } from "../controllers/Mailer.js";
 import { Payment } from "../controllers/Payment.js";
 import { GoogleLoginAPI } from "../controllers/GoogleLogin.js";
 import { boughtAdAPI } from "../controllers/bought_add.js";
+import { UnbuyAPI } from "../controllers/unbuy_product.js";
 const router = express.Router();
 
 router.get("/products", getAllProductsAPI);
@@ -83,9 +84,9 @@ router.get("/search_admin_user", getAdminUserAPI);
 router.get("/user/ad_update/:email/mail/:id", getUpdateAdAPI);
 router.post("/user/UpdateProfile", ProfileUpdateAPI);
 router.post("/user/changeProfile", ChangeProfileAPI);
-router.post("/ad/id/:id/chat/:email/", postAddChatAPI);
+router.post("/ad/chat/post", postAddChatAPI);
 router.get("/ad/chat/:id", getProductChatsAPI);
-
+router.get("/ad/unbuy/:id/uid/:uid",UnbuyAPI);
 router.get("/user/adminlink/:id/admin/:aid", getuserdetailAPI);
 router.get("/admin_ads/:id/admin/:aid", getadadmindetailAPI);
 

@@ -17,5 +17,5 @@ export const wishlistAPI = (uid,id) => API.get(`/ad/buy/${id}/uid/${uid}`)
 export const googleLoginAPI = (googleObject) =>
   API.post("/user/google", googleObject);
 export const boughtAdAPI = (data) => API.post("/ad/bought",data)
-
-
+export const chataddAPI = (data) => API.post("/ad/chat/post",data)
+export const uwishlistAPI = (uid,id) => API.get(`/ad/unbuy/${id}/uid/${uid}`)
