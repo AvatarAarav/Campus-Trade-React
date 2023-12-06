@@ -94,10 +94,10 @@ function AdPage() {
   //
   const ad = useSelector((state) => state.product.adDetails);
   const user = useSelector((state) => state.user.userDetails);
-  
-  var isOwner=false;
-  if(ad.id==user._id){
-    isOwner=true;
+
+  var isOwner = false;
+  if (ad.id == user._id) {
+    isOwner = true;
   }
 
   const constructImageLinks = (imageIds) => {
@@ -138,7 +138,7 @@ function AdPage() {
       description: "Test Payment",
       order_id: orderId,
       handler: function (response) {
-        boughtAdAPI(ad._id,user._id)
+        boughtAdAPI(ad._id, user._id);
       },
       prefill: {
         name: "Test User",
@@ -266,7 +266,7 @@ function AdPage() {
     if (!liked) {
       wishlistAPI(user._id, ad._id);
     } else {
-      uwishlistAPI(user._id,ad._id)
+      uwishlistAPI(user._id, ad._id);
     }
     setliked(!liked);
   };
