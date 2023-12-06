@@ -314,38 +314,43 @@ function UserProfile() {
             backgroundColor: "whitesmoke",
           }}
         >
-          {postedAds.map((ad) => {
-            return (
-              <Card key={ad._id} sx={{ width: 300, height: 400 }}>
-                <CardActionArea onClick={() => handleOpenAd(ad._id)}>
-                  <CardMedia
-                    component="img"
-                    height="300"
-                    src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
-                    alt="green iguana"
-                  />
-                  <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      {ad.name}
-                    </Typography>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Typography component="span" variant="h5">
-                        {ad.price}
+          {postedAds
+            .filter((ad) => {
+              if (ad.id === user._id) return true;
+              else return false;
+            })
+            .map((ad) => {
+              return (
+                <Card key={ad._id} sx={{ width: 300, height: 400 }}>
+                  <CardActionArea onClick={() => handleOpenAd(ad._id)}>
+                    <CardMedia
+                      component="img"
+                      height="300"
+                      src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+                      alt="green iguana"
+                    />
+                    <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
+                      <Typography
+                        gutterBottom
+                        variant="h6"
+                        color="text.secondary"
+                        component="div"
+                      >
+                        {ad.name}
                       </Typography>
-                      <span>
-                        <CurrencyRupee />
-                      </span>
-                    </Box>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            );
-          })}
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Typography component="span" variant="h5">
+                          {ad.price}
+                        </Typography>
+                        <span>
+                          <CurrencyRupee />
+                        </span>
+                      </Box>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              );
+            })}
         </Box>
       </Box>
 
