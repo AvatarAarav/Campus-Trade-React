@@ -7,13 +7,19 @@ const ProductSchema = new mongoose.Schema(
         type: String,
         description: String,
         id: String,
+        sellerMail:String,
         age: String,
         price: Number,
-       subname : String,
+        subname : String,
         tags : [String],
         features : [String],
-        views : {type: Number,default:0 },
-        likes : {type: Number,default:0 },
+        views : {type: Number,default:1 },
+        likes : {type: Number,default:1 },
+        sold : {
+            type:Boolean,
+            default:false,
+        },
+        buyer : String,
         chats:[{
             author:{
                 username:String,
@@ -24,7 +30,7 @@ const ProductSchema = new mongoose.Schema(
             timestamp:Number
         }],
         report:{type:Number,default:0},
-       img_id : [String]
+        img_id : [String]
     }
 );
 

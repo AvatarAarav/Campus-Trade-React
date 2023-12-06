@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,6 +23,7 @@ import bg1 from "../../assets/bg1.jpg";
 import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
 import ChatBox, { ChatFrame } from "react-chat-plugin";
+import { Navigate, useNavigate } from "react-router-dom";
 import { wishlistAPI } from "../../apis";
 import {
   Chat,
@@ -45,6 +46,12 @@ import ImageGallery from "react-image-gallery";
 
 function AdPage() {
   // we should get this ad as a prop to this page
+  const navigate=useNavigate();
+  const loggedIn=useSelector(state=>state.user.loggedIn)
+  useEffect(()=>{
+    if(!loggedIn){navigate('/')}
+  },[])
+ 
   const socket = io('http://localhost:3000', { transports : ['websocket'] });
   const [ads, setads] = useState({
     title: "C-Type charger",

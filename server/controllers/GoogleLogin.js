@@ -5,7 +5,7 @@ export const GoogleLoginAPI = async (req, res) => {
     const userData = await Users.findOne({ email: email });
     if (userData) {
       if (userData.password == req.body.sub) {
-        res.status(200).json({id:userData[0]._id});
+        res.status(200).json({id:userData._id});
       } else {
         res.status(200).json({id:-1});
       }

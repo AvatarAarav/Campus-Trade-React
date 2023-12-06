@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAdDetailsApi } from "../apis";
 const initialState = {
   adDetails: {
+    id: "",
     title: "",
     price: "",
     age: "",
@@ -12,6 +13,8 @@ const initialState = {
     img_id: [],
     date: "",
     likes: 0,
+    sold:false,
+    buyer:"",
     views: 0,
     sellerMail: "",
   },
