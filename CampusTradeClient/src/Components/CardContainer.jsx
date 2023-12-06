@@ -20,18 +20,9 @@ import { useDispatch } from "react-redux";
 import { fetchAdDetails } from "../Store/ProductSlice.js";
 
 const CardContainer = () => {
-  const products = [
-    { label: "laptop", year: 1994 },
-    { label: "backpack", year: 1972 },
-    { label: "earphones", year: 1974 },
-    { label: "bat", year: 2008 },
-    { label: "watch", year: 1957 },
-    { label: "neckband", year: 1993 },
-    { label: "books", year: 1994 },
-  ];
 
   const dispatch = useDispatch();
-
+  const search=useSelector(state=>state.product.search);
   const loggedIn=useSelector(state=>state.user.loggedIn)
   const navigate = useNavigate();
   const handleOpenAd = (id) => {
@@ -51,12 +42,14 @@ const CardContainer = () => {
       try {
         const data = await fetchAllAdsApi();
         setads(data.data.data);
+        console.log(data.data.data)
       } catch (error) {
         // Handle errors here
         console.error("Error fetching data:", error);
       }
     }
-    fetchdata();
+    fetchdata()
+    setInterval(fetchdata,4000)
   }, []);
 
   //   console.log(ads);
@@ -84,13 +77,6 @@ const CardContainer = () => {
         }}
       >
         <Typography variant="h4">All Products</Typography>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={products}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Search" />}
-        />
       </Box>
       <Box
         sx={{
@@ -105,7 +91,12 @@ const CardContainer = () => {
           backgroundColor: "whitesmoke",
         }}
       >
-        {ads.map((ad) => {
+        {ads
+        .filter((ad) => {
+          if(ad.tags.includes(search)) return true
+         return ad.name.includes(search) || ad.subname.includes(search) || ad.description.includes(search)
+        })
+        .map((ad) => {
           return (
             <Card key={ad._id} sx={{ width: 300, height: 400 }}>
               <CardActionArea onClick={()=>handleOpenAd(ad._id)}>

@@ -19,3 +19,5 @@ export const googleLoginAPI = (googleObject) =>
 export const boughtAdAPI = (id,uid) => API.post("/ad/bought",{id,uid})
 export const chataddAPI = (data) => API.post("/ad/chat/post",data)
 export const uwishlistAPI = (uid,id) => API.get(`/ad/unbuy/${id}/uid/${uid}`)
+export const updateprofileAPI = (data) => API.post("/user/UpdateProfile",data)
+export const updateadAPI = (data) => API.post("/update_form",data)

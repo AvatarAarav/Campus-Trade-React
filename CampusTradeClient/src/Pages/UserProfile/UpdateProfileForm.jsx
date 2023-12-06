@@ -4,9 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import bg3 from "../../assets/bg3.jpg";
 import theme from "../../theme";
-
+import { fetchAllAdsApi, fetchUserDetailsApi } from "../../apis";
+import { fetchUserDetails } from "../../Store/UserSlice";
+import { updateprofileAPI } from "../../apis";
 
 const UpdateProfileForm = () => {
+  const dispatch = useDispatch()
+
   const user=useSelector(state=>state.user.userDetails)
   const navigate = useNavigate()
   
@@ -26,16 +30,28 @@ const UpdateProfileForm = () => {
     setYear(user.year || "" )
     setBranch(user.branch || "")
   },[])
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
+const id = user._id
+const data = {
+  id,
+  name,
+  collegeName,
+  year,branch
+
+}
+
+await updateprofileAPI(data);
+dispatch(fetchUserDetails(user._id))
+navigate("/user")
 
     // Perform basic form validation
-    if (name !== "" && collegeName !== "" && year !== "" && branch !== "") {
-      console.log("Profile updated successfully!");
-      // Add logic to update the user's profile with the provided information
-    } else {
-      alert("Please provide relevant information!");
-    }
+    // if (name !== "" && collegeName !== "" && year !== "" && branch !== "") {
+    //   console.log("Profile updated successfully!");
+    //   // Add logic to update the user's profile with the provided information
+    // } else {
+    //   alert("Please provide relevant information!");
+    // }
   };
 
   return (
@@ -73,24 +89,24 @@ const UpdateProfileForm = () => {
           <TextField
             id="name"
             onChange={(e) => setName(e.target.value)}
-            value={name}
+            value={user.name}
             label="Name *"
-            placeholder="Your full name"
+            placeholder="new name"
             variant="outlined"
           />
 
           <TextField
             id="collegeName"
             onChange={(e) => setCollegeName(e.target.value)}
-            value={collegeName}
+            value={user.college_name}
             label="College Name *"
-            placeholder="Name of your college"
+            placeholder="college"
             variant="outlined"
           />
           <TextField
             id="year"
             onChange={(e) => setYear(e.target.value)}
-            value={year}
+            value={user.year}
             label="Year *"
             placeholder="Your academic year"
             variant="outlined"
@@ -98,7 +114,7 @@ const UpdateProfileForm = () => {
           <TextField
             id="branch"
             onChange={(e) => setBranch(e.target.value)}
-            value={branch}
+            value={user.branch}
             label="Branch *"
             placeholder="Your branch of study"
             variant="outlined"

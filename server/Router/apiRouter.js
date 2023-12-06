@@ -66,8 +66,7 @@ router.get("/ad/delete/:id/mail/:eid", delProductAPI);
 router.post("/form", upload.array("images", 5), submitForm);
 
 router.post(
-  "/update_form/:id/update/:email",
-  upload.single("photo"),
+  "/update_form",
   updateFormAPI
 );
 router.post("/user/register", addUserAPI);

@@ -12,6 +12,8 @@ const UserSchema = new mongoose.Schema(
         college_name: String,
         ads:[String],
         report:[String],
+        year: Number,
+        branch:String
     }
 );
 

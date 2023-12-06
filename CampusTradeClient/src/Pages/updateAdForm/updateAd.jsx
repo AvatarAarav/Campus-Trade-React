@@ -8,20 +8,24 @@ import {
     Typography,
   } from "@mui/material";
   import React, { useState } from "react";
-  import { useSelector } from "react-redux";
+  // import { useSelector } from "react-redux";
   import { useNavigate } from "react-router-dom";
   import { TagsInput } from "react-tag-input-component";
   import photo from "../../assets/desktop.jpg";
   import bg1 from "../../assets/bg1.jpg";
   import bg2 from "../../assets/bg2.jpg";
   import bg3 from "../../assets/bg3.jpg";
-  import { productADDAPI } from "../../apis";
+  // import { productADDAPI } from "../../apis";
   import { BackHand, Keyboard } from "@mui/icons-material";
-  
+  import { useDispatch, useSelector } from 'react-redux';
+import { updateadAPI } from "../../apis";
   const AdUpdate = () => {
     const navigate = useNavigate()
   
     const loggedIn=useSelector(state=>state.user.loggedIn)
+
+const product = useSelector(state=>state.product.adDetails)
+
     useEffect(()=>{
       if(!loggedIn){navigate('/')}
     },[])
@@ -44,6 +48,18 @@ import {
       console.log("Uploaded files:", files);
     };
   
+    useEffect(()=>{
+      setname(product.name)
+      setprice(product.price)
+      setage(product.age)
+      setdescription(product.description)
+      setsubname(product.subtitle)
+      settags(product.tags)
+      setFeatures(product.features)
+
+    },[])
+
+
     const handleSubmit = (event) => {
       event.preventDefault(); // Prevents default form submission behavior
   
@@ -61,11 +77,7 @@ import {
       } else {
         alert("please provide relevant information...!");
       }
-       const formData = new FormData();
-    // Append each selected file to the FormData object
-    for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
-    }
+    
       const adData =
       {
         name,
@@ -74,11 +86,9 @@ import {
         description, subname,
         tags,features
       }
-  
-      formData.append('adData', JSON.stringify(adData));
-      console.log([...formData])
-  productADDAPI(formData)
-  
+
+  updateadAPI(adData)
+  navigate("/user")
     };
   
     return (
@@ -217,23 +227,7 @@ import {
                 alignItems: "center",
               }}
             >
-              <Box>
-                <input
-                  accept="image/*" // Specify accepted file types if needed, e.g., "image/*,.pdf,.doc"
-                  id="file-upload"
-                  required
-                  type="file"
-                  name="images"
-                  onChange={handleFileUpload}
-                  style={{ position: "absolute", display: "none" }}
-                  multiple // Allow multiple file selection
-                />
-                <label htmlFor="file-upload">
-                  <Button variant="contained" color="success" component="span">
-                    <Typography variant="p">Upload Additional Images</Typography>
-                  </Button>
-                </label>
-              </Box>
+
               <Button
                 variant="contained"
                 onClick={handleSubmit}
