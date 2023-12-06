@@ -1,68 +1,84 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Box, IconButton, Typography } from '@mui/material'
-import { Backdrop, Button, Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
-import React, { useState } from 'react'
-import GoogleLoginButton from './GoogleLoginButton';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Box, IconButton, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  Checkbox,
+  Fade,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  InputAdornment,
+  InputLabel,
+  Modal,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
+import React, { useState } from "react";
+import GoogleLoginButton from "./GoogleLoginButton";
 import { fetchUserDetails, loginReducer } from "../../Store/UserSlice";
-import { sendOtpAPI, signUpAPI } from '../../apis';
-import { useDispatch } from 'react-redux';
+import { sendOtpAPI, signUpAPI } from "../../apis";
+import { useDispatch } from "react-redux";
 
 const style = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '330px',
-  bgcolor: 'background.paper',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "330px",
+  bgcolor: "background.paper",
   borderRadius: 2,
   boxShadow: 24,
   p: 4,
 };
 
 const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
-
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const [name, setname] = useState('');
-  const [college_name, setcollege_name] = useState('');
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
+  const [name, setname] = useState("");
+  const [college_name, setcollege_name] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
   const handleOTP = () => {
-    sendOtpAPI(email)
-  }
-  const handleSignup = async() => {
-
-
-    const userData =
-    {
+    sendOtpAPI(email);
+  };
+  const handleSignup = async () => {
+    const pattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!pattern.test(password)) {
+      alert("Make your password Strong.");
+      return;
+    }
+    const userData = {
       name,
       college_name,
       email,
-      password, otp
-    }
+      password,
+      otp,
+    };
 
     signUpAPI(userData)
-      .then((response)=>{
-        const data =response.data;
-        dispatch(fetchUserDetails(data.id))
+      .then((response) => {
+        const data = response.data;
+        dispatch(fetchUserDetails(data.id));
         dispatch(loginReducer());
       })
-      .catch((error)=>{ 
+      .catch((error) => {
         alert(error.response.data.error);
-      })
-      handleCloseSignup()
-  }
+      });
+    handleCloseSignup();
+  };
 
   return (
     <Box>
@@ -81,9 +97,16 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
       >
         <Fade in={openModalSignup}>
           <Box sx={style}>
-            <Typography color='primary' sx={{ fontSize: 'xx-large', marginBottom: '20px' }} variant='h5' component='h5'>Signup</Typography>
+            <Typography
+              color="primary"
+              sx={{ fontSize: "xx-large", marginBottom: "20px" }}
+              variant="h5"
+              component="h5"
+            >
+              Signup
+            </Typography>
             <TextField
-              sx={{ width: '300px', margin: '10px' }}
+              sx={{ width: "300px", margin: "10px" }}
               // error
               id="outlined-error1"
               value={name}
@@ -91,7 +114,7 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               label="username"
             />
             <TextField
-              sx={{ width: '300px', margin: '10px' }}
+              sx={{ width: "300px", margin: "10px" }}
               // error
               id="outlined-error2"
               value={college_name}
@@ -99,28 +122,39 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               label="college name"
             />
             <TextField
-              sx={{ width: '300px', margin: '10px' }}
+              sx={{ width: "300px", margin: "10px" }}
               // error
               id="outlined-error3"
               onChange={(e) => setemail(e.target.value)}
               label="email"
               value={email}
             />
-            <Button sx={{ width: '200px', margin: '10px' }} variant='contained' onClick={handleOTP}>Generate OTP</Button>
+            <Button
+              sx={{ width: "300px", margin: "10px" }}
+              variant="contained"
+              onClick={handleOTP}
+            >
+              Generate OTP
+            </Button>
             <TextField
-              sx={{ width: '300px', margin: '10px' }}
+              sx={{ width: "300px", margin: "10px" }}
               // error
               id="outlined-error4"
               onChange={(e) => setOtp(e.target.value)}
               label="OTP"
               value={otp}
             />
-            <FormControl sx={{ width: '300px', margin: '10px' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">new password</InputLabel>
+            <FormControl
+              sx={{ width: "300px", margin: "10px" }}
+              variant="outlined"
+            >
+              <InputLabel htmlFor="outlined-adornment-password">
+                new password
+              </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
                 onChange={(e) => setpassword(e.target.value)}
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 value={password}
                 endAdornment={
                   <InputAdornment position="end">
@@ -137,14 +171,26 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
                 label="create password"
               />
             </FormControl>
-            <Button sx={{ width: '300px', margin: '10px' }} variant='contained' onClick={handleSignup}>Signup</Button>
-            <Button sx={{ width: '300px', margin: '10px' }} variant='outlined' onClick={toLogin}>Already Have a account</Button>
-            <GoogleLoginButton closeModal={handleCloseSignup}/>
+            <Button
+              sx={{ width: "300px", margin: "10px" }}
+              variant="contained"
+              onClick={handleSignup}
+            >
+              Signup
+            </Button>
+            <Button
+              sx={{ width: "300px", margin: "10px" }}
+              variant="outlined"
+              onClick={toLogin}
+            >
+              Already Have a account
+            </Button>
+            <GoogleLoginButton closeModal={handleCloseSignup} />
           </Box>
         </Fade>
       </Modal>
     </Box>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
