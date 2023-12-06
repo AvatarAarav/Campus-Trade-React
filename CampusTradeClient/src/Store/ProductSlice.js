@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAdDetailsApi } from "../apis";
 const initialState = {
+  search: "",
   adDetails: {
     id: "",
-    title: "",
+    name: "",
     price: "",
     age: "",
     desc: "",
-    subtitle: "",
+    subname: "",
     tags: [],
     features: [],
     img_id: [],
@@ -35,9 +36,9 @@ export const productSlice = createSlice({
   initialState,
 
   reducers: {
-    changeProduct: (state, action) => {
-      state.id = action.payload;
-    },
+    setSearch:(state,action)=>{
+      state.search=action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdDetails.fulfilled, (state, action) => {
@@ -53,5 +54,5 @@ export const productSlice = createSlice({
     });
   },
 });
-export const { changeProduct } = productSlice.actions;
+export const { changeProduct ,setSearch} = productSlice.actions;
 export default productSlice.reducer;

@@ -154,7 +154,7 @@ const Adform = () => {
           />
           <TextField
             id="description"
-            label="descriptionription *"
+            label="description *"
             multiline
             rows={5}
             onChange={(e) => setdescription(e.target.value)}

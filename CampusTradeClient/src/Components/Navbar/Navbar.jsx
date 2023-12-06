@@ -43,6 +43,7 @@ import { useTheme } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutReducer, loginReducer } from "../../Store/UserSlice";
 import { useNavigate } from "react-router-dom";
+import { setSearch } from "../../Store/ProductSlice";
 
 const Toolbaar = styled(Toolbar)({
   display: "flex",
@@ -88,6 +89,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const search=useSelector(state=>state.product.search);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -293,6 +295,8 @@ function Navbar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              value={search}
+              onChange={(e)=>{dispatch(setSearch(e.target.value))}}
               placeholder="Search for products, sellers and more"
               inputProps={{ "aria-label": "search" }}
             />
