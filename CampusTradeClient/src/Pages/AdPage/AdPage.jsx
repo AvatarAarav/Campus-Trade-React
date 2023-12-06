@@ -411,10 +411,10 @@ function AdPage() {
                 variant="contained"
                 color="primary"
                 onClick={handlePayment}
-                disabled={isOwner}
+                disabled={isOwner || ad.sold}
                 startIcon={<ShoppingCart />}
               >
-                Buy Now
+                {ad.sold?"SOLD":"Buy Now"} 
               </Button>
               <Button
                 onClick={handleAdWishList}
