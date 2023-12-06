@@ -56,14 +56,13 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await checkLoginAPI(admin,email,password);
+      const response = await checkLoginAPI(admin, email, password);
       const data = await response.data;
-      console.log(data)
-      if(data.id==-1){
-        alert('Email or Password is incorrect');
-      }
-      else{
-        dispatch(fetchUserDetails(data.id))
+      console.log(data);
+      if (data.id == -1) {
+        alert("Email or Password is incorrect");
+      } else {
+        dispatch(fetchUserDetails(data.id));
         dispatch(loginReducer());
       }
     } catch (error) {
@@ -148,7 +147,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
             </Box>
             <Button
               color="secondary"
-              sx={{ width: "180px", margin: "10px" }}
+              sx={{ width: "300px", margin: "10px" }}
               variant="contained"
               onClick={handleLogin}
             >
@@ -156,7 +155,7 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
             </Button>
             <Button
               color="secondary"
-              sx={{ width: "180px", margin: "10px" }}
+              sx={{ width: "300px", margin: "10px" }}
               variant="outlined"
               onClick={toSignup}
             >

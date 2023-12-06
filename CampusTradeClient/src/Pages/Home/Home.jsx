@@ -58,11 +58,15 @@ function Home() {
         <Container>
           <CssBaseline />
           <div style={textContainerStyle}>
-            <Typography variant="h1">WELCOME</Typography>
+            <Typography color="secondary" variant="h1" fontFamily="cursive">
+              WELCOME
+            </Typography>
             <Typography variant="h4">TO</Typography>
-            <Typography variant="h1">CAMPUS TRADE</Typography>
+            <Typography variant="h1" fontFamily="cursive">
+              CAMPUS TRADE
+            </Typography>
           </div>
-          <Typography>
+          <Typography fontFamily="cursive">
             "Connecting Campus Communities, One Trade at a Time - CampusTrade,
             Your Gateway to Student Exchanges!"
           </Typography>

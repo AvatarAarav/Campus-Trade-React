@@ -1,93 +1,109 @@
-import React, { useState } from 'react'
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import Toolbar from '@mui/material/Toolbar';
-import { Face, FavoriteRounded, Shop, ShoppingBag, ShoppingCart, Visibility, VisibilityOff } from '@mui/icons-material';
-import { Backdrop, Button, ButtonGroup,Checkbox, Fade, FormControl, FormControlLabel, FormHelperText, InputAdornment, InputLabel, Modal, OutlinedInput, TextField } from '@mui/material';
-import Login from './Login';
-import Signup from './Signup';
-import { useTheme } from '@mui/material/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { logOutReducer, loginReducer } from '../../Store/UserSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { styled, alpha } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import InputBase from "@mui/material/InputBase";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import Toolbar from "@mui/material/Toolbar";
+import {
+  Face,
+  FavoriteRounded,
+  Shop,
+  ShoppingBag,
+  ShoppingCart,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
+import {
+  Backdrop,
+  Button,
+  ButtonGroup,
+  Checkbox,
+  Chip,
+  Fade,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  InputAdornment,
+  InputLabel,
+  Modal,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
+import Login from "./Login";
+import Signup from "./Signup";
+import { useTheme } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutReducer, loginReducer } from "../../Store/UserSlice";
+import { useNavigate } from "react-router-dom";
 
 const Toolbaar = styled(Toolbar)({
-  display: 'flex',
-  justifyContent: 'space-around',
-})
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
+  display: "flex",
+  justifyContent: "space-around",
+});
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.25),
-  '&:hover': {
-    backgroundColor: '',
+  "&:hover": {
+    backgroundColor: "",
   },
   marginLeft: 0,
-  width: '40%',
-  [theme.breakpoints.up('sm')]: {
+  width: "40%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: '40%',
+    width: "40%",
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  width: "100%",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
+    transition: theme.transitions.create("width"),
+    [theme.breakpoints.up("md")]: {
+      width: "100%",
     },
   },
 }));
 
-
-
-
-
-
-
 function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
-  const loggedIn = useSelector(state => state.user.loggedIn)
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+  const uname = useSelector((state) => state.user.userDetails.name);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleProfile=()=>{
-    navigate('/user')
-    handleMenuClose()
-  }
+  const handleProfile = () => {
+    navigate("/user");
+    handleMenuClose();
+  };
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -114,38 +130,35 @@ function Navbar() {
     setTimeout(() => {
       handleOpenSignup();
     }, 500);
-  }
+  };
 
   const toLogin = () => {
     handleCloseSignup();
     setTimeout(() => {
       handleOpenLogin();
     }, 500);
-  }
-    ;
-
+  };
   const handleLogout = () => {
-    dispatch(logOutReducer())
-    navigate('/')
+    dispatch(logOutReducer());
+    navigate("/");
     handleMenuClose();
-  }
+  };
 
   const theme = useTheme();
 
-
-  const menuId = 'primary-search-account-menu';
+  const menuId = "primary-search-account-menu";
   const renderSubMenu = (
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
@@ -162,58 +175,68 @@ function Navbar() {
         <Button onClick={handleOpenSignup}>Register</Button>
       </ButtonGroup>
     </>
-  )
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  );
+  const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
-
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
       <MenuItem sx={{ color: theme.palette.text.secondary }}>
-        <IconButton size="large" aria-label="show 4 new mailsrenderLoginButton" color="inherit">
+        <IconButton
+          size="large"
+          aria-label="show 4 new mailsrenderLoginButton"
+          color="inherit"
+        >
           <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon sx={{ color: theme.palette.primary.dark }} onClick={handleOpenLogin} />
+            <NotificationsIcon
+              sx={{ color: theme.palette.primary.dark }}
+              onClick={handleOpenLogin}
+            />
           </Badge>
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
       <MenuItem sx={{ color: theme.palette.text.secondary }}>
-        <IconButton
-          size="large"
-          aria-label="show 17 new items"
-          color="inherit"
-        >
-          <Badge variant='dot' badgeContent={17} color="secondary">
-            <FavoriteRounded sx={{ color: theme.palette.primary.dark }} fontSize='lg' onClick={handleOpenSignup} />
+        <IconButton size="large" aria-label="show 17 new items" color="inherit">
+          <Badge variant="dot" badgeContent={17} color="secondary">
+            <FavoriteRounded
+              sx={{ color: theme.palette.primary.dark }}
+              fontSize="lg"
+              onClick={handleOpenSignup}
+            />
           </Badge>
         </IconButton>
         <p>Wishlist</p>
       </MenuItem>
       <MenuItem sx={{ color: theme.palette.text.secondary }}>
-        <IconButton
-          size="large"
-          aria-label="show 17 new items"
-          color="inherit"
-        >
-          <Badge variant='dot' badgeContent={17} color="secondary">
-            <ShoppingCart sx={{ color: theme.palette.primary.dark }} fontSize='lg' onClick={handleOpenSignup} />
+        <IconButton size="large" aria-label="show 17 new items" color="inherit">
+          <Badge variant="dot" badgeContent={17} color="secondary">
+            <ShoppingCart
+              sx={{ color: theme.palette.primary.dark }}
+              fontSize="lg"
+              onClick={handleOpenSignup}
+            />
           </Badge>
         </IconButton>
         <p>Cart</p>
       </MenuItem>
-      <MenuItem sx={{ color: theme.palette.text.secondary }} fontSize='lg' onClick={handleProfileMenuOpen}>
+      <MenuItem
+        sx={{ color: theme.palette.text.secondary }}
+        fontSize="lg"
+        onClick={handleProfileMenuOpen}
+      >
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -221,107 +244,125 @@ function Navbar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <Face sx={{ color: theme.palette.primary.dark }} />
+          {loggedIn && (
+            <Face fontSize="lg" sx={{ color: theme.palette.primary.main }} />
+          )}
+          {loggedIn && <Chip label={uname} />}
         </IconButton>
         <p>Profile</p>
       </MenuItem>
     </Menu>
   );
 
-
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: theme.palette.background.paper }} >
-        <Toolbaar >
-
-          <Shop sx={{ display: { xs: 'block', sm: 'none' }, color: theme.palette.secondary.main }} />
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: theme.palette.background.paper }}
+      >
+        <Toolbaar>
+          <Shop
+            sx={{
+              display: { xs: "block", sm: "none" },
+              color: theme.palette.secondary.main,
+            }}
+          />
           <Typography
             variant="h5"
             noWrap
             component="div"
-            onClick={()=>{navigate('/')}}
-            sx={{ display: { xs: 'none', sm: 'block' }, fontFamily: 'cursive', fontWeight: '1000', color: theme.palette.text.primary }}
+            onClick={() => {
+              navigate("/");
+            }}
+            sx={{
+              display: { xs: "none", sm: "block" },
+              fontFamily: "cursive",
+              fontWeight: "1000",
+              color: theme.palette.text.primary,
+            }}
           >
             Campus Trade
           </Typography>
-          <Search sx={{ backgroundColor: theme.palette.background.default, color: theme.palette.text.secondary }}>
+          <Search
+            sx={{
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.text.secondary,
+            }}
+          >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search for products, sellers and more"
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ "aria-label": "search" }}
             />
           </Search>
 
-          <div style={{ position: 'absolute' }}>
-            <Login openModalLogin={openModalLogin} handleCloseLogin={handleCloseLogin} toSignup={toSignup} />
-            <Signup openModalSignup={openModalSignup} handleCloseSignup={handleCloseSignup} toLogin={toLogin} />
+          <div style={{ position: "absolute" }}>
+            <Login
+              openModalLogin={openModalLogin}
+              handleCloseLogin={handleCloseLogin}
+              toSignup={toSignup}
+            />
+            <Signup
+              openModalSignup={openModalSignup}
+              handleCloseSignup={handleCloseSignup}
+              toLogin={toLogin}
+            />
           </div>
 
+          {loggedIn ? (
+            <>
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <IconButton size="large" aria-label="show 17 new notifications">
+                  <Badge badgeContent={17} variant="dot" color="secondary">
+                    <FavoriteRounded
+                      fontSize="lg"
+                      sx={{ color: theme.palette.primary.main }}
+                      onClick={handleProfile}
+                    />
+                  </Badge>
+                </IconButton>
 
-          {loggedIn ? <><Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="theme.palette.secondary.main">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon fontSize='lg' sx={{ color: theme.palette.primary.main }} onClick={handleOpenLogin} />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-
-            >
-              <Badge badgeContent={17} variant='dot' color="secondary">
-                <FavoriteRounded fontSize='lg' sx={{ color: theme.palette.primary.main }} onClick={handleOpenSignup} />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-
-            >
-              <Badge badgeContent={5} color="secondary">
-                <ShoppingCart fontSize='lg' sx={{ color: theme.palette.primary.main }} onClick={handleOpenSignup} />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-            >
-              {loggedIn && <Face fontSize='lg' sx={{ color: theme.palette.primary.main }} />}
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-          <IconButton
-            size="large"
-            aria-label="show more"
-            aria-controls={mobileMenuId}
-            aria-haspopup="true"
-            onClick={handleMobileMenuOpen}
-            color="theme.palette.secondary.main"
-          >
-            <MoreIcon fontSize='lg' />
-          </IconButton>
-        </Box></>
-          :
-          renderLoginButton
-          }
-          
-
-
-
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="user profile"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                >
+                  {loggedIn && (
+                    <Face
+                      fontSize="lg"
+                      sx={{ color: theme.palette.primary.main }}
+                    />
+                  )}
+                  {loggedIn && <Chip label={uname} />}
+                </IconButton>
+              </Box>
+              <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="show more"
+                  aria-controls={mobileMenuId}
+                  aria-haspopup="true"
+                  onClick={handleMobileMenuOpen}
+                  color="theme.palette.secondary.main"
+                >
+                  <MoreIcon fontSize="lg" />
+                </IconButton>
+              </Box>
+            </>
+          ) : (
+            renderLoginButton
+          )}
         </Toolbaar>
       </AppBar>
       {renderMobileMenu}
       {renderSubMenu}
-
-      
     </Box>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
