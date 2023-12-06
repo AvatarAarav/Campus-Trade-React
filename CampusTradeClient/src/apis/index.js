@@ -16,5 +16,6 @@ export const productADDAPI = (adData) => API.post("/form", adData);
 export const wishlistAPI = (uid,id) => API.get(`/ad/buy/${id}/uid/${uid}`) 
 export const googleLoginAPI = (googleObject) =>
   API.post("/user/google", googleObject);
+export const boughtAdAPI = (data) => API.post("/ad/bought",data)
 
 
