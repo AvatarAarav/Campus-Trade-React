@@ -29,6 +29,7 @@ const ProductSchema = new mongoose.Schema(
             type:String,
             timestamp:Number
         }],
+        
         report:{type:Number,default:0},
         img_id : [String]
     }
