@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TagsInput } from "react-tag-input-component";
 import photo from "../../assets/desktop.jpg";
@@ -19,10 +19,12 @@ import { BackHand, Keyboard } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 const Adform = () => {
   const navigate = useNavigate();
-  const loggedIn=useSelector(state=>state.user.loggedIn)
-  useEffect(()=>{
-    if(!loggedIn){navigate('/')}
-  },[])
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate("/");
+    }
+  }, []);
 
   const [name, setname] = useState("");
   const [price, setprice] = useState("");
@@ -35,7 +37,6 @@ const Adform = () => {
   const [features, setFeatures] = useState([]);
 
   const id = useSelector((state) => state.user.userDetails._id);
-  
 
   const handleFileUpload = (event) => {
     const files = event.target.files;
@@ -59,9 +60,10 @@ const Adform = () => {
       images.length !== 0
     ) {
       // console.log(images);
-      console.log("Form submitted successfully!");
+      alert("Form submitted successfully!");
     } else {
       alert("please provide relevant information...!");
+      return;
     }
     const formData = new FormData();
     // Append each selected file to the FormData object

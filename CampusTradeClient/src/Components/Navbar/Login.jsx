@@ -141,10 +141,10 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
                 label="password"
               />
             </FormControl>
-            <Box onClick={(e) => setadmin(!admin)}>
+            {/* <Box onClick={(e) => setadmin(!admin)}>
               {admin ? <CheckBox /> : <CheckBoxOutlineBlank />}
               Admin
-            </Box>
+            </Box> */}
             <Button
               color="secondary"
               sx={{ width: "300px", margin: "10px" }}
