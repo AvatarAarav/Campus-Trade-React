@@ -4,24 +4,24 @@ import Users from "../db/Models/User.js";
 
 export const updateFormAPI=async (req,res)=>{
     try {
-        const photo = req.file;
-        const productId = req.params.id; // assuming you have an input field for productId in your form
+      
+        const productId = req.body.id; // assuming you have an input field for productId in your form
         const Updating_product = await Products.findById(productId);
        
         if (!Updating_product) {
             return res.status(404).json({ message: 'Product not found' });
         }
         Updating_product.name = req.body.name;
-        Updating_product.type = req.body.type;
+        // Updating_product.type = req.body.type;
         Updating_product.description = req.body.description;
         Updating_product.price = req.body.price;
         Updating_product.age = req.body.age;
-        if(photo){
-        Updating_product.img_type = photo.mimetype;
-        Updating_product.img_content = fs.readFileSync(photo.path);
-        }
+        Updating_product.tags = req.body.tags
+        Updating_product.features = req.body.features
+        Updating_product.subtitle = req.body.subname
+     
         await Updating_product.save();
-        const udata = await Users.find({ email: req.params.email });
+        // const udata = await Users.find({ email: req.params.email });
 
         res.status(200).json( { user: udata[0] });
     } catch (error) {
