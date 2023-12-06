@@ -46,13 +46,16 @@ import ImageGallery from "react-image-gallery";
 
 function AdPage() {
   // we should get this ad as a prop to this page
-  const navigate=useNavigate();
-  const loggedIn=useSelector(state=>state.user.loggedIn)
-  useEffect(()=>{
-    if(!loggedIn){navigate('/')}
-  },[])
- 
-  const socket = io('http://localhost:3000', { transports : ['websocket'] });
+  const navigate = useNavigate();
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+  const [liked, setliked] = useState(false);
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate("/");
+    }
+  }, []);
+
+  const socket = io("http://localhost:3000", { transports: ["websocket"] });
   const [ads, setads] = useState({
     title: "C-Type charger",
     price: 300,
@@ -91,9 +94,9 @@ function AdPage() {
 
   //
   const ad = useSelector((state) => state.product.adDetails);
-const user = useSelector((state) => state.user.userDetails)
-// console.log(user)
-// console.log(ad)
+  const user = useSelector((state) => state.user.userDetails);
+  // console.log(user)
+  // console.log(ad)
   // console.log("ad fetched from store", ad);
 
   const constructImageLinks = (imageIds) => {
@@ -249,16 +252,22 @@ const user = useSelector((state) => state.user.userDetails)
         timestamp: +new Date(),
       }),
     });
-    socket.emit('chat message', message);
+    socket.emit("chat message", message);
   };
-const handleAdWishList = () =>
-{
-  // console.log("clicked")
-wishlistAPI(user._id,ad._id)
-  socket.on('chat message',(message)=>{
-    console.log(message)
-  })
-}
+  useEffect(() => {
+    socket.on("chat message", (message) => {
+      console.log(message);
+    });
+  }, []);
+
+  const handleAdWishList = () => {
+    // console.log("clicked")
+    if (!liked) {
+      wishlistAPI(user._id, ad._id);
+    } else {
+    }
+    setliked(!liked);
+  };
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
       <Container>
@@ -405,13 +414,13 @@ wishlistAPI(user._id,ad._id)
                 Buy Now
               </Button>
               <Button
-              onClick={handleAdWishList}
+                onClick={handleAdWishList}
                 size="large"
                 variant="outlined"
-                color="secondary"
+                color={liked ? "primary" : "secondary"}
                 startIcon={<Favorite />}
               >
-                wishlist
+                {liked ? "wishlisted" : "wishlist"}
               </Button>
               <Button
                 size="large"
