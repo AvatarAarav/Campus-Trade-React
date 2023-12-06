@@ -35,6 +35,10 @@ const CardContainer = () => {
   const loggedIn=useSelector(state=>state.user.loggedIn)
   const navigate = useNavigate();
   const handleOpenAd = (id) => {
+    if(!loggedIn){
+      alert("Please Login to view the ad")
+      return
+    }
     dispatch(fetchAdDetails(id));
     navigate("/ad");
   };
@@ -103,8 +107,8 @@ const CardContainer = () => {
       >
         {ads.map((ad) => {
           return (
-            <Card key={ad._id} sx={{ width: 300, height: 430 }}>
-              <CardActionArea>
+            <Card key={ad._id} sx={{ width: 300, height: 400 }}>
+              <CardActionArea onClick={()=>handleOpenAd(ad._id)}>
                 <CardMedia
                   component="img"
                   height="300"
@@ -130,7 +134,7 @@ const CardContainer = () => {
                   </Box>
                 </CardContent>
               </CardActionArea>
-              <CardActions>
+              {/* <CardActions>
                 <Box
                   sx={{
                     width: "100%",
@@ -154,7 +158,7 @@ const CardContainer = () => {
                     checkedIcon={<Favorite />}
                   />
                 </Box>
-              </CardActions>
+              </CardActions> */}
             </Card>
           );
         })}

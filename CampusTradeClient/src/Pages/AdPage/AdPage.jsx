@@ -24,7 +24,7 @@ import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
 import ChatBox, { ChatFrame } from "react-chat-plugin";
 import { Navigate, useNavigate } from "react-router-dom";
-import { wishlistAPI } from "../../apis";
+import { boughtAdAPI, wishlistAPI } from "../../apis";
 import {
   Chat,
   CurrencyRupee,
@@ -137,7 +137,7 @@ function AdPage() {
       description: "Test Payment",
       order_id: orderId,
       handler: function (response) {
-        console.log(response);
+        boughtAdAPI(ad._id,user._id)
       },
       prefill: {
         name: "Test User",
