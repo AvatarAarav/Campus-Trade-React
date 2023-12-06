@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
-import { Box, Button, Card, CardContent, CardMedia, Typography, Rating } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Rating,
+  CardActionArea,
+} from "@mui/material";
 import theme from "../../theme";
 import desktop from "../../assets/desktop.jpg";
 import { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import {  useSelector } from 'react-redux';
-
-
-function UserData({ user, onEditProfile ,postad,userRating}) {
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { fetchAdDetails } from "../../Store/ProductSlice";
+import { fetchAllAdsApi } from "../../apis/index";
+import { CurrencyRupee } from "@mui/icons-material";
+function UserData({ user, onEditProfile, postad, userRating }) {
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -19,17 +29,16 @@ function UserData({ user, onEditProfile ,postad,userRating}) {
           border: "1px solid",
           padding: "10px",
           borderRadius: "20px",
-         
+
           backgroundColor: "rgba(66, 66, 66, 0.8)",
         }}
       >
         <Box className="redbox" sx={{ padding: "20px", color: "secondary" }}>
-        <img
-             src="https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png"
-             alt="Profile"
-             style={{ maxWidth: "200px", borderRadius: "50%" }}
-        />
-
+          <img
+            src="https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png"
+            alt="Profile"
+            style={{ maxWidth: "200px", borderRadius: "50%" }}
+          />
         </Box>
         <Box sx={{ padding: "20px" }}>
           <Typography variant="h2" sx={{ fontSize: "50px", color: "#fff" }}>
@@ -69,7 +78,7 @@ function UserData({ user, onEditProfile ,postad,userRating}) {
           }}
         >
           <Button
-            onClick={onEditProfile} 
+            onClick={onEditProfile}
             sx={{
               margin: "5px",
               height: "50px",
@@ -86,7 +95,7 @@ function UserData({ user, onEditProfile ,postad,userRating}) {
             Edit Profile
           </Button>
           <Button
-          onClick={postad}
+            onClick={postad}
             sx={{
               margin: "5px",
               height: "50px",
@@ -108,7 +117,13 @@ function UserData({ user, onEditProfile ,postad,userRating}) {
   );
 }
 
-function UserEarnings({ adsPosted, adsBought, earnings, adsBoughtMoney, profit }) {
+function UserEarnings({
+  adsPosted,
+  adsBought,
+  earnings,
+  adsBoughtMoney,
+  profit,
+}) {
   return (
     <Box
       sx={{
@@ -127,13 +142,15 @@ function UserEarnings({ adsPosted, adsBought, earnings, adsBoughtMoney, profit }
         Ads Bought:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {adsBought}
       </Typography>
       <Typography variant="body1" sx={{ color: "#fff" }}>
-        Earnings:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {earnings}
+        Earnings:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
+        {earnings}
       </Typography>
       <Typography variant="body1" sx={{ color: "#fff" }}>
         Ads Money: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{adsBoughtMoney}
       </Typography>
       <Typography variant="body1" sx={{ color: "#fff" }}>
-        Profit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{profit}
+        Profit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{profit}
       </Typography>
     </Box>
   );
@@ -141,39 +158,47 @@ function UserEarnings({ adsPosted, adsBought, earnings, adsBoughtMoney, profit }
 
 function AdCard({ ad, flag }) {
   return (
-    <Card sx={{ maxWidth: "200px", margin: "10px" }}>
-      <CardMedia component="img" height="140" src={ad.photo} alt="Ad" />
-      <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
-          Cost: {ad.cost}
-        </Typography>
-        
-        {!flag && (
-          <Button variant="contained" color="primary" sx={{ marginRight: "5px" }}>
-            Remove
-          </Button>
-        )}
-        
-        <Button variant="contained" color="secondary">
-          Like
-        </Button>
-        
-      </CardContent>
+    <Card key={ad._id} sx={{ width: 300, height: 400 }}>
+      <CardActionArea onClick={() => handleOpenAd(ad._id)}>
+        <CardMedia
+          component="img"
+          height="300"
+          src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+          alt="green iguana"
+        />
+        <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            color="text.secondary"
+            component="div"
+          >
+            {ad.name}
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography component="span" variant="h5">
+              {ad.price}
+            </Typography>
+            <span>
+              <CurrencyRupee />
+            </span>
+          </Box>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }
 
 function UserProfile() {
-  const navigate = useNavigate()
-  
-  const loggedIn=useSelector(state=>state.user.loggedIn)
-  useEffect(()=>{
-    if(!loggedIn){navigate('/')}
-  },[])
-  const user=useSelector(state=>state.user.userDetails)
-   
+  const navigate = useNavigate();
 
-
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+  useEffect(() => {
+    if (!loggedIn) {
+      navigate("/");
+    }
+  }, []);
+  const user = useSelector((state) => state.user.userDetails);
 
   const [userRating, setUserRating] = useState(5);
   const [adsPosted, setAdsPosted] = useState(700);
@@ -187,22 +212,30 @@ function UserProfile() {
     profit: -500,
   };
 
-  const [postedAds, setPostedAds] = useState([
-    { photo: "ad1.jpg", cost: 50 },
-    { photo: "ad2.jpg", cost: 30 },
-  ]);
+  const [postedAds, setPostedAds] = useState([]);
 
-  const [boughtAds, setBoughtAds] = useState([
-    { photo: "ad3.jpg", cost: 40 },
-    { photo: "ad4.jpg", cost: 25 },
-  ]);
-  
- 
+  useEffect(() => {
+    async function fetchdata() {
+      try {
+        const data = await fetchAllAdsApi();
+        setPostedAds(data.data.data);
+        setBoughtAds(data.data.data);
+        console.log(data.data.data);
+      } catch (error) {
+        // Handle errors here
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchdata();
+  }, []);
+
+  const [boughtAds, setBoughtAds] = useState([]);
+
   const handleEditProfile = () => {
-    navigate('/updateprofile')
+    navigate("/updateprofile");
   };
   const go_to_ad = () => {
-    navigate('/user/Ad');
+    navigate("/user/Ad");
   };
   const handlePostAd = () => {
     const newAd = { photo: "new_ad.jpg", cost: 60 };
@@ -228,46 +261,163 @@ function UserProfile() {
         minHeight: "50vh",
       }}
     >
-      <Box sx={{ backgroundColor: theme.palette.background.light, padding: "30px" }}>
+      <Box
+        sx={{
+          backgroundColor: theme.palette.background.light,
+          padding: "30px",
+        }}
+      >
         <Box sx={{ display: "flex" }}>
-          <UserData user={user} onEditProfile={handleEditProfile} postad={go_to_ad} userRating={userRating}/>
+          <UserData
+            user={user}
+            onEditProfile={handleEditProfile}
+            postad={go_to_ad}
+            userRating={userRating}
+          />
           <UserEarnings {...earnings} />
         </Box>
       </Box>
-      <Typography
-        variant="h3"
+
+      <Box
         sx={{
-          textAlign: "center",
-          border: "1px solid",
-          margin: "20px",
-          backgroundColor: theme.palette.primary.light,
-          color: "#fff",
+          width: "100%",
+          height: "900px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "30px",
         }}
       >
-        Ads Posted
-      </Typography>
-      <Box sx={{ display: "flex" }}>
-        {postedAds.map((ad, index) => (
-          <AdCard key={index} ad={ad} flag={true} />
-        ))}
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "1060px",
+            display: "flex",
+            padding: "20px 0px",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            backgroundColor: "lightsalmon",
+          }}
+        >
+          <Typography variant="h4">My Products</Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "1060px",
+            display: "flex",
+            gap: "30px",
+            flexWrap: "wrap",
+            overflowY: "auto",
+            height: "700px",
+            padding: { xs: "0px", sm: "40px" },
+            backgroundColor: "whitesmoke",
+          }}
+        >
+          {postedAds.map((ad) => {
+            return (
+              <Card key={ad._id} sx={{ width: 300, height: 400 }}>
+                <CardActionArea onClick={() => handleOpenAd(ad._id)}>
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+                    alt="green iguana"
+                  />
+                  <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      color="text.secondary"
+                      component="div"
+                    >
+                      {ad.name}
+                    </Typography>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Typography component="span" variant="h5">
+                        {ad.price}
+                      </Typography>
+                      <span>
+                        <CurrencyRupee />
+                      </span>
+                    </Box>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            );
+          })}
+        </Box>
       </Box>
 
-      <Typography
-        variant="h3"
+      <Box
         sx={{
-          textAlign: "center",
-          border: "1px solid",
-          margin: "20px",
-          backgroundColor: theme.palette.primary.light,
-          color: "#fff",
+          width: "100%",
+          height: "900px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "30px",
         }}
       >
-        Ads Bought
-      </Typography>
-      <Box sx={{ display: "flex" }}>
-        {boughtAds.map((ad, index) => (
-          <AdCard key={index} ad={ad} flag={false}/>
-        ))}
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "1060px",
+            display: "flex",
+            padding: "20px 0px",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            backgroundColor: "lightsalmon",
+          }}
+        >
+          <Typography variant="h4">Wishlist</Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "1060px",
+            display: "flex",
+            gap: "30px",
+            flexWrap: "wrap",
+            overflowY: "auto",
+            height: "700px",
+            padding: { xs: "0px", sm: "40px" },
+            backgroundColor: "whitesmoke",
+          }}
+        >
+          {postedAds.map((ad) => {
+            return (
+              <Card key={ad._id} sx={{ width: 300, height: 400 }}>
+                <CardActionArea onClick={() => handleOpenAd(ad._id)}>
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+                    alt="green iguana"
+                  />
+                  <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      color="text.secondary"
+                      component="div"
+                    >
+                      {ad.name}
+                    </Typography>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Typography component="span" variant="h5">
+                        {ad.price}
+                      </Typography>
+                      <span>
+                        <CurrencyRupee />
+                      </span>
+                    </Box>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            );
+          })}
+        </Box>
       </Box>
     </Box>
   );
