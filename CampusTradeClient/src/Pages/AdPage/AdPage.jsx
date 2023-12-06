@@ -23,7 +23,7 @@ import bg1 from "../../assets/bg1.jpg";
 import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
 import ChatBox, { ChatFrame } from "react-chat-plugin";
-
+import { wishlistAPI } from "../../apis";
 import {
   Chat,
   CurrencyRupee,
@@ -83,7 +83,9 @@ function AdPage() {
 
   //
   const ad = useSelector((state) => state.product.adDetails);
-
+const user = useSelector((state) => state.user.userDetails)
+// console.log(user)
+// console.log(ad)
   // console.log("ad fetched from store", ad);
 
   const constructImageLinks = (imageIds) => {
@@ -240,7 +242,12 @@ function AdPage() {
       }),
     });
   };
+const handleAdWishList = () =>
+{
+  // console.log("clicked")
+wishlistAPI(user._id,ad._id)
 
+}
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
       <Container>
@@ -387,6 +394,7 @@ function AdPage() {
                 Buy Now
               </Button>
               <Button
+              onClick={handleAdWishList}
                 size="large"
                 variant="outlined"
                 color="secondary"
