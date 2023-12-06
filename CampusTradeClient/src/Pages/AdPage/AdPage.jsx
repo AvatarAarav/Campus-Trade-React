@@ -45,6 +45,7 @@ import ImageGallery from "react-image-gallery";
 
 function AdPage() {
   // we should get this ad as a prop to this page
+  const socket = io('http://localhost:3000', { transports : ['websocket'] });
   const [ads, setads] = useState({
     title: "C-Type charger",
     price: 300,
@@ -241,12 +242,15 @@ const user = useSelector((state) => state.user.userDetails)
         timestamp: +new Date(),
       }),
     });
+    socket.emit('chat message', message);
   };
 const handleAdWishList = () =>
 {
   // console.log("clicked")
 wishlistAPI(user._id,ad._id)
-
+  socket.on('chat message',(message)=>{
+    console.log(message)
+  })
 }
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
