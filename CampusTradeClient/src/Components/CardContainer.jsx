@@ -20,15 +20,14 @@ import { useDispatch } from "react-redux";
 import { fetchAdDetails } from "../Store/ProductSlice.js";
 
 const CardContainer = () => {
-
   const dispatch = useDispatch();
-  const search=useSelector(state=>state.product.search);
-  const loggedIn=useSelector(state=>state.user.loggedIn)
+  const search = useSelector((state) => state.product.search);
+  const loggedIn = useSelector((state) => state.user.loggedIn);
   const navigate = useNavigate();
   const handleOpenAd = (id) => {
-    if(!loggedIn){
-      alert("Please Login to view the ad")
-      return
+    if (!loggedIn) {
+      alert("Please Login to view the ad");
+      return;
     }
     dispatch(fetchAdDetails(id));
     navigate("/ad");
@@ -42,14 +41,14 @@ const CardContainer = () => {
       try {
         const data = await fetchAllAdsApi();
         setads(data.data.data);
-        console.log(data.data.data)
+        console.log(data.data.data);
       } catch (error) {
         // Handle errors here
         console.error("Error fetching data:", error);
       }
     }
-    fetchdata()
-    setInterval(fetchdata,4000)
+    fetchdata();
+    setInterval(fetchdata, 4000);
   }, []);
 
   //   console.log(ads);
@@ -81,7 +80,7 @@ const CardContainer = () => {
       <Box
         sx={{
           width: "100%",
-          maxWidth: "980px",
+          maxWidth: "1060px",
           display: "flex",
           gap: "30px",
           flexWrap: "wrap",
@@ -92,42 +91,46 @@ const CardContainer = () => {
         }}
       >
         {ads
-        .filter((ad) => {
-          if(ad.tags.includes(search)) return true
-         return ad.name.includes(search) || ad.subname.includes(search) || ad.description.includes(search)
-        })
-        .map((ad) => {
-          return (
-            <Card key={ad._id} sx={{ width: 300, height: 400 }}>
-              <CardActionArea onClick={()=>handleOpenAd(ad._id)}>
-                <CardMedia
-                  component="img"
-                  height="300"
-                  src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
-                  alt="green iguana"
-                />
-                <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
-                  <Typography
-                    gutterBottom
-                    variant="h6"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    {ad.name}
-                  </Typography>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Typography component="span" variant="h5">
-                      {ad.price}
+          .filter((ad) => {
+            if (ad.tags.includes(search)) return true;
+            return (
+              ad.name.includes(search) ||
+              ad.subname.includes(search) ||
+              ad.description.includes(search)
+            );
+          })
+          .map((ad) => {
+            return (
+              <Card key={ad._id} sx={{ width: 300, height: 400 }}>
+                <CardActionArea onClick={() => handleOpenAd(ad._id)}>
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+                    alt="green iguana"
+                  />
+                  <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      color="text.secondary"
+                      component="div"
+                    >
+                      {ad.name}
                     </Typography>
-                    <span>
-                      <CurrencyRupee />
-                    </span>
-                  </Box>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          );
-        })}
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Typography component="span" variant="h5">
+                        {ad.price}
+                      </Typography>
+                      <span>
+                        <CurrencyRupee />
+                      </span>
+                    </Box>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            );
+          })}
       </Box>
     </Box>
   );
