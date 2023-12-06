@@ -15,7 +15,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { fetchAllAdsApi } from "../apis/index.js";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchAdDetails } from "../Store/ProductSlice.js";
 
@@ -32,6 +32,7 @@ const CardContainer = () => {
 
   const dispatch = useDispatch();
 
+  const loggedIn=useSelector(state=>state.user.loggedIn)
   const navigate = useNavigate();
   const handleOpenAd = (id) => {
     dispatch(fetchAdDetails(id));
@@ -142,6 +143,7 @@ const CardContainer = () => {
                 >
                   <Button
                     size="small"
+                    disabled={!loggedIn}
                     variant="contained"
                     onClick={() => handleOpenAd(ad._id)}
                   >

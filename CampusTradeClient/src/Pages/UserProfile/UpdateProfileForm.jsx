@@ -1,5 +1,6 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import bg3 from "../../assets/bg3.jpg";
 import theme from "../../theme";
@@ -7,6 +8,13 @@ import theme from "../../theme";
 
 const UpdateProfileForm = () => {
   const user=useSelector(state=>state.user.userDetails)
+  const navigate = useNavigate()
+  
+    const loggedIn=useSelector(state=>state.user.loggedIn)
+    useEffect(()=>{
+      if(!loggedIn){navigate('/')}
+    },[])
+
   const [name, setName] = useState("");
   const [collegeName, setCollegeName] = useState("");
   const [year, setYear] = useState("");

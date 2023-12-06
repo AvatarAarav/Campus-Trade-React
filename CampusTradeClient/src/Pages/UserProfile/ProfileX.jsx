@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Box, Button, Card, CardContent, CardMedia, Typography, Rating } from "@mui/material";
 import theme from "../../theme";
 import desktop from "../../assets/desktop.jpg";
+import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import {  useSelector } from 'react-redux';
 
@@ -165,6 +166,10 @@ function AdCard({ ad, flag }) {
 function UserProfile() {
   const navigate = useNavigate()
   
+  const loggedIn=useSelector(state=>state.user.loggedIn)
+  useEffect(()=>{
+    if(!loggedIn){navigate('/')}
+  },[])
   const user=useSelector(state=>state.user.userDetails)
    
 

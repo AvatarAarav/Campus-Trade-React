@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TagsInput } from "react-tag-input-component";
 import photo from "../../assets/desktop.jpg";
@@ -18,6 +18,12 @@ import { productADDAPI } from "../../apis";
 import { BackHand, Keyboard } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 const Adform = () => {
+  const navigate = useNavigate();
+  const loggedIn=useSelector(state=>state.user.loggedIn)
+  useEffect(()=>{
+    if(!loggedIn){navigate('/')}
+  },[])
+
   const [name, setname] = useState("");
   const [price, setprice] = useState("");
   const [age, setage] = useState("");
@@ -29,7 +35,7 @@ const Adform = () => {
   const [features, setFeatures] = useState([]);
 
   const id = useSelector((state) => state.user.userDetails._id);
-  const navigate = useNavigate();
+  
 
   const handleFileUpload = (event) => {
     const files = event.target.files;

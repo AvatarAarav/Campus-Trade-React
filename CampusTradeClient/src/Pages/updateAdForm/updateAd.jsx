@@ -8,6 +8,8 @@ import {
     Typography,
   } from "@mui/material";
   import React, { useState } from "react";
+  import { useSelector } from "react-redux";
+  import { useNavigate } from "react-router-dom";
   import { TagsInput } from "react-tag-input-component";
   import photo from "../../assets/desktop.jpg";
   import bg1 from "../../assets/bg1.jpg";
@@ -17,6 +19,14 @@ import {
   import { BackHand, Keyboard } from "@mui/icons-material";
   
   const AdUpdate = () => {
+    const navigate = useNavigate()
+  
+    const loggedIn=useSelector(state=>state.user.loggedIn)
+    useEffect(()=>{
+      if(!loggedIn){navigate('/')}
+    },[])
+
+
     const [name, setname] = useState("Harhan");
     const [price, setprice] = useState("200");
     const [age, setage] = useState("21");
