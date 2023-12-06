@@ -1,5 +1,5 @@
-import Users from "../db/Models/User";
-import Products from "../db/Models/Products";
+import Users from "../db/Models/User.js";
+import Products from "../db/Models/Products.js";
 
 export const UnbuyAPI=async (req,res)=>{
     try {

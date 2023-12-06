@@ -134,31 +134,6 @@ const CardContainer = () => {
                   </Box>
                 </CardContent>
               </CardActionArea>
-              {/* <CardActions>
-                <Box
-                  sx={{
-                    width: "100%",
-                    display: "flex",
-                    marginTop: "-8px",
-                    padding: "0px 10px",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    size="small"
-                    disabled={!loggedIn}
-                    variant="contained"
-                    onClick={() => handleOpenAd(ad._id)}
-                  >
-                    Buy now
-                  </Button>
-                  <Checkbox
-                    icon={<FavoriteBorder />}
-                    checkedIcon={<Favorite />}
-                  />
-                </Box>
-              </CardActions> */}
             </Card>
           );
         })}

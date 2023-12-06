@@ -24,7 +24,7 @@ import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
 import ChatBox, { ChatFrame } from "react-chat-plugin";
 import { Navigate, useNavigate } from "react-router-dom";
-import { boughtAdAPI, wishlistAPI } from "../../apis";
+import { boughtAdAPI, uwishlistAPI, wishlistAPI } from "../../apis";
 import {
   Chat,
   CurrencyRupee,
@@ -54,7 +54,6 @@ function AdPage() {
       navigate("/");
     }
   }, []);
-
   const socket = io("http://localhost:3000", { transports: ["websocket"] });
   const [ads, setads] = useState({
     title: "C-Type charger",
@@ -95,9 +94,11 @@ function AdPage() {
   //
   const ad = useSelector((state) => state.product.adDetails);
   const user = useSelector((state) => state.user.userDetails);
-  // console.log(user)
-  // console.log(ad)
-  // console.log("ad fetched from store", ad);
+  
+  var isOwner=false;
+  if(ad.id==user._id){
+    isOwner=true;
+  }
 
   const constructImageLinks = (imageIds) => {
     return imageIds.map((imageId) => {
@@ -265,6 +266,7 @@ function AdPage() {
     if (!liked) {
       wishlistAPI(user._id, ad._id);
     } else {
+      uwishlistAPI(user._id,ad._id)
     }
     setliked(!liked);
   };
@@ -409,6 +411,7 @@ function AdPage() {
                 variant="contained"
                 color="primary"
                 onClick={handlePayment}
+                disabled={isOwner}
                 startIcon={<ShoppingCart />}
               >
                 Buy Now
@@ -417,6 +420,7 @@ function AdPage() {
                 onClick={handleAdWishList}
                 size="large"
                 variant="outlined"
+                disabled={isOwner}
                 color={liked ? "primary" : "secondary"}
                 startIcon={<Favorite />}
               >
@@ -426,6 +430,7 @@ function AdPage() {
                 size="large"
                 variant="contained"
                 color="warning"
+                disabled={isOwner}
                 startIcon={<Error />}
               >
                 report
