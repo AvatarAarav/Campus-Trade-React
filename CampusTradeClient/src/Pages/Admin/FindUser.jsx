@@ -1,4 +1,4 @@
-import { BeachAccess, Image, Search, Work } from '@mui/icons-material'
+import { BeachAccess, Delete, Image, Mail, Search, Work } from '@mui/icons-material'
 import { Avatar, Box, Container, InputBase, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Paper, styled } from '@mui/material'
 import React from 'react'
 
@@ -22,7 +22,7 @@ const FindUser = () => {
     <StyledBox sx={{display: {xs: 'none', sm: 'block'}}}>
         <StyledDiv color='primary'>
             <Search />
-            <InputBase placeholder='Find User'/>
+            <InputBase placeholder='Find Seller'/>
         </StyledDiv>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             <ListItemButton >
@@ -30,36 +30,70 @@ const FindUser = () => {
                 <Avatar src='' alt='Sharan'/>
                 </ListItemAvatar>
                 <ListItemText primary="Sharan" secondary="Jan 9, 2014" />
+                <ListItemAvatar>
+                <Mail fontSize='large' sx={{color:'dodgerblue'}} />{" "}
+                <Delete fontSize='large' sx={{color:'orange'}}/>
+                </ListItemAvatar>
             </ListItemButton>
             <ListItemButton >
                 <ListItemAvatar>
-                <Avatar src='' alt='Kumar'/>
+                <Avatar src='' alt='Sharan'/>
                 </ListItemAvatar>
-                <ListItemText primary="Kumar" secondary="Jan 7, 2014" />
+                <ListItemText primary="Sharan" secondary="Jan 9, 2014" />
+                <ListItemAvatar>
+                <Mail fontSize='large' sx={{color:'dodgerblue'}} />{" "}
+                <Delete fontSize='large' sx={{color:'orange'}}/>
+                </ListItemAvatar>
             </ListItemButton>
             <ListItemButton >
                 <ListItemAvatar>
-                <Avatar src='' alt='Pratyush'/>
+                <Avatar src='' alt='Sharan'/>
                 </ListItemAvatar>
-                <ListItemText primary="Pratyush" secondary="July 20, 2014" />
+                <ListItemText primary="Sharan" secondary="Jan 9, 2014" />
+                <ListItemAvatar>
+                <Mail fontSize='large' sx={{color:'dodgerblue'}} />{" "}
+                <Delete fontSize='large' sx={{color:'orange'}}/>
+                </ListItemAvatar>
             </ListItemButton>
             <ListItemButton >
                 <ListItemAvatar>
-                <Avatar src='' alt='Harshan'/>
+                <Avatar src='' alt='Sharan'/>
                 </ListItemAvatar>
-                <ListItemText primary="Harshan" secondary="July 20, 2014" />
+                <ListItemText primary="Sharan" secondary="Jan 9, 2014" />
+                <ListItemAvatar>
+                <Mail fontSize='large' sx={{color:'dodgerblue'}} />{" "}
+                <Delete fontSize='large' sx={{color:'orange'}}/>
+                </ListItemAvatar>
             </ListItemButton>
             <ListItemButton >
                 <ListItemAvatar>
-                <Avatar src='' alt='Aarav'/>
+                <Avatar src='' alt='Sharan'/>
                 </ListItemAvatar>
-                <ListItemText primary="Aarav" secondary="July 20, 2014" />
+                <ListItemText primary="Sharan" secondary="Jan 9, 2014" />
+                <ListItemAvatar>
+                <Mail fontSize='large' sx={{color:'dodgerblue'}} />{" "}
+                <Delete fontSize='large' sx={{color:'orange'}}/>
+                </ListItemAvatar>
             </ListItemButton>
             <ListItemButton >
                 <ListItemAvatar>
-                <Avatar src='' alt='Parth'/>
+                <Avatar src='' alt='Sharan'/>
                 </ListItemAvatar>
-                <ListItemText primary="Parth" secondary="July 20, 2014" />
+                <ListItemText primary="Sharan" secondary="Jan 9, 2014" />
+                <ListItemAvatar>
+                <Mail fontSize='large' sx={{color:'dodgerblue'}} />{" "}
+                <Delete fontSize='large' sx={{color:'orange'}}/>
+                </ListItemAvatar>
+            </ListItemButton>
+            <ListItemButton >
+                <ListItemAvatar>
+                <Avatar src='' alt='Sharan'/>
+                </ListItemAvatar>
+                <ListItemText primary="Sharan" secondary="Jan 9, 2014" />
+                <ListItemAvatar>
+                <Mail fontSize='large' sx={{color:'dodgerblue'}} />{" "}
+                <Delete fontSize='large' sx={{color:'orange'}}/>
+                </ListItemAvatar>
             </ListItemButton>
             
         </List>
