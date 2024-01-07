@@ -46,16 +46,15 @@ const CardContainer = () => {
         console.error("Error fetching data:", error);
       }
     }
-    fetchdata()
-    setInterval(fetchdata,5000)
+    fetchdata();
+    setInterval(fetchdata, 5000);
   }, []);
-
 
   return (
     <Box
       sx={{
         width: "100%",
-        height: "900px",
+        height: "1500px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -83,7 +82,7 @@ const CardContainer = () => {
           gap: "30px",
           flexWrap: "wrap",
           overflowY: "auto",
-          height: "700px",
+          height: "1460px",
           padding: { xs: "0px", sm: "40px" },
           backgroundColor: "whitesmoke",
         }}
