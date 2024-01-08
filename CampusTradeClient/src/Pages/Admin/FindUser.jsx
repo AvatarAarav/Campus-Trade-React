@@ -1,7 +1,8 @@
 import { BeachAccess, Delete, Image, Mail, Search, Work } from '@mui/icons-material'
 import { Avatar, Box, Container, InputBase, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Paper, styled } from '@mui/material'
 import React from 'react'
-
+import { getalluserAPI } from '../../apis'
+import { useEffect } from 'react'
 const StyledBox = styled(Paper) ({
     overflow:'auto',
     width:'40%',
@@ -17,6 +18,23 @@ const StyledDiv = styled('div') ({
 })
 
 const FindUser = () => {
+
+    useEffect(() => {
+        async function fetchdata() {
+          try {
+            const data = await getalluserAPI();
+           
+            console.log(data);
+            console.log(data.data)
+            console.log(data.data.data[0])
+          } catch (error) {
+            // Handle errors here
+            console.error("Error fetching data:", error);
+          }
+        }
+        fetchdata();
+      }, []);
+
   return (
     
     <StyledBox sx={{display: {xs: 'none', sm: 'block'}}}>

@@ -30,7 +30,7 @@ const ProductSchema = new mongoose.Schema(
             timestamp:Number
         }],
         
-        report:{type:Number,default:0},
+        report:[String],
         img_id : [String]
     }
 );

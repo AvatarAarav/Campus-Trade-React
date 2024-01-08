@@ -43,7 +43,7 @@ import {
 // // # CSS
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
-
+import { reportAPI } from "../../apis";
 function AdPage() {
   // we should get this ad as a prop to this page
   const navigate = useNavigate();
@@ -270,6 +270,11 @@ function AdPage() {
     }
     setliked(!liked);
   };
+
+  const handlereport = ()=>{
+reportAPI(user._id,ad._id)
+
+  }
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
       <Container>
@@ -427,6 +432,7 @@ function AdPage() {
                 {liked ? "wishlisted" : "wishlist"}
               </Button>
               <Button
+              onclick = {handlereport}
                 size="large"
                 variant="contained"
                 color="warning"

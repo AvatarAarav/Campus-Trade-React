@@ -11,7 +11,9 @@ export const UnbuyAPI=async (req,res)=>{
         if (index > -1) { // only splice array when item is found
             userData.ads.splice(index, 1); // 2nd parameter means remove one item only
         }
+        product.likes = product.likes -1
         await userData.save()
+        await product.save()
         // console.log(userData.ads)
         res.status(200).json({ad:product,user:userData});
 

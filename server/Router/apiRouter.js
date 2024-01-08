@@ -36,6 +36,7 @@ import { Payment } from "../controllers/Payment.js";
 import { GoogleLoginAPI } from "../controllers/GoogleLogin.js";
 import { boughtAdAPI } from "../controllers/bought_add.js";
 import { UnbuyAPI } from "../controllers/unbuy_product.js";
+import { reportadApi } from "../controllers/report_ad.js";
 const router = express.Router();
 
 router.get("/products", getAllProductsAPI);
@@ -64,7 +65,7 @@ router.get("/ad/report/:id/uid/:uid", reportProductApi);
 router.get("/ad/remove/:id/uid/:uid", removeProductApi);
 router.get("/ad/delete/:id/mail/:eid", delProductAPI);
 router.post("/form", upload.array("images", 5), submitForm);
-
+// router.get("/ad/report/:id/uid/:uid",reportadApi)
 router.post(
   "/update_form",
   updateFormAPI

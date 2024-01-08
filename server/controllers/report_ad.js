@@ -1,6 +1,6 @@
 import Products from "../db/Models/Products.js";
 import Users from "../db/Models/User.js";
-export const getProductAPI=async (req,res)=>{
+export const reportadApi=async (req,res)=>{
     try {
         const id=req.params.id;  //url parameters id
         // const userData=await Users.find({email:email})
