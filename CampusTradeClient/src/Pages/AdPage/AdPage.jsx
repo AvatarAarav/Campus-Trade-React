@@ -24,7 +24,7 @@ import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
 import ChatBox, { ChatFrame } from "react-chat-plugin";
 import { Navigate, useNavigate } from "react-router-dom";
-import { boughtAdAPI, uwishlistAPI, wishlistAPI } from "../../apis";
+import { boughtAdAPI, fetchUserDetailsApi, uwishlistAPI, wishlistAPI } from "../../apis";
 import {
   Chat,
   CurrencyRupee,
@@ -43,18 +43,31 @@ import {
 // // # CSS
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
+import { fetchUserDetails } from "../../Store/UserSlice";
 import { reportAPI } from "../../apis";
 function AdPage() {
   // we should get this ad as a prop to this page
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.user.loggedIn);
   const [liked, setliked] = useState(false);
+  const ad = useSelector((state) => state.product.adDetails);
+  const user = useSelector((state) => state.user.userDetails);
+  var isOwner = false;
+  if (ad.id == user._id) {
+    isOwner = true;
+  }
   useEffect(() => {
     if (!loggedIn) {
       navigate("/");
     }
-  }, []);
-  const socket = io("http://localhost:3000", { transports: ["websocket"] });
+    console.log(user.ads)
+    console.log(ad)
+    if(user.ads.includes(ad._id)){
+      setliked(true)
+    }
+  });
+  const socket = io("http://localhost:8000", { transports: ["websocket"] });
   const [ads, setads] = useState({
     title: "C-Type charger",
     price: 300,
@@ -92,14 +105,7 @@ function AdPage() {
   });
 
   //
-  const ad = useSelector((state) => state.product.adDetails);
-  const user = useSelector((state) => state.user.userDetails);
-
-  var isOwner = false;
-  if (ad.id == user._id) {
-    isOwner = true;
-  }
-
+ 
   const constructImageLinks = (imageIds) => {
     return imageIds.map((imageId) => {
       const link = `https://drive.google.com/uc?export=view&id=${imageId}`;
@@ -121,7 +127,7 @@ function AdPage() {
   const createOrder = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/create-order"
+        "http://localhost:8000/api/create-order"
       );
       setOrderId(response.data.id);
     } catch (error) {
@@ -261,13 +267,14 @@ function AdPage() {
     });
   }, []);
 
-  const handleAdWishList = () => {
+  const handleAdWishList = async () => {
     // console.log("clicked")
     if (!liked) {
-      wishlistAPI(user._id, ad._id);
+      await wishlistAPI(user._id, ad._id);
     } else {
-      uwishlistAPI(user._id, ad._id);
+      await uwishlistAPI(user._id, ad._id);
     }
+    await dispatch(fetchUserDetails(user._id))
     setliked(!liked);
   };
 
@@ -356,12 +363,12 @@ reportAPI(user._id,ad._id)
                       data: [
                         {
                           id: 0,
-                          value: (ad.likes * 100) / ad.views,
+                          value: 30,
                           color: "#ff4081",
                         },
                         {
                           id: 1,
-                          value: 100 - (ad.likes * 100) / ad.views,
+                          value: 70,
                           color: "#2196f3",
                         },
                       ],
@@ -380,7 +387,7 @@ reportAPI(user._id,ad._id)
                 />
                 <Box sx={{ position: "absolute", top: "110px", left: "90px" }}>
                   <Typography variant="h3">
-                    {((ad.likes * 100) / ad.views).toFixed(1)}%
+                    {70}%
                   </Typography>
                   <Typography variant="p">people liked this</Typography>
                 </Box>

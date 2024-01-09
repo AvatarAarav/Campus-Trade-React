@@ -14,7 +14,7 @@ import theme from "../../theme";
 import desktop from "../../assets/desktop.jpg";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchAdDetails } from "../../Store/ProductSlice";
 import { fetchAllAdsApi } from "../../apis/index";
 import { CurrencyRupee } from "@mui/icons-material";
@@ -155,7 +155,6 @@ function UserEarnings({
     </Box>
   );
 }
-
 function AdCard({ ad, flag }) {
   return (
     <Card key={ad._id} sx={{ width: 300, height: 400 }}>
@@ -191,7 +190,7 @@ function AdCard({ ad, flag }) {
 
 function UserProfile() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const loggedIn = useSelector((state) => state.user.loggedIn);
   useEffect(() => {
     if (!loggedIn) {
@@ -211,16 +210,14 @@ function UserProfile() {
     adsBoughtMoney: 1000,
     profit: -500,
   };
-
+  const [boughtAds, setBoughtAds] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
-
   useEffect(() => {
     async function fetchdata() {
       try {
         const data = await fetchAllAdsApi();
         setPostedAds(data.data.data);
         setBoughtAds(data.data.data);
-        console.log(data.data.data);
       } catch (error) {
         // Handle errors here
         console.error("Error fetching data:", error);
@@ -229,11 +226,15 @@ function UserProfile() {
     fetchdata();
   }, []);
 
-  const [boughtAds, setBoughtAds] = useState([]);
+  
 
   const handleEditProfile = () => {
     navigate("/updateprofile");
   };
+  const handleOpenAd=(id)=>{
+    dispatch(fetchAdDetails(id));
+    navigate("/ad");
+  }
   const go_to_ad = () => {
     navigate("/user/Ad");
   };
@@ -390,7 +391,9 @@ function UserProfile() {
             backgroundColor: "whitesmoke",
           }}
         >
-          {postedAds.map((ad) => {
+          {boughtAds
+          .filter((ad) => user.ads.includes(ad._id))
+          .map((ad) => {
             return (
               <Card key={ad._id} sx={{ width: 300, height: 400 }}>
                 <CardActionArea onClick={() => handleOpenAd(ad._id)}>

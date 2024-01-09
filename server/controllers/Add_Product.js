@@ -38,21 +38,7 @@ export const submitForm = async (req, res) => {
       auth: oauth2Client,
     });
 
-    // const app = express();
-    // const PORT = process.env.PORT || 3000;
-
-    // const storage = multer.diskStorage({
-    //     destination: function (req, file, cb) {
-    //         cb(null, 'uploads/');
-    //     },
-    //     filename: function (req, file, cb) {
-    //         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    //     },
-    // });
-
-    // const upload = multer({ storage: storage });
-
-    // Your Google Drive API setup and other configurations go here
+  
     async function uploadfile(folderPath, filename, arrr) {
       try {
         const response = await drive.files.create({

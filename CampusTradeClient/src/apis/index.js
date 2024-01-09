@@ -1,7 +1,7 @@
 import { Password } from "@mui/icons-material";
 
 import axios from "axios";
-const url = "http://localhost:3000/api/";
+const url = "http://localhost:8000/api/";
 
 const API = axios.create({ baseURL: url });
 

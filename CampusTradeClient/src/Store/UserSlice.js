@@ -41,6 +41,7 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserDetails.fulfilled, (state, action) => {
+      console.log("User data is here")
       state.userDetails={
         ...action.payload
       }
