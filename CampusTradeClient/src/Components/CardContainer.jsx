@@ -82,7 +82,7 @@ const CardContainer = () => {
           gap: "30px",
           flexWrap: "wrap",
           overflowY: "auto",
-          height: "1460px",
+          height: "1450px",
           padding: { xs: "0px", sm: "40px" },
           backgroundColor: "whitesmoke",
         }}
@@ -91,9 +91,9 @@ const CardContainer = () => {
           .filter((ad) => {
             if (ad.tags.includes(search)) return true;
             return (
-              ad.name.includes(search) ||
-              ad.subname.includes(search) ||
-              ad.description.includes(search)
+              ad.name.toLowerCase().includes(search.toLowerCase()) ||
+              ad.subname.toLowerCase().includes(search.toLowerCase()) ||
+              ad.description.toLowerCase().includes(search.toLowerCase())
             );
           })
           .map((ad) => {

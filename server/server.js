@@ -74,7 +74,7 @@ io.on('connection', (socket) => {
 });
 
 
-const PORT = 3000;
+const PORT = 8000;
 mongoose
   .connect(
     "mongodb+srv://Parthbh:Parthiiits%40123@cluster0.appxzmy.mongodb.net/?retryWrites=true&w=majority",

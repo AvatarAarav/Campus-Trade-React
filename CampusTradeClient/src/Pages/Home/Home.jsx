@@ -1,18 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import desktop from "../../assets/desktop.jpg";
-import { CurrencyRupee, Favorite, FavoriteBorder } from "@mui/icons-material";
 import {
-  Autocomplete,
   Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Checkbox,
-  TextField,
   Typography,
 } from "@mui/material";
 import Container from "@mui/material/Container";
@@ -50,11 +40,12 @@ function Home() {
     { label: "books", year: 1994 },
   ];
   const count = useSelector((state) => state.user.value);
+  const search = useSelector(state=>state.product.search);
   const dispatch = useDispatch();
 
   return (
     <>
-      <div style={landingPageStyle}>
+      {search=="" && <div style={landingPageStyle}>
         <Container>
           <CssBaseline />
           <div style={textContainerStyle}>
@@ -71,7 +62,7 @@ function Home() {
             Your Gateway to Student Exchanges!"
           </Typography>
         </Container>
-      </div>
+      </div>}
       <div>
         <Box
           sx={{
