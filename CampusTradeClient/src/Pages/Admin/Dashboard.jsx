@@ -28,17 +28,17 @@ const Dashboard = () => {
             <Box sx={{margin:'0px 70px'}}>
             <Grid container rowSpacing={4} columnSpacing={4}>
             <Grid item  >
-                <Item sx={{backgroundColor:'plum',color:'darkviolet'}}><Text>Products</Text><Typography variant='h3'># 33</Typography></Item>
+                <Item sx={{backgroundColor:'plum',color:'darkviolet'}}><Text>Products</Text><Typography variant='h3'>33 🛍️</Typography></Item>
             </Grid>
             <Grid item  >
             
-                <Item sx={{backgroundColor:'lightsalmon',color:'darkred'}}><Text>Active Users</Text><Typography variant='h3'>23%</Typography></Item>
+                <Item sx={{backgroundColor:'lightsalmon',color:'darkred'}}><Text>Users</Text><Typography variant='h3'>23 👥</Typography></Item>
             </Grid>
             <Grid item  >
                 <Item sx={{backgroundColor:'beige',color:'orange'}}><Text>Revenue</Text><Typography variant='h3'>482 $</Typography></Item>
             </Grid>
             <Grid item  >
-                <Item sx={{backgroundColor:'lightblue',color:'navyblue'}}><Text>Sold Out</Text><Typography variant='h3'>10</Typography></Item>
+                <Item sx={{backgroundColor:'lightblue',color:'navyblue'}}><Text>Sold Out</Text><Typography variant='h3'>10 🤝</Typography></Item>
             </Grid>
             </Grid>
             </Box>
