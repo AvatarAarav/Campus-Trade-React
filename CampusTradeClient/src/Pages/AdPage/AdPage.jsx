@@ -108,7 +108,7 @@ function AdPage() {
  
   const constructImageLinks = (imageIds) => {
     return imageIds.map((imageId) => {
-      const link = `https://drive.google.com/thumbnail?id=${imageId}`;
+      const link = `https://drive.google.com/thumbnail?authuser=0&sz=w600&id=${imageId}`;
       return {
         original: link,
         thumbnail: link,
@@ -289,6 +289,7 @@ reportAPI(user._id,ad._id)
           <Grid item xs={12} sm={7}>
             <Paper elevation={3}>
               <ImageGallery items={images} />
+              {/* <img src={`https://drive.google.com/thumbnail?authuser=0&export=view&id=${ad.img_id[0]}`}style={{ height: 400, width: 500, borderRadius: 28 }}/> */}
             </Paper>
           </Grid>
           <Grid item xs={12} sm={5}>
