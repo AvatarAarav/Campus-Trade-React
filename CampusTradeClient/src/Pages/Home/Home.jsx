@@ -91,7 +91,6 @@ function Home() {
               display: "flex",
               gap: "30px",
               flexWrap: "wrap",
-              overflowY: "auto",
               height: "1500px",
               padding: { xs: "0px", sm: "40px" },
               backgroundColor: "whitesmoke",
