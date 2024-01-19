@@ -41,6 +41,7 @@ const CardContainer = () => {
       try {
         const data = await fetchAllAdsApi();
         setads(data.data.data);
+        // console.log(data.data.data);
       } catch (error) {
         // Handle errors here
         console.error("Error fetching data:", error);

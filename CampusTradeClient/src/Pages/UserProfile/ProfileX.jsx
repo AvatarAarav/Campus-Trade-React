@@ -9,6 +9,10 @@ import {
   Typography,
   Rating,
   CardActionArea,
+  IconButton,
+  Avatar,
+  Tooltip,
+  Chip,
 } from "@mui/material";
 import theme from "../../theme";
 import desktop from "../../assets/desktop.jpg";
@@ -17,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAdDetails } from "../../Store/ProductSlice";
 import { fetchAllAdsApi } from "../../apis/index";
-import { CurrencyRupee } from "@mui/icons-material";
+import { CurrencyRupee, Edit, Mail, School } from "@mui/icons-material";
 function UserData({ user, onEditProfile, postad, userRating }) {
   return (
     <ThemeProvider theme={theme}>
@@ -25,39 +29,94 @@ function UserData({ user, onEditProfile, postad, userRating }) {
         sx={{
           margin: "50px",
           display: "flex",
-          maxWidth: "75%",
-          border: "1px solid",
+          width: "100%",
+          border: "3px solid lightyellow",
           padding: "10px",
           borderRadius: "20px",
-
-          backgroundColor: "rgba(66, 66, 66, 0.8)",
+          backgroundColor: "whitesmoke",
+          // opacity:0.7,
         }}
       >
-        <Box className="redbox" sx={{ padding: "20px", color: "secondary" }}>
+        <Box  sx={{flex:1, padding: "20px", backgroundColor: "", borderRadius:'10px' }}>
           <img
-            src="https://a0.anyrgb.com/pngimg/1912/680/icon-user-profile-avatar-ico-facebook-user-head-black-icons-circle-thumbnail.png"
+            src="http://picsum.photos/200/200"
             alt="Profile"
-            style={{ maxWidth: "200px", borderRadius: "50%" }}
+            style={{ maxWidth: "200px", borderRadius: "50%", border:'2px solid lavender' }}
           />
         </Box>
-        <Box sx={{ padding: "20px" }}>
-          <Typography variant="h2" sx={{ fontSize: "50px", color: "#fff" }}>
+        <Box sx={{flex:3, padding: "20px", backgroundColor:'', position:'relative' }}>
+          <Tooltip title="Edit">
+            <IconButton
+                onClick={onEditProfile}
+                sx={{
+                  position:'absolute',
+                  top:'45px',
+                  right:'120px',
+                  backgroundColor:'lightblue',
+                  "&:hover": {
+                    backgroundColor: theme.palette.secondary.light,
+                  },
+                }}
+              >
+                  
+                  <Edit />
+                
+              </IconButton>
+          </Tooltip>
+
+          <Tooltip title="post new ad">
+            <Button
+                onClick={postad}
+                sx={{
+                  position:'absolute',
+                  top:'45px',
+                  right:'20px',
+                  backgroundColor:'lightblue',
+                  "&:hover": {
+                    backgroundColor: theme.palette.secondary.light,
+                  },
+                }}
+              >
+                  
+                  post ad
+                
+              </Button>
+          </Tooltip>
+
+
+          <Typography variant="h6" sx={{ fontSize: "50px" , fontFamily:'cursive'}}>
             {user.name}
           </Typography>
-          <Typography variant="body1" sx={{ color: "#fff" }}>
-            Email: {user.email}
-          </Typography>
-          <Typography variant="body1" sx={{ color: "#fff" }}>
-            College: {user.college_name}
-          </Typography>
-          <Typography variant="body1" sx={{ color: "#fff" }}>
-            Year: {user.year}
-          </Typography>
-          <Typography variant="body1" sx={{ color: "#fff" }}>
-            Branch: {user.branch}
-          </Typography>
-          <Typography variant="body1" sx={{ color: "#fff" }}>
-            Rating:{" "}
+          <Box sx={{backgroundColor:'white', padding:'5px', borderRadius:'10px', marginBottom:'10px'}}>
+            <IconButton>
+              <Mail style={{color:'dodgerblue', marginRight:'10px'}} />
+              
+              <Typography variant="body1" >
+                {user.email}
+              </Typography>
+            </IconButton>
+          </Box>
+
+          <Box sx={{backgroundColor:'white', padding:'5px', borderRadius:'10px',marginBottom:'30px'}}>
+            <IconButton>
+              <School style={{color:'orange', marginRight:'10px'}} />
+              
+              <Typography variant="body1" >
+                {user.college_name}
+              </Typography>
+            </IconButton>
+          </Box>
+          
+          <Box>
+            {(user.year !== '' && <Chip sx={{backgroundColor:'lavender'}} label={user.year} />)}
+            {" "}&nbsp;&nbsp;
+            {(user.branch !== '' && <Chip sx={{backgroundColor:'lavender'}} label={user.branch} />)}
+
+          </Box>
+
+
+          <Box sx={{display:'flex', alignItems:'center', marginTop:'20px'}}>
+            <Typography>Rating  </Typography>
             <Rating
               name="user-rating"
               value={userRating}
@@ -65,53 +124,11 @@ function UserData({ user, onEditProfile, postad, userRating }) {
               readOnly
               sx={{ color: "" }}
             />
-          </Typography>
+          </Box>
+          
         </Box>
 
-        <Box
-          className="btns"
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            minWidth: "350px",
-            marginTop: "200px",
-          }}
-        >
-          <Button
-            onClick={onEditProfile}
-            sx={{
-              margin: "5px",
-              height: "50px",
-              transition: "background-color 0.3s ease",
-              backgroundColor: theme.palette.secondary.main,
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              "&:hover": {
-                backgroundColor: theme.palette.secondary.light,
-              },
-            }}
-          >
-            Edit Profile
-          </Button>
-          <Button
-            onClick={postad}
-            sx={{
-              margin: "5px",
-              height: "50px",
-              transition: "background-color 0.3s ease",
-              backgroundColor: theme.palette.secondary.main,
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              "&:hover": {
-                backgroundColor: theme.palette.secondary.light,
-              },
-            }}
-          >
-            +Post Ad
-          </Button>
-        </Box>
+        
       </Box>
     </ThemeProvider>
   );
@@ -127,31 +144,31 @@ function UserEarnings({
   return (
     <Box
       sx={{
-        margin: "55px",
-        marginTop: "70px",
-        border: "2px solid",
-        padding: "30px",
-        borderRadius: "20px",
-        backgroundColor: "rgba(66, 66, 66, 0.8)",
+        width:'400px',
+        marginTop: "50px",
+        border: "2px white",
+        
+        borderRadius: "10px",
+        backgroundColor: "",
       }}
     >
-      <Typography variant="body1" sx={{ color: "#fff" }}>
-        Ads Posted:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {adsPosted}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#fff" }}>
-        Ads Bought:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {adsBought}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#fff" }}>
-        Earnings:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{" "}
-        {earnings}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#fff" }}>
-        Ads Money: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{adsBoughtMoney}
-      </Typography>
-      <Typography variant="body1" sx={{ color: "#fff" }}>
-        Profit:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{profit}
-      </Typography>
+
+      <Box sx={{width:'100%',padding:'0px 20px',borderRadius:'5px',marginBottom:'10px',backgroundColor:'lightblue',boxShadow:2, display:'flex', justifyContent:'space-between',alignItems:'center'}}>
+        <span>Ads Posted</span> <span style={{fontSize:'xxx-large'}}>{adsPosted}</span>
+      </Box>
+      <Box sx={{width:'100%',padding:'0px 20px',borderRadius:'5px',marginBottom:'10px',backgroundColor:'lightsalmon',boxShadow:2, display:'flex', justifyContent:'space-between',alignItems:'center'}}>
+        <span>Ads Bought</span> <span style={{fontSize:'xxx-large'}}>{adsBought}</span>
+      </Box>
+      <Box sx={{width:'100%',padding:'0px 20px',borderRadius:'5px',marginBottom:'10px',backgroundColor:'lightgreen',boxShadow:2, display:'flex', justifyContent:'space-between',alignItems:'center'}}>
+        <span>Earnings</span> <span style={{fontSize:'xxx-large'}}>{earnings}</span>
+      </Box>
+      <Box sx={{width:'100%',padding:'0px 20px',borderRadius:'5px',marginBottom:'10px',backgroundColor:'beige',boxShadow:2, display:'flex', justifyContent:'space-between',alignItems:'center'}}>
+        <span>Ads Money</span> <span style={{fontSize:'xxx-large'}}>{adsBoughtMoney}</span>
+      </Box>
+      <Box sx={{width:'100%',padding:'0px 20px',borderRadius:'5px',marginBottom:'10px',backgroundColor:'lavender',boxShadow:2, display:'flex', justifyContent:'space-between',alignItems:'center'}}>
+        <span>Profit</span> <span style={{fontSize:'xxx-large'}}>{profit}</span>
+      </Box>
+      
     </Box>
   );
 }

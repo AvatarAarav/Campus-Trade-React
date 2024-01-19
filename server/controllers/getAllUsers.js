@@ -2,7 +2,7 @@ import User from "../db/Models/User.js";
 export const getAllUsersAPI=async (req,res)=>{
     try {
         const page=req?.params?.page || 1;
-        const LIMIT=6;
+        const LIMIT=30;
         const startIndex=(Number(page)-1)*LIMIT
         const total=await User.countDocuments({})
       

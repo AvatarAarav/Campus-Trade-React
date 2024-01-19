@@ -61,6 +61,7 @@ const FindUser = () => {
         <InputBase placeholder="Find Seller" />
       </StyledDiv>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        {console.log(users)}
         {users.map((user) => {
           return (
             <ListItemButton key={user._id}>
