@@ -65,9 +65,9 @@ const CardContainer = () => {
       <Box
         sx={{
           width: "100%",
-          maxWidth: "1060px",
+          maxWidth: "1350px",
           display: "flex",
-          padding: "20px 0px",
+          padding: "10px 0px",
           justifyContent: "space-evenly",
           alignItems: "center",
           backgroundColor: "lightsalmon",
@@ -78,13 +78,13 @@ const CardContainer = () => {
       <Box
         sx={{
           width: "100%",
-          maxWidth: "1060px",
+          maxWidth: "1350px",
           display: "flex",
           gap: "30px",
           flexWrap: "wrap",
           overflowY: "auto",
           height: "1450px",
-          padding: { xs: "0px", sm: "40px" },
+          padding: { xs: "0px", sm: "10px" },
           backgroundColor: "whitesmoke",
         }}
       >
@@ -104,7 +104,9 @@ const CardContainer = () => {
                   <CardMedia
                     component="img"
                     height="300"
-                    src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+                    // src={`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`}
+                    // src = {require(`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`).default}
+                    src={`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`}
                     alt="green iguana"
                   />
                   <CardContent sx={{ padding: "10px 20px 0px 20px" }}>

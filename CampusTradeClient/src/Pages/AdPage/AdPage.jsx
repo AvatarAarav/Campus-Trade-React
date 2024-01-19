@@ -108,7 +108,7 @@ function AdPage() {
  
   const constructImageLinks = (imageIds) => {
     return imageIds.map((imageId) => {
-      const link = `https://drive.google.com/uc?export=view&id=${imageId}`;
+      const link = `https://drive.google.com/thumbnail?id=${imageId}`;
       return {
         original: link,
         thumbnail: link,

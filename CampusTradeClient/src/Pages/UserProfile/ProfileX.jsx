@@ -179,7 +179,7 @@ function AdCard({ ad, flag }) {
         <CardMedia
           component="img"
           height="300"
-          src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+          src={`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`}
           alt="green iguana"
         />
         <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
@@ -344,7 +344,7 @@ function UserProfile() {
                     <CardMedia
                       component="img"
                       height="300"
-                      src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+                      src={`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`}
                       alt="green iguana"
                     />
                     <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
@@ -417,7 +417,7 @@ function UserProfile() {
                   <CardMedia
                     component="img"
                     height="300"
-                    src={`https://drive.google.com/uc?export=view&id=${ad.img_id[0]}`}
+                    src={`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`}
                     alt="green iguana"
                   />
                   <CardContent sx={{ padding: "10px 20px 0px 20px" }}>
