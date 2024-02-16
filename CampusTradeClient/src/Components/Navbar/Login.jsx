@@ -22,6 +22,7 @@ import {
 import React, { useState, useTransition } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUserDetails, loginReducer } from "../../Store/UserSlice";
+import { adminLoginReducer, fetchAdminDetails } from "../../Store/AdminSlice";
 import { useDispatch } from "react-redux";
 
 import GoogleLoginButton from "./GoogleLoginButton";
@@ -64,7 +65,10 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
         alert("Email or Password is incorrect");
       } else {
         if(admin){
+          dispatch(fetchAdminDetails(data.id))
+          dispatch(adminLoginReducer())
           navigate('/admin')
+          
         }
         else{
           dispatch(fetchUserDetails(data.id));

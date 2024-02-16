@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Autocomplete, Box, IconButton, Typography } from "@mui/material";
 import {
   Backdrop,
   Button,
@@ -19,6 +19,7 @@ import GoogleLoginButton from "./GoogleLoginButton";
 import { fetchUserDetails, loginReducer } from "../../Store/UserSlice";
 import { sendOtpAPI, signUpAPI } from "../../apis";
 import { useDispatch } from "react-redux";
+import MenuItem from '@mui/material/MenuItem';
 
 const style = {
   display: "flex",
@@ -80,6 +81,59 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
     handleCloseSignup();
   };
 
+
+  // Array of colleges
+  const colleges = [
+    {
+      label: 'MIT',
+      cid: 0,
+    },
+    {
+      label: 'IIT Madras',
+      cid: 1,
+    },
+    {
+      label: 'NIT Rourkela',
+      cid: 2,
+    },
+    {
+      label: 'IIIT Sri City',
+      cid: 3,
+    },
+    {
+      label: 'IIT Kharagpur',
+      cid: 4,
+    },
+    {
+      label: 'NIT Suratkal',
+      cid: 5,
+    },
+    {
+      label: 'IIIT Hyderabad',
+      cid: 6,
+    },
+    {
+      label: 'IIT Patna',
+      cid: 7,
+    },
+    {
+      label: 'NIT Bhopal',
+      cid: 8,
+    },
+    {
+      label: 'IIIT Trichy',
+      cid: 9,
+    },
+    {
+      label: 'IIT Roorkee',
+      cid: 10,
+    },
+    {
+      label: 'NIT Trichy',
+      cid: 11,
+    },
+  ];
+
   return (
     <Box>
       <Modal
@@ -113,14 +167,25 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               onChange={(e) => setname(e.target.value)}
               label="username"
             />
-            <TextField
+            {/* <TextField
               sx={{ width: "300px", margin: "10px" }}
               // error
               id="outlined-error2"
               value={college_name}
               onChange={(e) => setcollege_name(e.target.value)}
               label="college name"
+            /> */}
+            {/* AutoComplete for colleges */}
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              ivalue={college_name}
+              onChange={(e) => setcollege_name(e.target.value)}
+              sx={{ width: "300px", margin: "10px" }}
+              options={colleges}
+              renderInput={(params) => <TextField {...params} label="College Name" />}
             />
+
             <TextField
               sx={{ width: "300px", margin: "10px" }}
               // error

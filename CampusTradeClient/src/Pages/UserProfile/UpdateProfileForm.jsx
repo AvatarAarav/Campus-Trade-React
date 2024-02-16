@@ -32,18 +32,17 @@ const UpdateProfileForm = () => {
   },[])
   const handleSubmit = async(event) => {
     event.preventDefault();
-const id = user._id
-const data = {
-  id,
-  name,
-  collegeName,
-  year,branch
+    const id = user._id
+    const data = {
+      id,
+      name,
+      collegeName,
+      year,branch
+    }
 
-}
-
-await updateprofileAPI(data);
-dispatch(fetchUserDetails(user._id))
-navigate("/user")
+    await updateprofileAPI(data);
+    dispatch(fetchUserDetails(user._id))
+    navigate("/user")
 
     // Perform basic form validation
     // if (name !== "" && collegeName !== "" && year !== "" && branch !== "") {
@@ -76,8 +75,8 @@ navigate("/user")
             flexDirection: "column",
             gap: "20px",
             opacity: 0.95,
-          paddingTop: 3,
-          borderRadius: 5,
+            paddingTop: 3,
+            borderRadius: 5,
             marginBottom: "60px",
             marginTop:"40px",
           }}
@@ -89,7 +88,7 @@ navigate("/user")
           <TextField
             id="name"
             onChange={(e) => setName(e.target.value)}
-            value={user.name}
+            value={name}
             label="Name *"
             placeholder="new name"
             variant="outlined"
@@ -98,7 +97,7 @@ navigate("/user")
           <TextField
             id="collegeName"
             onChange={(e) => setCollegeName(e.target.value)}
-            value={user.college_name}
+            value={collegeName}
             label="College Name *"
             placeholder="college"
             variant="outlined"
@@ -106,7 +105,7 @@ navigate("/user")
           <TextField
             id="year"
             onChange={(e) => setYear(e.target.value)}
-            value={user.year}
+            value={year}
             label="Year *"
             placeholder="Your academic year"
             variant="outlined"
@@ -114,7 +113,7 @@ navigate("/user")
           <TextField
             id="branch"
             onChange={(e) => setBranch(e.target.value)}
-            value={user.branch}
+            value={branch}
             label="Branch *"
             placeholder="Your branch of study"
             variant="outlined"
