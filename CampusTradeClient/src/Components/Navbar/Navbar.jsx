@@ -94,6 +94,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
+  const isAdmin = useSelector((state)=>state.admin.isAdmin);
   const loggedIn = useSelector((state) => state.user.loggedIn);
   const uname = useSelector((state) => state.user.userDetails.name);
   const isMenuOpen = Boolean(anchorEl);
@@ -316,7 +317,8 @@ function Navbar() {
             />
           </div>
 
-          {loggedIn ? (
+          {
+          loggedIn ? (
             <>
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton size="large" aria-label="show 17 new notifications">

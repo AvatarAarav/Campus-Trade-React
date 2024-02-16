@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchUserDetailsApi } from '../apis';
+import { fetchAdminDetailsApi } from '../apis'
 const initialState = {
   isAdmin: false,
+  loggedIn:false,
   adminDetails: {
     _id: '',
     name: '',
@@ -16,10 +17,11 @@ const initialState = {
 
 }
 
-export const fetchUserDetails = createAsyncThunk(
-  "UserDetails/fetch", async (id) => {
+export const fetchAdminDetails = createAsyncThunk(
+  "AdminDetails/fetch", async (id) => {
     try {
-      const response = await fetchUserDetailsApi(id)
+      const response = await fetchAdminDetailsApi(id)
+      console.log(response)
       return response.data;
     } catch (err) {
       return err.message;
@@ -27,35 +29,37 @@ export const fetchUserDetails = createAsyncThunk(
   }
 )
 
-export const userSlice = createSlice({
+export const adminSlice = createSlice({
   name: 'user',
   initialState,
 
   reducers: {
-    loginReducer: (state) => {
+    adminLoginReducer: (state) => {
       state.loggedIn = true
+      state.isAdmin = true
     },
-    logOutReducer: (state) => {
+    adminLogOutReducer: (state) => {
       state.loggedIn = false
+      state.isAdmin = false
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserDetails.fulfilled, (state, action) => {
-      state.userDetails={
+    builder.addCase(fetchAdminDetails.fulfilled, (state, action) => {
+      state.adminDetails={
         ...action.payload
       }
     })
-    builder.addCase(fetchUserDetails.pending, (state, action) => {
-      state.userDetails=initialState.userDetails
+    builder.addCase(fetchAdminDetails.pending, (state, action) => {
+      state.adminDetails=initialState.adminDetails
     })
-    builder.addCase(fetchUserDetails.rejected, (state, action) => {
-      state.userDetails=initialState.userDetails
+    builder.addCase(fetchAdminDetails.rejected, (state, action) => {
+      state.adminDetails=initialState.adminDetails
     })
     
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { loginReducer, logOutReducer } = userSlice.actions
+export const { adminLoginReducer, adminLogOutReducer } = adminSlice.actions
 
-export default userSlice.reducer
+export default adminSlice.reducer
