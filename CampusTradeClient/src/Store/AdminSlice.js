@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchUserDetailsApi } from '../apis';
 const initialState = {
-  loggedIn: false,
-  userDetails: {
+  isAdmin: false,
+  adminDetails: {
     _id: '',
     name: '',
     email: '',
