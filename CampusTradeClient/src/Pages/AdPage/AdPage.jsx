@@ -68,41 +68,7 @@ function AdPage() {
     }
   });
   const socket = io("http://localhost:8000", { transports: ["websocket"] });
-  const [ads, setads] = useState({
-    title: "C-Type charger",
-    price: 300,
-    age: "6 months old",
-    desc: "its a cool c type charger, very durable and long. i have been using it from 5 months and there were no complaints. recently i lost my android phone and bought a new i phone so i dont need this c type charger anymore. this is of white color and comes with a charger box. it supports 80 watts fast charging and also suitable for mobiles which support 40 watts charging also.",
-    subtitle: "mobile charger",
-    tags: ["accessory", "mobile", "electronic"],
-    features: [
-      "fast charging",
-      "80 watts",
-      "plastic",
-      "durable",
-      "shock proof",
-    ],
-    images: [
-      {
-        original:
-          "https://drive.google.com/uc?export=view&id=1BSQHacJVKa7xdpMHwwNh0oH9MxG896Pm",
-        thumbnail:
-          "https://drive.google.com/uc?export=view&id=1BSQHacJVKa7xdpMHwwNh0oH9MxG896Pm",
-      },
-      {
-        original: "https://picsum.photos/id/1015/1000/600/",
-        thumbnail: "https://picsum.photos/id/1015/1000/600/",
-      },
-      {
-        original: "https://picsum.photos/id/1019/500/900/",
-        thumbnail: "https://picsum.photos/id/1019/250/150/",
-      },
-    ],
-    date: new Date(),
-    likes: 10,
-    views: 30,
-    sellerMail: "aarav.n21@iiits.in",
-  });
+  
 
   //
  

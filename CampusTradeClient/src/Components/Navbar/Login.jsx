@@ -20,7 +20,9 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState, useTransition } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchUserDetails, loginReducer } from "../../Store/UserSlice";
+import { adminLoginReducer, fetchAdminDetails } from "../../Store/AdminSlice";
 import { useDispatch } from "react-redux";
 
 import GoogleLoginButton from "./GoogleLoginButton";
@@ -43,7 +45,7 @@ const style = {
 
 const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate=useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -62,8 +64,17 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
       if (data.id == -1) {
         alert("Email or Password is incorrect");
       } else {
-        dispatch(fetchUserDetails(data.id));
-        dispatch(loginReducer());
+        if(admin){
+          dispatch(fetchAdminDetails(data.id))
+          dispatch(adminLoginReducer())
+          navigate('/admin')
+          
+        }
+        else{
+          dispatch(fetchUserDetails(data.id));
+          dispatch(loginReducer());
+        }
+        
       }
     } catch (error) {
       console.error("Error:", error);

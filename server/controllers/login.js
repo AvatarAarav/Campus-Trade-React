@@ -5,21 +5,12 @@ export const checkLoginAPI = async (req, res) => {
   try {
     if (req.body.admin) {
       const adminData = await Admins.find({ email: req.body.email });
-      const activeUser = await Users.count();
-      const productsCount = await Products.count();
-      const reported = await Products.find({ report: { $ne: 0 } }).count();
       if (adminData.length === 0)  {
         res.status(200).json({id:-1});
         return
       }
       if (adminData[0].password == req.body.password) {
-        const data = {
-          activeUser: activeUser,
-          productsCount: productsCount,
-          reported: reported,
-          ...adminData[0]._doc,
-        };
-        res.status(200).json({id:userData[0]._id});
+        res.status(200).json({id:adminData[0]._id});
       } else {
         res.status(200).json({id:-1});
       }
