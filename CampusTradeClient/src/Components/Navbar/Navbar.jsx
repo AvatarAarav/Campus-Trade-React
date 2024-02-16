@@ -281,6 +281,7 @@ function Navbar() {
               fontFamily: "cursive",
               fontWeight: "1000",
               color: theme.palette.text.primary,
+              cursor:"pointer",
             }}
           >
             Campus Trade
