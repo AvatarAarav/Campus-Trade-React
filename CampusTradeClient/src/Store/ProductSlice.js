@@ -18,6 +18,7 @@ const initialState = {
     buyer:"",
     views: 0,
     sellerMail: "",
+    reportcount:0,
   },
 };
 

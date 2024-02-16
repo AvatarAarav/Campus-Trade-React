@@ -13,7 +13,17 @@ import { getDevsPage } from "./controllers/getDevsPage.js";
 const app = express(); //function to handle requests , app is an object to handle requests
 import { dirname } from "path"; //function to get directory name
 import { fileURLToPath } from "url";
+import morgan from "morgan"
+import rfs from "rotating-file-stream"
+import path from "path"
 const __dirname = dirname(fileURLToPath(import.meta.url)); //saving the directory name
+var accessLogStream = rfs.createStream("access.log",
+{
+    interval: '1d',
+    path:path.join(__dirname,'log')
+})
+app.use(morgan('combined',{stream:accessLogStream}))
+
 
 const server = http.createServer(app);
 const io = new Server(server);
