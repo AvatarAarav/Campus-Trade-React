@@ -5,21 +5,19 @@ import Profile from './Profile'
 import CardContainer from '../../Components/CardContainer'
 import { Box } from '@mui/material'
 import UserActivityChart from './ActivityChart'
+import { useSelector } from 'react-redux'
 
 function Admin() {
-  const chartData = {
-    labels: ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
-    values: [5, 8, 12, 6, 10],
-  };
+  const {_id,name,email,soldOut,reportedAds,activity}=useSelector(state=>state.admin.adminDetails)
   return (
     <>
       <Box sx={{backgroundColor:'whitesmoke',display: 'flex',width: '100%'}}>
         <FindUser flex={2} />
-        <Dashboard flex={3} />
-        <Profile flex={2} />
+        <Dashboard flex={3} reportedAds={reportedAds} soldOut={soldOut} />
+        <Profile flex={2} name={name} email={email}/>
       </Box>
       <Box>
-        <UserActivityChart data={chartData}/>
+        <UserActivityChart data={activity}/>
       </Box>
       
       <Box>

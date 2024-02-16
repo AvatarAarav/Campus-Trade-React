@@ -275,7 +275,13 @@ function Navbar() {
             noWrap
             component="div"
             onClick={() => {
-              navigate("/");
+              if(isAdmin){
+                navigate('/admin')
+              }
+              else{
+                navigate("/");
+              }
+              
             }}
             sx={{
               display: { xs: "none", sm: "block" },
@@ -318,7 +324,11 @@ function Navbar() {
           </div>
 
           {
-          loggedIn ? (
+            isAdmin ?
+            (<>
+            {/* Write code  to show admin navbar side*/}
+            </>): 
+            loggedIn ? (
             <>
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
                 <IconButton size="large" aria-label="show 17 new notifications">

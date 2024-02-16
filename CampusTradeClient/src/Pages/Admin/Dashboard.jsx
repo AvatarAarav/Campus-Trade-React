@@ -19,7 +19,7 @@ const Text = styled(Typography) ({
     left:'10px',
 })
 
-const Dashboard = () => {
+const Dashboard = ({reportedAds,soldOut}) => {
   return (
     <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'20px'}}>
         <Typography variant='h4'>Admin DashBoard</Typography>
@@ -38,7 +38,7 @@ const Dashboard = () => {
                 <Item sx={{backgroundColor:'beige',color:'orange'}}><Text>Revenue</Text><Typography variant='h3'>482 $</Typography></Item>
             </Grid>
             <Grid item  >
-                <Item sx={{backgroundColor:'lightblue',color:'navyblue'}}><Text>Sold Out</Text><Typography variant='h3'>10 🤝</Typography></Item>
+                <Item sx={{backgroundColor:'lightblue',color:'navyblue'}}><Text>Sold Out</Text><Typography variant='h3'>{soldOut} 🤝</Typography></Item>
             </Grid>
             </Grid>
             </Box>

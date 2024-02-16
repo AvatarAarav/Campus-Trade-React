@@ -7,12 +7,12 @@ const initialState = {
     _id: '',
     name: '',
     email: '',
-    password: '',
-    college_name: '',
-    year: '',
-    branch: '',
-    ads: [],
-    report: [],
+    soldOut: 0,
+    reportedAds:0,
+    activity : {
+      labels: ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
+      values: [5, 8, 12, 6, 10],
+    }
   }
 
 }
