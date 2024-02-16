@@ -22,7 +22,7 @@ import { fetchAdDetails } from "../Store/ProductSlice.js";
 const CardContainer = () => {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.product.search);
-  const loggedIn = useSelector((state) => state.user.loggedIn);
+  const loggedIn = useSelector((state) => state.user.loggedIn) || useSelector((state) => state.admin.loggedIn);
   const navigate = useNavigate();
   const handleOpenAd = (id) => {
     if (!loggedIn) {

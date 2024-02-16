@@ -1,4 +1,4 @@
-import { Button, Container, TextField, Typography } from "@mui/material";
+import { Autocomplete, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,6 +53,59 @@ const UpdateProfileForm = () => {
     // }
   };
 
+
+  // Array of colleges
+  const colleges = [
+    {
+      label: 'MIT',
+      cid: 0,
+    },
+    {
+      label: 'IIT Madras',
+      cid: 1,
+    },
+    {
+      label: 'NIT Rourkela',
+      cid: 2,
+    },
+    {
+      label: 'IIIT Sri City',
+      cid: 3,
+    },
+    {
+      label: 'IIT Kharagpur',
+      cid: 4,
+    },
+    {
+      label: 'NIT Suratkal',
+      cid: 5,
+    },
+    {
+      label: 'IIIT Hyderabad',
+      cid: 6,
+    },
+    {
+      label: 'IIT Patna',
+      cid: 7,
+    },
+    {
+      label: 'NIT Bhopal',
+      cid: 8,
+    },
+    {
+      label: 'IIIT Trichy',
+      cid: 9,
+    },
+    {
+      label: 'IIT Roorkee',
+      cid: 10,
+    },
+    {
+      label: 'NIT Trichy',
+      cid: 11,
+    },
+  ];
+
   return (
     <>
       
@@ -70,6 +123,7 @@ const UpdateProfileForm = () => {
         <Container
           sx={{
             flex: 1,
+            width:'700px',
             backgroundColor: "white",
             display: "flex",
             flexDirection: "column",
@@ -94,14 +148,15 @@ const UpdateProfileForm = () => {
             variant="outlined"
           />
 
-          <TextField
-            id="collegeName"
-            onChange={(e) => setCollegeName(e.target.value)}
-            value={collegeName}
-            label="College Name *"
-            placeholder="college"
-            variant="outlined"
-          />
+         
+          <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              ivalue={collegeName}
+              onChange={(e) => setCollegeName(e.target.value)}
+              options={colleges}
+              renderInput={(params) => <TextField {...params} label="College Name" />}
+            />
           <TextField
             id="year"
             onChange={(e) => setYear(e.target.value)}

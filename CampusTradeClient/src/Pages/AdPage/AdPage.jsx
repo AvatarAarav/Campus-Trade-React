@@ -49,10 +49,11 @@ function AdPage() {
   // we should get this ad as a prop to this page
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.user.loggedIn);
+  const loggedIn = useSelector((state) => state.user.loggedIn) || useSelector((state) => state.admin.loggedIn);
   const [liked, setliked] = useState(false);
   const ad = useSelector((state) => state.product.adDetails);
   const user = useSelector((state) => state.user.userDetails);
+  const isadmin = useSelector((state) => state.admin.isAdmin);
   var isOwner = false;
   if (ad.id == user._id) {
     isOwner = true;
@@ -131,6 +132,7 @@ function AdPage() {
   };
 
   // Mail form
+  
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
@@ -385,36 +387,70 @@ reportAPI(user._id,ad._id)
                 gap: "12px",
               }}
             >
-              <Button
-                size="large"
-                variant="contained"
-                color="primary"
-                onClick={handlePayment}
-                disabled={isOwner || ad.sold}
-                startIcon={<ShoppingCart />}
-              >
-                {ad.sold?"SOLD":"Buy Now"} 
-              </Button>
-              <Button
-                onClick={handleAdWishList}
-                size="large"
-                variant="outlined"
-                disabled={isOwner}
-                color={liked ? "primary" : "secondary"}
-                startIcon={<Favorite />}
-              >
-                {liked ? "wishlisted" : "wishlist"}
-              </Button>
-              <Button
-              onclick = {handlereport}
-                size="large"
-                variant="contained"
-                color="warning"
-                disabled={isOwner}
-                startIcon={<Error />}
-              >
-                report
-              </Button>
+
+              {!isadmin && 
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  onClick={handlePayment}
+                  disabled={isOwner || ad.sold}
+                  startIcon={<ShoppingCart />}
+                >
+                  {ad.sold?"SOLD":"Buy Now"} 
+                </Button>
+
+              }
+              
+              {!isadmin && 
+                <Button
+                  onClick={handleAdWishList}
+                  size="large"
+                  variant="outlined"
+                  disabled={isOwner}
+                  color={liked ? "primary" : "secondary"}
+                  startIcon={<Favorite />}
+                >
+                  {liked ? "wishlisted" : "wishlist"}
+                </Button>
+              }
+              
+
+              {!isadmin && 
+                  <Button
+                    onclick = {handlereport}
+                    size="large"
+                    variant="contained"
+                    color="warning"
+                    disabled={isOwner}
+                    startIcon={<Error />}
+                  >
+                    report
+                  </Button>
+              }
+
+              {isadmin && 
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="warning"
+                  startIcon={<Error />}
+                >
+                  Report count
+                </Button>
+              }
+              
+              {isadmin && 
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="warning"
+                  startIcon={<Error />}
+                >
+                  Delete
+                </Button>
+              }
+              
             </Box>
             <hr />
             <Typography variant="h6">Product Description</Typography>
