@@ -42,6 +42,7 @@ import Signup from "./Signup";
 import { useTheme } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutReducer, loginReducer } from "../../Store/UserSlice";
+import { adminLogOutReducer } from "../../Store/AdminSlice";
 import { useNavigate } from "react-router-dom";
 import { setSearch } from "../../Store/ProductSlice";
 
@@ -143,6 +144,12 @@ function Navbar() {
   };
   const handleLogout = () => {
     dispatch(logOutReducer());
+    navigate("/");
+    handleMenuClose();
+  };
+
+  const adminLogout = () => {
+    dispatch(adminLogOutReducer());
     navigate("/");
     handleMenuClose();
   };
@@ -327,14 +334,9 @@ function Navbar() {
             isAdmin ?
             (<>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-                <IconButton size="large" >
-                  <Badge badgeContent={17} variant="dot" color="secondary">
-                    <FavoriteRounded
-                      fontSize="lg"
-                      sx={{ color: theme.palette.primary.main }}
-                      onClick={handleProfile}
-                    />
-                  </Badge>
+                <IconButton size="large" onClick={adminLogout} >
+                  
+                  <Chip sx={{fontWeight:'600', color:'red'}} label='Logout'></Chip>
                 </IconButton>
 
                 <IconButton
