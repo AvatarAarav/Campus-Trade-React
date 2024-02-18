@@ -24,6 +24,6 @@ export const updateprofileAPI = (data) => API.post("/user/UpdateProfile",data)
 export const updateadAPI = (data) => API.post("/update_form",data)
 export const reportAPI = (uid,id) => API.get(`/ad/report/${id}/uid/${uid}`)
 export const getalluserAPI = () => API.get("/allusers")
-export const delProductAPI = (id) => API.post("/delete/ad",{id});
-export const delUserAPI = (id) => API.post("/delete/user",{id})
-export const getAllreportAPI = () => API.post("/getallreport");
+export const delProductAPI = (id) => API.post("/admin/delete/ad",{id});
+export const delUserAPI = (id) => API.post("/admin/delete/user",{id})
+export const getAllreportAPI = () => API.get("/admin/getReported");

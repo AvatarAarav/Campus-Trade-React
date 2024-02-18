@@ -105,7 +105,7 @@ router.post("/send-otp", sendOTP);
 
 router.post("/create-order", Payment);
 router.post("/ad/bought", boughtAdAPI);
-router.post("/delete/ad",del_ad_adminAPI);
-router.post("/delete/user",DelUserAPI)
-router.get("/getallreport",getallreportAPI);
+router.post("/admin/delete/ad",del_ad_adminAPI);
+router.post("/admin/delete/user",DelUserAPI)
+router.get("/admin/getReported",getallreportAPI);
 export default router;
