@@ -22,8 +22,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAdDetails } from "../../Store/ProductSlice";
 import { fetchAllAdsApi } from "../../apis/index";
 import { CurrencyRupee, Edit, Mail, School } from "@mui/icons-material";
+
 function UserData({ user, onEditProfile, postad, userRating }) {
-  const admin = useSelector((state) => state.admin.isadmin)
+  const ulog = useSelector((state) => state.user.loggedIn);
+const alog = useSelector((state) => state.admin.loggedIn);
+const loggedIn = (ulog || alog);
+  // const admin = useSelector((state) => state.admin.isadmin)
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -49,7 +53,7 @@ function UserData({ user, onEditProfile, postad, userRating }) {
         
         <Box sx={{flex:3, padding: "20px", backgroundColor:'', position:'relative' }}>
 
-        {!admin && 
+        {!alog && 
             <Tooltip title="Edit">
             <IconButton
                 onClick={onEditProfile}
@@ -71,7 +75,7 @@ function UserData({ user, onEditProfile, postad, userRating }) {
         }
           
 
-        {!admin && 
+        {!alog && 
           <Tooltip title="post new ad">
             <Button
                 onClick={postad}
@@ -140,7 +144,7 @@ function UserData({ user, onEditProfile, postad, userRating }) {
               
             </Box>
 
-            {admin && <Button color="warning" variant="contained">Delete</Button>}
+            {alog && <Button color="warning" variant="contained">Delete</Button>}
             
           </Box>
           
@@ -224,9 +228,12 @@ function AdCard({ ad, flag }) {
 }
 
 function UserProfile() {
+  const ulog = useSelector((state) => state.user.loggedIn);
+const alog = useSelector((state) => state.admin.loggedIn);
+const loggedIn = (ulog || alog);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.user.loggedIn);
+
   useEffect(() => {
     if (!loggedIn) {
       navigate("/");
