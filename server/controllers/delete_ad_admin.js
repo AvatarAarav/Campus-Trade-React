@@ -16,15 +16,15 @@ export const del_ad_adminAPI = async (req, res) => {
         await Products.deleteOne({ _id: id });
 
         // Remove the product from the user's ads array
-        const uid = pdata.id;
-        const userData = await Users.findOne({ _id: uid });
+        // const uid = pdata.id;
+        // const userData = await Users.findOne({ _id: uid });
 
-        if (userData) {
-            userData.ads = userData.ads.filter(adId => adId.toString() !== id);
-            await userData.save();
-        }
+        // if (userData) {
+        //     userData.ads = userData.ads.filter(adId => adId.toString() !== id);
+        //     await userData.save();
+        // }
 
-        res.status(200).json({ user: userData });
+        res.status(200).json({ message: "product deleted" });
     } catch (error) {
         console.error(`${error.message}!!`);
         res.status(500).json({ message: "Internal server error" });

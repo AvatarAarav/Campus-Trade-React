@@ -257,14 +257,16 @@ console.log(reported)
   };
 
   const handlereport = async () => {
-    console.log("i am in handlereport")
+    // console.log("i am in handlereport")
  await reportAPI(user._id,ad._id)
  await dispatch(fetchUserDetails(user._id))
 
   }
-  const handledelete =() =>
+  const handledelete = async () =>
   {
-    delProductAPI(ad._id);
+    console.log("deleting product")
+   await delProductAPI(ad._id);
+    navigate("/admin")
   }
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
@@ -461,6 +463,7 @@ console.log(reported)
               
               {isadmin && 
                 <Button
+                onClick={handledelete}
                   size="large"
                   variant="contained"
                   color="warning"
