@@ -232,6 +232,10 @@ function UserProfile() {
       navigate("/");
     }
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   const user = useSelector((state) => state.user.userDetails);
 
   const [userRating, setUserRating] = useState(5);
@@ -435,7 +439,7 @@ function UserProfile() {
                   <CardMedia
                     component="img"
                     height="300"
-                    src={`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`}
+                    src={`https://drive.google.com/thumbnail?authuser=0&sz=w600&id=${ad.img_id[0]}`}
                     alt="green iguana"
                   />
                   <CardContent sx={{ padding: "10px 20px 0px 20px" }}>

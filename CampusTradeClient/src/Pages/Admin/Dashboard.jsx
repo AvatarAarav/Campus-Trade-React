@@ -19,7 +19,7 @@ const Text = styled(Typography) ({
     left:'10px',
 })
 
-const Dashboard = ({reportedAds,soldOut}) => {
+const Dashboard = ({reportedAds,soldOut,revenue,prodCount,userCount}) => {
   return (
     <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'20px'}}>
         <Typography variant='h4'>Admin DashBoard</Typography>
@@ -28,14 +28,14 @@ const Dashboard = ({reportedAds,soldOut}) => {
             <Box sx={{margin:'0px 70px'}}>
             <Grid container rowSpacing={4} columnSpacing={4}>
             <Grid item  >
-                <Item sx={{backgroundColor:'plum',color:'darkviolet'}}><Text>Products</Text><Typography variant='h3'>33 🛍️</Typography></Item>
+                <Item sx={{backgroundColor:'plum',color:'darkviolet'}}><Text>Products</Text><Typography variant='h3'>{prodCount} 🛍️</Typography></Item>
             </Grid>
             <Grid item  >
             
-                <Item sx={{backgroundColor:'lightsalmon',color:'darkred'}}><Text>Users</Text><Typography variant='h3'>23 👥</Typography></Item>
+                <Item sx={{backgroundColor:'lightsalmon',color:'darkred'}}><Text>Users</Text><Typography variant='h3'>{userCount} 👥</Typography></Item>
             </Grid>
             <Grid item  >
-                <Item sx={{backgroundColor:'beige',color:'orange'}}><Text>Revenue</Text><Typography variant='h3'>482 $</Typography></Item>
+                <Item sx={{backgroundColor:'beige',color:'orange'}}><Text>Revenue</Text><Typography variant='h3'>{revenue} ₹</Typography></Item>
             </Grid>
             <Grid item  >
                 <Item sx={{backgroundColor:'lightblue',color:'navyblue'}}><Text>Sold Out</Text><Typography variant='h3'>{soldOut} 🤝</Typography></Item>

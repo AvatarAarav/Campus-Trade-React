@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import { useSelector, useDispatch } from "react-redux";
 import desktop from "../../assets/desktop.jpg";
 import {
@@ -42,7 +42,10 @@ function Home() {
   const count = useSelector((state) => state.user.value);
   const search = useSelector(state=>state.product.search);
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   return (
     <>
       {search=="" && <div style={landingPageStyle}>

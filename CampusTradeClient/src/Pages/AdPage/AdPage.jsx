@@ -24,7 +24,7 @@ import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
 import ChatBox, { ChatFrame } from "react-chat-plugin";
 import { Navigate, useNavigate } from "react-router-dom";
-import { boughtAdAPI, fetchUserDetailsApi, uwishlistAPI, wishlistAPI } from "../../apis";
+import { boughtAdAPI, fetchUserDetailsApi, uwishlistAPI, wishlistAPI,delProductAPI } from "../../apis";
 import {
   Chat,
   CurrencyRupee,
@@ -53,6 +53,7 @@ function AdPage() {
   const alog = useSelector((state) => state.admin.loggedIn);
   const loggedIn = (ulog || alog);
   const [liked, setliked] = useState(false);
+  const [reported,setreported] = useState(false);
   const ad = useSelector((state) => state.product.adDetails);
   const user = useSelector((state) => state.user.userDetails);
   const isadmin = useSelector((state) => state.admin.isAdmin);
@@ -61,14 +62,25 @@ function AdPage() {
     isOwner = true;
   }
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
+  useEffect(() => {
     if (!loggedIn) {
       navigate("/");
     }
-    console.log(user.ads)
+    // console.log(user.ads)
     console.log(ad)
+    console.log(user)
     if(user.ads.includes(ad._id)){
       setliked(true)
     }
+if(user.report.includes(ad._id))
+{
+  setreported(true);
+}
+console.log(reported)
+
   });
   const socket = io("http://localhost:8000", { transports: ["websocket"] });
   
@@ -248,9 +260,17 @@ function AdPage() {
     setliked(!liked);
   };
 
-  const handlereport = ()=>{
-reportAPI(user._id,ad._id)
+  const handlereport = async () => {
+    // console.log("i am in handlereport")
+ await reportAPI(user._id,ad._id)
+ await dispatch(fetchUserDetails(user._id))
 
+  }
+  const handledelete = async () =>
+  {
+    console.log("deleting product")
+   await delProductAPI(ad._id);
+    navigate("/admin")
   }
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
@@ -418,32 +438,36 @@ reportAPI(user._id,ad._id)
               }
               
 
-              {!isadmin && 
-                  <Button
-                    onclick = {handlereport}
-                    size="large"
-                    variant="contained"
-                    color="warning"
-                    disabled={isOwner}
-                    startIcon={<Error />}
-                  >
-                    report
-                  </Button>
-              }
+
+{!isadmin && 
+    <Button
+        onClick={handlereport}
+        size="large"
+        variant="contained"
+        color="warning"
+        disabled={isOwner || reported} // Disable if isOwner or reported is true
+        startIcon={<Error />}
+    >
+         {reported ? "Reported" : "report"}
+    </Button>
+}
+
 
               {isadmin && 
                 <Button
                   size="large"
                   variant="contained"
                   color="warning"
+                  disabled = {true}
                   startIcon={<Error />}
                 >
-                  Report count
+                  Report count : {ad?.report?.length}
                 </Button>
               }
               
               {isadmin && 
                 <Button
+                onClick={handledelete}
                   size="large"
                   variant="contained"
                   color="warning"

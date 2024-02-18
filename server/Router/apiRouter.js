@@ -29,14 +29,18 @@ import { getAllUsersEmailAPI } from "../controllers/getAllUsersEmail.js";
 import { getuserdetailAPI } from "../controllers/getuserdetail.js";
 import { getadadmindetailAPI } from "../controllers/getadadmindetail.js";
 
-import { deleteAdminadAPI } from "../controllers/deleteAdminad.js";
+// import { deleteAdminadAPI } from "../controllers/deleteAdminad.js";
 import { deleteAdminuserAPI } from "../controllers/deleteAdminuser.js";
 import { sendOTP } from "../controllers/Mailer.js";
 import { Payment } from "../controllers/Payment.js";
 import { GoogleLoginAPI } from "../controllers/GoogleLogin.js";
 import { boughtAdAPI } from "../controllers/bought_add.js";
 import { UnbuyAPI } from "../controllers/unbuy_product.js";
-import { reportadApi } from "../controllers/report_ad.js";
+// import { reportadApi } from "../controllers/report_ad.js";
+import { del_ad_adminAPI } from "../controllers/delete_ad_admin.js"; 
+import { DelUserAPI } from "../controllers/del_user_admin.js";
+import { getAllreportAPI } from "../../CampusTradeClient/src/apis/index.js";
+import { getallreportAPI } from "../controllers/getAllReport.js";
 const router = express.Router();
 
 router.get("/products", getAllProductsAPI);
@@ -93,7 +97,7 @@ router.get("/admin_ads/:id/admin/:aid", getadadmindetailAPI);
 
 router.get("/user/allEmail/", getAllUsersEmailAPI);
 
-router.get("/admin/:id/delete/:aid", deleteAdminadAPI);
+// router.get("/admin/:id/delete/:aid", deleteAdminadAPI);
 router.get("/admin/:email/deleteuser/:aid", deleteAdminuserAPI);
 
 router.post("/user/google", GoogleLoginAPI);
@@ -101,4 +105,7 @@ router.post("/send-otp", sendOTP);
 
 router.post("/create-order", Payment);
 router.post("/ad/bought", boughtAdAPI);
+router.post("/delete/ad",del_ad_adminAPI);
+router.post("/delete/user",DelUserAPI)
+router.get("/getallreport",getallreportAPI);
 export default router;

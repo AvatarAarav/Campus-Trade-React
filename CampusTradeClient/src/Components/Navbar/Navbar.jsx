@@ -326,7 +326,34 @@ function Navbar() {
           {
             isAdmin ?
             (<>
-            {/* Write code  to show admin navbar side*/}
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <IconButton size="large" >
+                  <Badge badgeContent={17} variant="dot" color="secondary">
+                    <FavoriteRounded
+                      fontSize="lg"
+                      sx={{ color: theme.palette.primary.main }}
+                      onClick={handleProfile}
+                    />
+                  </Badge>
+                </IconButton>
+
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="user profile"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                >
+                  {loggedIn && (
+                    <Face
+                      fontSize="lg"
+                      sx={{ color: theme.palette.primary.main }}
+                    />
+                  )}
+                  {loggedIn && <Chip label={uname} />}
+                </IconButton>
+              </Box>
             </>): 
             loggedIn ? (
             <>
