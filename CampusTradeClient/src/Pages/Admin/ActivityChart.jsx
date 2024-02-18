@@ -52,7 +52,6 @@ const UserActivityChart = ({ data }) => {
             <Box
             sx={{
                 width: "100%",
-                maxWidth: "1350px",
                 margin:"auto",
                 display: "flex",
                 padding: "10px 0px",
