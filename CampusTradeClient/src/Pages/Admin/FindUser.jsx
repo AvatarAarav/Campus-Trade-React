@@ -18,6 +18,7 @@ import {
   ListItemText,
   Paper,
   styled,
+  CircularProgress
 } from "@mui/material";
 import React, { useState } from "react";
 import { getalluserAPI } from "../../apis";
@@ -38,16 +39,15 @@ const StyledDiv = styled("div")({
 
 const FindUser = () => {
   const [users, setusers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchdata() {
       try {
         const data = await getalluserAPI();
-        // console.log(data.data.data);
         setusers(data.data.data);
-        console.log("fetched data : ", users);
+        setIsLoading(false);
       } catch (error) {
-        // Handle errors here
         console.error("Error fetching data:", error);
       }
     }
@@ -60,23 +60,28 @@ const FindUser = () => {
         <Search />
         <InputBase placeholder="Find Seller" />
       </StyledDiv>
-      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-        {console.log(users)}
-        {users.map((user) => {
-          return (
-            <ListItemButton key={user._id}>
-              <ListItemAvatar>
-                <Avatar src="" alt="Sharan" />
-              </ListItemAvatar>
-              <ListItemText primary={user.name} secondary={`ads posted ${user.ads.length}`} />
-              <ListItemAvatar>
-                <Mail fontSize="large" sx={{ color: "dodgerblue" }} />{" "}
-                <Delete fontSize="large" sx={{ color: "orange" }} />
-              </ListItemAvatar>
-            </ListItemButton>
-          );
-        })}
-      </List>
+      {isLoading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+          {users.map((user) => {
+            return (
+              <ListItemButton key={user._id}>
+                <ListItemAvatar>
+                  <Avatar src="" alt="Sharan" />
+                </ListItemAvatar>
+                <ListItemText primary={user.name} secondary={`ads posted ${user.ads.length}`} />
+                <ListItemAvatar>
+                  <Mail fontSize="large" sx={{ color: "dodgerblue" }} />{" "}
+                  <Delete fontSize="large" sx={{ color: "orange" }} />
+                </ListItemAvatar>
+              </ListItemButton>
+            );
+          })}
+        </List>
+      )}
     </StyledBox>
   );
 };

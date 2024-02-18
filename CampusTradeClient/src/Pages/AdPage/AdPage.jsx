@@ -62,6 +62,10 @@ function AdPage() {
     isOwner = true;
   }
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
+  useEffect(() => {
     if (!loggedIn) {
       navigate("/");
     }

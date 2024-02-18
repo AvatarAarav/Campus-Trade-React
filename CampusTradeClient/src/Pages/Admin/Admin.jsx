@@ -15,6 +15,10 @@ function Admin() {
   useEffect(()=>{
     if(!adminLoggedIn){navigate('/')}
   },[])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   const {_id,name,email,soldOut,reportedAds,activity,prodCount,userCount,revenue}=useSelector(state=>state.admin.adminDetails)
   return (
     <>
