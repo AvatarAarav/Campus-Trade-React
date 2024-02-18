@@ -49,7 +49,9 @@ function AdPage() {
   // we should get this ad as a prop to this page
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.user.loggedIn) || useSelector((state) => state.admin.loggedIn);
+  const ulog = useSelector((state) => state.user.loggedIn);
+  const alog = useSelector((state) => state.admin.loggedIn);
+  const loggedIn = (ulog || alog);
   const [liked, setliked] = useState(false);
   const ad = useSelector((state) => state.product.adDetails);
   const user = useSelector((state) => state.user.userDetails);
