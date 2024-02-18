@@ -23,6 +23,7 @@ import { fetchAdDetails } from "../../Store/ProductSlice";
 import { fetchAllAdsApi } from "../../apis/index";
 import { CurrencyRupee, Edit, Mail, School } from "@mui/icons-material";
 function UserData({ user, onEditProfile, postad, userRating }) {
+  const admin = useSelector((state) => state.admin.isadmin)
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -44,8 +45,12 @@ function UserData({ user, onEditProfile, postad, userRating }) {
             style={{ maxWidth: "200px", borderRadius: "50%", border:'2px solid lavender' }}
           />
         </Box>
+
+        
         <Box sx={{flex:3, padding: "20px", backgroundColor:'', position:'relative' }}>
-          <Tooltip title="Edit">
+
+        {!admin && 
+            <Tooltip title="Edit">
             <IconButton
                 onClick={onEditProfile}
                 sx={{
@@ -63,7 +68,10 @@ function UserData({ user, onEditProfile, postad, userRating }) {
                 
               </IconButton>
           </Tooltip>
+        }
+          
 
+        {!admin && 
           <Tooltip title="post new ad">
             <Button
                 onClick={postad}
@@ -82,6 +90,8 @@ function UserData({ user, onEditProfile, postad, userRating }) {
                 
               </Button>
           </Tooltip>
+        }
+          
 
 
           <Typography variant="h6" sx={{ fontSize: "50px" , fontFamily:'cursive'}}>
@@ -115,15 +125,23 @@ function UserData({ user, onEditProfile, postad, userRating }) {
           </Box>
 
 
-          <Box sx={{display:'flex', alignItems:'center', marginTop:'20px'}}>
-            <Typography>Rating  </Typography>
-            <Rating
-              name="user-rating"
-              value={userRating}
-              precision={0.5}
-              readOnly
-              sx={{ color: "" }}
-            />
+          <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between', marginTop:'20px'}}>
+            <Box display='flex' alignItems='center'>
+              <Chip color="secondary" label="Rating"></Chip>
+              <Box sx={{border:'2px solid white', borderRadius:'50px', padding:'5px', paddingTop:'7px'}}>
+                <Rating
+                    name="user-rating"
+                    value={userRating}
+                    precision={0.5}
+                    readOnly
+                    sx={{ color: "" }}
+                  />
+              </Box>
+              
+            </Box>
+
+            {admin && <Button color="warning" variant="contained">Delete</Button>}
+            
           </Box>
           
         </Box>
