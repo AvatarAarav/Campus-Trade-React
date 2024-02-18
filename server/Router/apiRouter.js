@@ -39,6 +39,8 @@ import { UnbuyAPI } from "../controllers/unbuy_product.js";
 // import { reportadApi } from "../controllers/report_ad.js";
 import { del_ad_adminAPI } from "../controllers/delete_ad_admin.js"; 
 import { DelUserAPI } from "../controllers/del_user_admin.js";
+import { getAllreportAPI } from "../../CampusTradeClient/src/apis/index.js";
+import { getallreportAPI } from "../controllers/getAllReport.js";
 const router = express.Router();
 
 router.get("/products", getAllProductsAPI);
@@ -105,4 +107,5 @@ router.post("/create-order", Payment);
 router.post("/ad/bought", boughtAdAPI);
 router.post("/delete/ad",del_ad_adminAPI);
 router.post("/delete/user",DelUserAPI)
+router.get("/getallreport",getallreportAPI);
 export default router;

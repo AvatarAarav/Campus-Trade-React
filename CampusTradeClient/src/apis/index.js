@@ -26,3 +26,4 @@ export const reportAPI = (uid,id) => API.get(`/ad/report/${id}/uid/${uid}`)
 export const getalluserAPI = () => API.get("/allusers")
 export const delProductAPI = (id) => API.post("/delete/ad",{id});
 export const delUserAPI = (id) => API.post("/delete/user",{id})
+export const getAllreportAPI = () => API.post("/getallreport");
