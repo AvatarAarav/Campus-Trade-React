@@ -2,12 +2,14 @@ import Products from "../db/Models/Products.js";
 import Users from "../db/Models/User.js";
 export const reportProductApi=async (req,res)=>{
     try {
+        console.log("hi there");
         const uid=req.params.uid;
         const id=req.params.id;  //url parameters id
         const userData=await Users.findById(uid)
         const product=await Products.findById(id)
         product.report=product.report+1;
         userData.report.unshift(product._id);
+        product.report.unshift(uid);
         await userData.save()
         await product.save()
         res.status(200).json({ad:product,user:userData});

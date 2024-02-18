@@ -24,3 +24,5 @@ export const updateprofileAPI = (data) => API.post("/user/UpdateProfile",data)
 export const updateadAPI = (data) => API.post("/update_form",data)
 export const reportAPI = (uid,id) => API.get(`/ad/report/${id}/uid/${uid}`)
 export const getalluserAPI = () => API.get("/allusers")
+export const delProductAPI = () => API.post("delete/ad",id);
+export const delUserAPI = () => API.post("delete/user",id)
