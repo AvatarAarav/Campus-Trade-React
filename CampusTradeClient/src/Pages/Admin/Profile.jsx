@@ -32,6 +32,7 @@ const Box2 = styled(Box)({
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const {_id,name,email,college,soldOut,reportedAds,activity,prodCount,userCount,revenue}=useSelector(state=>state.admin.adminDetails)
   const [isLoading, setIsLoading] = useState(true); // State to track loading
   useEffect(() => {
     dispatch(fetchReportedAds())
@@ -49,10 +50,10 @@ const Profile = () => {
           <Avatar sx={{ width: "100px", height: "100px" }} >
             <img src="https://picsum.photos/300/300" alt="display picture" />
           </Avatar>
-          <Typography variant="h4">{props.name} <Verified sx={{color:'green'}} /></Typography>
-          <Typography variant="p" color='grey'><Shield /> {props._id}</Typography>
-          <Typography variant="h6" color='grey'><School /> {props.college}</Typography>
-          <Typography variant="h6" color='grey'><Mail /> {props.email}</Typography>
+          <Typography variant="h4">{name} <Verified sx={{color:'green'}} /></Typography>
+          <Typography variant="p" color='grey'><Shield /> {_id}</Typography>
+          <Typography variant="h6" color='grey'><School /> {college}</Typography>
+          <Typography variant="h6" color='grey'><Mail /> {email}</Typography>
           <ButtonGroup
             variant="contained"
             color="warning"
