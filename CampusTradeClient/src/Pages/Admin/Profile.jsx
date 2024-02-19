@@ -99,7 +99,6 @@ const Profile = () => {
                 width: "100%",
                 height: "180px",
                 overflow: "auto",
-                maxWidth: 360,
                 bgcolor: "lavender",
               }}
             >
