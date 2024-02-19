@@ -20,13 +20,15 @@ const UpdateProfileForm = () => {
     },[])
 
   const [name, setName] = useState("");
-  const [collegeName, setCollegeName] = useState("");
-  const [year, setYear] = useState("");
-  const [branch, setBranch] = useState("");
+  const [collegeName, setCollegeName] = useState(user.college_name);
+  const [year, setYear] = useState(user.year);
+  const [branch, setBranch] = useState(user.branch);
   console.log(user)
   useEffect(()=>{
     setName(user.name)
+
     setCollegeName(user.college_name)
+   
     setYear(user.year || "" )
     setBranch(user.branch || "")
   },[])
@@ -153,7 +155,16 @@ const UpdateProfileForm = () => {
               disablePortal
               id="combo-box-demo"
               ivalue={collegeName}
-              onChange={(e) => setCollegeName(e.target.value)}
+              // getOptionLabel={(option) => setCollegeName(option.label)}
+              onSelect={(option) => {
+              setCollegeName(option.target.value);
+              }}
+            
+              // onInputChange={(e) => {
+              //   console.log("Selected value:", e);
+              //   setCollegeName(e.target.value)}}
+                // getOptionLabel={(option) => option.name}
+                
               options={colleges}
               renderInput={(params) => <TextField {...params} label="College Name" />}
             />

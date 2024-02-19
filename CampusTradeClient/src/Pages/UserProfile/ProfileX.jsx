@@ -24,6 +24,7 @@ import { fetchAllAdsApi } from "../../apis/index";
 import { CurrencyRupee, Edit, Mail, School } from "@mui/icons-material";
 import { delUserAPI } from "../../apis/index";
 function UserData({ user, onEditProfile, postad, userRating }) {
+
   const ulog = useSelector((state) => state.user.loggedIn);
 const alog = useSelector((state) => state.admin.loggedIn);
 const loggedIn = (ulog || alog);
@@ -125,7 +126,7 @@ navigate("/admin")
               <School style={{color:'orange', marginRight:'10px'}} />
               
               <Typography variant="body1" >
-                {user.college_name}
+              {user.college_name ? user.college_name : "Not chosen (update it)"}
               </Typography>
             </IconButton>
           </Box>
