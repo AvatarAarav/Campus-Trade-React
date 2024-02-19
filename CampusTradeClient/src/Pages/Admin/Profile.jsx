@@ -7,26 +7,19 @@ import {
   ButtonGroup,
   Card,
   Chip,
+  CircularProgress, // Import CircularProgress for the loader
   Container,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemButton,
   ListItemText,
   Typography,
 } from "@mui/material";
-import football from '../../assets/football4.png'
-import speaker from '../../assets/speaker.webp'
-import React from "react";
-
-// import List from "@mui/material/List";
-// import ListItem from "@mui/material/ListItem";
-// import ListItemText from "@mui/material/ListItemText";
-// import ListItemAvatar from "@mui/material/ListItemAvatar";
-// import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
-import WorkIcon from "@mui/icons-material/Work";
-import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchReportedAds } from "../../Store/AdminSlice";
+import football from '../../assets/football4.png';
+import speaker from '../../assets/speaker.webp';
+import React, { useEffect, useState } from "react";
 
 const Box2 = styled(Box)({
   display: "flex",
@@ -36,7 +29,19 @@ const Box2 = styled(Box)({
   alignItems: "center",
   gap: "10px",
 });
-const Profile = (props) => {
+
+const Profile = () => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true); // State to track loading
+  useEffect(() => {
+    dispatch(fetchReportedAds())
+      .then(() => setIsLoading(false)) // Set loading to false when reports are fetched
+      .catch(() => setIsLoading(false)); // Handle errors if any
+  }, []);
+
+  const reports = useSelector(state => state.admin.reportedAds);
+  console.log(reports);
+
   return (
     <Box sx={{ width:'600px', margin: "20px", display: { xs: "none", sm: "block" } }}>
       <Card>
@@ -81,39 +86,31 @@ const Profile = (props) => {
           <Typography align="center" variant="h5">
             Reports <Warning color="warning" />
           </Typography>
-          <List
-          
-            sx={{
-              height: "180px",
-              overflow: "auto",
-              bgcolor: "lavender",
-            }}
-          >
-            <ListItemButton>
-              
-              <img src={football} style={{width:'50px',height:'40px', marginRight:'10px'}} alt="" />
-              <ListItemText primary="Football" secondary="posted by Aarav" />
-              <Chip size="small" color="secondary" label="5" />
-            </ListItemButton>
-            <ListItemButton>
-              
-              <img src={speaker} style={{width:'50px',height:'40px', marginRight:'10px'}} alt="" />
-              <ListItemText
-                primary="Bluetooth Speaker"
-                secondary="posted by Pratyush"
-              />
-              <Chip size="small" color="secondary" label="3" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="Bat" secondary="posted by Parth" />
-              <Chip size="small" color="secondary" label="9" />
-            </ListItemButton>
-          </List>
+          {isLoading ? ( // Show loader if loading
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '180px' }}>
+              <CircularProgress />
+            </Box>
+          ) : reports.length === 0 ? ( // Show message if reports are empty
+            <Typography align="center">No reports found.</Typography>
+          ) : (
+            <List
+              sx={{
+                width: "100%",
+                height: "180px",
+                overflow: "auto",
+                maxWidth: 360,
+                bgcolor: "lavender",
+              }}
+            >
+              {reports.map(o => (
+                <ListItemButton key={o.id}>
+                  <img src={`https://drive.google.com/thumbnail?authuser=0&sz=w600&id=${o.image_id}`} style={{ width: '50px', height: '40px', marginRight: '10px' }} alt="" />
+                  <ListItemText primary={o.name} />
+                  <Chip size="small" color="secondary" label={o.reportCount} />
+                </ListItemButton>
+              ))}
+            </List>
+          )}
         </Box>
       </Card>
     </Box>

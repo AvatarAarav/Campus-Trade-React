@@ -24,6 +24,9 @@ import {
 import React, { useState } from "react";
 import { getalluserAPI } from "../../apis";
 import { useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserDetails } from "../../Store/UserSlice";
 const StyledBox = styled(Paper)({
   overflow: "auto",
   width: "40%",
@@ -39,6 +42,8 @@ const StyledDiv = styled("div")({
 });
 
 const FindUser = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [users, setusers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -55,6 +60,14 @@ const FindUser = () => {
     fetchdata();
   }, []);
 
+  const handleUserClick = async (id) => {
+   
+    await dispatch(fetchUserDetails(id))
+
+    navigate("/user");
+    
+  };
+
   return (
     <StyledBox sx={{ display: { xs: "none", sm: "block" } }}>
       <StyledDiv color="primary">
@@ -69,7 +82,7 @@ const FindUser = () => {
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
           {users.map((user) => {
             return (
-              <ListItemButton sx={{height:'100px'}} key={user._id}>
+              <ListItemButton key={user._id} onClick={() => handleUserClick(user._id)}>
                 <ListItemAvatar>
                   <Avatar sx={{width:56, height:56, marginRight:2}} src="" alt="random" >
                     <img src="https://picsum.photos/300/300" alt="" />

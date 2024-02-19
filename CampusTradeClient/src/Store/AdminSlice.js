@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchAdminDetailsApi } from '../apis'
+import { fetchAdminDetailsApi, getAllreportAPI } from '../apis'
 const initialState = {
   isAdmin: false,
   loggedIn:false,
+  reportedAds:[],
   adminDetails: {
     _id: '',
     name: '',
@@ -23,14 +24,22 @@ export const fetchAdminDetails = createAsyncThunk(
   "AdminDetails/fetch", async (id) => {
     try {
       const response = await fetchAdminDetailsApi(id)
-      console.log(response)
       return response.data;
     } catch (err) {
       return err.message;
     }
   }
 )
-
+export const fetchReportedAds = createAsyncThunk(
+  "reportedAds/fetch", async (id) => {
+    try {
+      const response = await getAllreportAPI();
+      return response.data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+)
 export const adminSlice = createSlice({
   name: 'user',
   initialState,
@@ -57,7 +66,15 @@ export const adminSlice = createSlice({
     builder.addCase(fetchAdminDetails.rejected, (state, action) => {
       state.adminDetails=initialState.adminDetails
     })
-    
+    builder.addCase(fetchReportedAds.fulfilled, (state, action) => {
+      state.reportedAds=action.payload.reports
+    })
+    builder.addCase(fetchReportedAds.pending, (state, action) => {
+      state.reportedAds=initialState.reportedAds
+    })
+    builder.addCase(fetchReportedAds.rejected, (state, action) => {
+      state.reportedAds=initialState.reportedAds
+    })
   }
 })
 

@@ -17,13 +17,27 @@ import {
 import theme from "../../theme";
 import desktop from "../../assets/desktop.jpg";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAdDetails } from "../../Store/ProductSlice";
 import { fetchAllAdsApi } from "../../apis/index";
 import { CurrencyRupee, Edit, Mail, School } from "@mui/icons-material";
+import { delUserAPI } from "../../apis/index";
 function UserData({ user, onEditProfile, postad, userRating }) {
-  const admin = useSelector((state) => state.admin.isadmin)
+
+  const ulog = useSelector((state) => state.user.loggedIn);
+const alog = useSelector((state) => state.admin.loggedIn);
+const loggedIn = (ulog || alog);
+  // const admin = useSelector((state) => state.admin.isadmin)
+const navigate= useNavigate();
+const handleuserdelete = async () =>
+{
+console.log("deleting user");
+await delUserAPI(user._id)
+navigate("/admin")
+
+}
+
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -49,7 +63,7 @@ function UserData({ user, onEditProfile, postad, userRating }) {
         
         <Box sx={{flex:3, padding: "20px", backgroundColor:'', position:'relative' }}>
 
-        {!admin && 
+        {!alog && 
             <Tooltip title="Edit">
             <IconButton
                 onClick={onEditProfile}
@@ -71,7 +85,7 @@ function UserData({ user, onEditProfile, postad, userRating }) {
         }
           
 
-        {!admin && 
+        {!alog && 
           <Tooltip title="post new ad">
             <Button
                 onClick={postad}
@@ -112,7 +126,7 @@ function UserData({ user, onEditProfile, postad, userRating }) {
               <School style={{color:'orange', marginRight:'10px'}} />
               
               <Typography variant="body1" >
-                {user.college_name}
+              {user.college_name ? user.college_name : "Not chosen (update it)"}
               </Typography>
             </IconButton>
           </Box>
@@ -140,7 +154,7 @@ function UserData({ user, onEditProfile, postad, userRating }) {
               
             </Box>
 
-            {admin && <Button color="warning" variant="contained">Delete</Button>}
+            {alog && <Button onClick={handleuserdelete} color="warning" variant="contained">Delete</Button>}
             
           </Box>
           
@@ -224,9 +238,12 @@ function AdCard({ ad, flag }) {
 }
 
 function UserProfile() {
+  const ulog = useSelector((state) => state.user.loggedIn);
+const alog = useSelector((state) => state.admin.loggedIn);
+const loggedIn = (ulog || alog);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedIn = useSelector((state) => state.user.loggedIn);
+
   useEffect(() => {
     if (!loggedIn) {
       navigate("/");

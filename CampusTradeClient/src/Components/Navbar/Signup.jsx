@@ -47,7 +47,7 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
   };
 
   const [name, setname] = useState("");
-  const [college_name, setcollege_name] = useState("");
+  const [college_name, setcollege_name] = useState("Not chosen(update it)");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
 
@@ -180,7 +180,10 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
               disablePortal
               id="combo-box-demo"
               ivalue={college_name}
-              onChange={(e) => setcollege_name(e.target.value)}
+              // onChange={(e) => setcollege_name(e.target.value)}
+              onSelect={(option) => {
+                setcollege_name(option.target.value);
+                }}
               sx={{ width: "300px", margin: "10px" }}
               options={colleges}
               renderInput={(params) => <TextField {...params} label="College Name" />}
