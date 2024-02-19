@@ -59,13 +59,19 @@ const Profile = () => {
             color="warning"
             aria-label="outlined button group"
           >
+            <a href="https://www.instagram.com/avatar_aarav?igsh=MTdscHpmOG8wOW4w" target="_blank" rel="noopener noreferrer">
             <Button>
               <Instagram />
             </Button>
+            </a>
             
+            
+            <a href="https://www.linkedin.com/in/aarav-nigam/" target="_blank" rel="noopener noreferrer">
             <Button>
               <LinkedIn />
             </Button>
+            </a>
+            
           </ButtonGroup>
         </Box2>
       </Card>

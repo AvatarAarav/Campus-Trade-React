@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import FindUser from './FindUser'
 import Dashboard from './Dashboard'
 import Profile from './Profile'
+import Announcements from './Announcements'
 import CardContainer from '../../Components/CardContainer'
 import { Box } from '@mui/material'
 import UserActivityChart from './ActivityChart'
@@ -35,6 +36,13 @@ function Admin() {
       <Box>
         <CardContainer />
       </Box>
+
+      <Box sx={{width:'90vw', backgroundColor:'lavender', margin:' 100px auto'}}>
+       <Announcements />
+      </Box>
+      
+
+
     </>
     
   )

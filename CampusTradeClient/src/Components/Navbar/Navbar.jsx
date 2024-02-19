@@ -18,6 +18,7 @@ import {
   Shop,
   ShoppingBag,
   ShoppingCart,
+  Undo,
   Visibility,
   VisibilityOff,
 } from "@mui/icons-material";
@@ -298,7 +299,8 @@ function Navbar() {
               cursor:"pointer",
             }}
           >
-            Campus Trade
+            <IconButton><Undo fontSize="large"/></IconButton>
+             Campus Trade
           </Typography>
           <Search
             sx={{
