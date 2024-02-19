@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { LinkedIn, LocationOn, Mail, School, Warning } from "@mui/icons-material";
+import { Instagram, LinkedIn, LocationOn, Mail, School, Shield, Verified, Warning } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -36,24 +36,27 @@ const Box2 = styled(Box)({
   alignItems: "center",
   gap: "10px",
 });
-const Profile = () => {
+const Profile = (props) => {
   return (
-    <Box sx={{ margin: "20px", display: { xs: "none", sm: "block" } }}>
+    <Box sx={{ width:'600px', margin: "20px", display: { xs: "none", sm: "block" } }}>
       <Card>
         <Box2>
-          <Avatar sx={{ width: "100px", height: "100px" }} />
-          <Typography variant="h6">Admin</Typography>
+          <Avatar sx={{ width: "100px", height: "100px" }} >
+            <img src="https://picsum.photos/300/300" alt="display picture" />
+          </Avatar>
+          <Typography variant="h4">{props.name} <Verified sx={{color:'green'}} /></Typography>
+          <Typography variant="p" color='grey'><Shield /> {props._id}</Typography>
+          <Typography variant="h6" color='grey'><School /> {props.college}</Typography>
+          <Typography variant="h6" color='grey'><Mail /> {props.email}</Typography>
           <ButtonGroup
             variant="contained"
-            color="secondary"
+            color="warning"
             aria-label="outlined button group"
           >
             <Button>
-              <Mail />
+              <Instagram />
             </Button>
-            <Button>
-              <School />
-            </Button>
+            
             <Button>
               <LinkedIn />
             </Button>
@@ -64,10 +67,10 @@ const Profile = () => {
       <Card>
         <Box
           sx={{
-            width: "360px",
+            width: "500px",
             padding: "10px 20px",
-            height: "240px",
-            top: "350px",
+            height: "260px",
+            top: "450px",
             right: "20px",
             position: "absolute",
             backgroundColor: "lavender",
@@ -76,33 +79,24 @@ const Profile = () => {
           }}
         >
           <Typography align="center" variant="h5">
-            Reports <Warning />
+            Reports <Warning color="warning" />
           </Typography>
           <List
+          
             sx={{
-              width: "100%",
               height: "180px",
               overflow: "auto",
-              maxWidth: 360,
               bgcolor: "lavender",
             }}
           >
             <ListItemButton>
-              {/* <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar> */}
+              
               <img src={football} style={{width:'50px',height:'40px', marginRight:'10px'}} alt="" />
               <ListItemText primary="Football" secondary="posted by Aarav" />
               <Chip size="small" color="secondary" label="5" />
             </ListItemButton>
             <ListItemButton>
-              {/* <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar> */}
+              
               <img src={speaker} style={{width:'50px',height:'40px', marginRight:'10px'}} alt="" />
               <ListItemText
                 primary="Bluetooth Speaker"

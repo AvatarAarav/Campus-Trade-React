@@ -7,6 +7,8 @@ const initialState = {
     _id: '',
     name: '',
     email: '',
+    // temporary
+    college: 'IIIT Sri City',
     soldOut: 0,
     reportedAds:0,
     activity : {

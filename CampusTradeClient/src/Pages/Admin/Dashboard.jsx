@@ -21,8 +21,8 @@ const Text = styled(Typography) ({
 
 const Dashboard = ({reportedAds,soldOut,revenue,prodCount,userCount}) => {
   return (
-    <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'20px'}}>
-        <Typography variant='h4'>Admin DashBoard</Typography>
+    <Box sx={{ width:'800px' ,display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'20px'}}>
+        <Typography variant='h3'>Admin DashBoard</Typography>
         <Box sx={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center', backgroundColor:''}}>
             
             <Box sx={{margin:'0px 70px'}}>
