@@ -12,6 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Toolbar from "@mui/material/Toolbar";
+import { fetchUserDetails } from "../../Store/UserSlice";
 import {
   Face,
   FavoriteRounded,
@@ -100,11 +101,12 @@ function Navbar() {
   const uname = useSelector((state) => state.user.userDetails.name);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+  const udet = useSelector((state) => state.user.userDetails._id);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleProfile = () => {
+    dispatch(fetchUserDetails(udet));
     navigate("/user");
     handleMenuClose();
   };

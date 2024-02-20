@@ -256,15 +256,13 @@ const loggedIn = (ulog || alog);
   const user = useSelector((state) => state.user.userDetails);
 
   const [userRating, setUserRating] = useState(5);
-  const [adsPosted, setAdsPosted] = useState(700);
-  const [adsBought, setAdsBought] = useState(800);
-
+ 
   const earnings = {
-    adsPosted,
-    adsBought,
-    earnings: 500,
-    adsBoughtMoney: 1000,
-    profit: -500,
+    adsPosted: user.adsPosted,
+    adsBought: user.adsBought,
+    earnings: user.earnings,
+    adsBoughtMoney: user.adsBoughtMoney,
+    profit: user.earnings - user.adsBoughtMoney,
   };
   const [boughtAds, setBoughtAds] = useState([]);
   const [postedAds, setPostedAds] = useState([]);
@@ -294,17 +292,7 @@ const loggedIn = (ulog || alog);
   const go_to_ad = () => {
     navigate("/user/Ad");
   };
-  const handlePostAd = () => {
-    const newAd = { photo: "new_ad.jpg", cost: 60 };
-    setPostedAds((prevAds) => [...prevAds, newAd]);
-    setAdsPosted(adsPosted + 1);
-  };
-
-  const handleBuyAd = () => {
-    const newAd = { photo: "new_ad.jpg", cost: 60 };
-    setBoughtAds((prevAds) => [...prevAds, newAd]);
-    setAdsBought(adsBought + 1);
-  };
+ 
   const handleRateUser = (rating) => {
     setUserRating(rating);
     // You can implement logic to send the rating to the server or perform other actions
