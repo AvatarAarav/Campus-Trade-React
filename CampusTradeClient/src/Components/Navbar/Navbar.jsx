@@ -299,7 +299,7 @@ function Navbar() {
               cursor:"pointer",
             }}
           >
-            <IconButton><Undo fontSize="large"/></IconButton>
+            <IconButton><Undo fontSize="large" color="secondary"/></IconButton>
              Campus Trade
           </Typography>
           <Search

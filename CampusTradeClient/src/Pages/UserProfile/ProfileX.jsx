@@ -13,6 +13,7 @@ import {
   Avatar,
   Tooltip,
   Chip,
+  Modal,
 } from "@mui/material";
 import theme from "../../theme";
 import desktop from "../../assets/desktop.jpg";
@@ -26,17 +27,26 @@ import { delUserAPI } from "../../apis/index";
 function UserData({ user, onEditProfile, postad, userRating }) {
 
   const ulog = useSelector((state) => state.user.loggedIn);
-const alog = useSelector((state) => state.admin.loggedIn);
-const loggedIn = (ulog || alog);
+  const alog = useSelector((state) => state.admin.loggedIn);
+  const [del, setdel] = useState(false);
+  const [open,setopen] = useState(false);
+  const loggedIn = (ulog || alog);
   // const admin = useSelector((state) => state.admin.isadmin)
-const navigate= useNavigate();
-const handleuserdelete = async () =>
-{
-console.log("deleting user");
-await delUserAPI(user._id)
-navigate("/admin")
+  const navigate= useNavigate();
 
-}
+  const handleuserdelete = async () => {
+    console.log("deleting user");
+    await delUserAPI(user._id)
+    navigate("/admin")
+  }
+
+  const handleopen = () => {
+    setopen(true);
+  }
+
+  const handleClose = () => {
+    setopen(false);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -154,8 +164,22 @@ navigate("/admin")
               
             </Box>
 
-            {alog && <Button onClick={handleuserdelete} color="warning" variant="contained">Delete</Button>}
+            {alog && <Button onClick={handleopen} color="warning" variant="contained">Delete</Button>}
             
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between',width:'550px', height:'160px', backgroundColor:'white', margin:'200px auto', padding:'30px', borderRadius:'10px'}}>
+                <Typography variant="h5">Are you sure you want to <span style={{color:'red', fontWeight:'bold'}}>Delete</span>  the user ?</Typography>
+                <Box display='flex' justifyContent='space-between'>
+                  <Button variant="contained" size="large" onClick={handleClose} color="success">cancel</Button>
+                  <Button variant="contained" size="large" color="secondary" onClick={handleuserdelete}>Delete</Button>
+                </Box>
+              </Box>
+            </Modal>
           </Box>
           
         </Box>

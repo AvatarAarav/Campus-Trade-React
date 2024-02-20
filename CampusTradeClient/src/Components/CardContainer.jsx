@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchAdDetails } from "../Store/ProductSlice.js";
+import sold from '../assets/sold.png'
 
 const CardContainer = () => {
   const dispatch = useDispatch();
@@ -102,7 +103,9 @@ const CardContainer = () => {
           })
           .map((ad) => {
             return (
-              <Card key={ad._id} sx={{ width: 300, height: 400 }}>
+              <Card key={ad._id} sx={{position:'relative',  width: 300, height: 400 }}>
+                {ad.sold && <img src={sold} style={{width:'200px', position:'absolute', top:'0px', left:'0px', zIndex:1}} alt="sold" />}
+                
                 <CardActionArea onClick={() => handleOpenAd(ad._id)}>
                   <CardMedia
                     component="img"
@@ -110,7 +113,7 @@ const CardContainer = () => {
                     src={`https://drive.google.com/thumbnail?authuser=0&sz=w600&id=${ad.img_id[0]}`}
                     // src = {require(`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`).default}
                     // src={`https://drive.google.com/thumbnail?authuser=0&sz=w200&id=${ad.img_id[0]}`}
-                    alt="green iguana"
+                    alt="product"
                     style={{ height: 300, width: 300, borderRadius: 10 }}
                   />
                   <CardContent sx={{ padding: "10px 20px 0px 20px" }}>

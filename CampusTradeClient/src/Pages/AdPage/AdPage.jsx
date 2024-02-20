@@ -22,6 +22,7 @@ import theme from "../../theme";
 import bg1 from "../../assets/bg1.jpg";
 import bg2 from "../../assets/bg2.jpg";
 import bg3 from "../../assets/bg3.jpg";
+import soldout from '../../assets/soldout.png'
 import ChatBox, { ChatFrame } from "react-chat-plugin";
 import { Navigate, useNavigate } from "react-router-dom";
 import { boughtAdAPI, fetchUserDetailsApi, uwishlistAPI, wishlistAPI,delProductAPI } from "../../apis";
@@ -273,7 +274,9 @@ console.log(reported)
     navigate("/admin")
   }
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px", position:'relative' }}>
+      {ad.sold && <img src={soldout} style={{width:'300px',position:'absolute', top:'20px', right:'50px'}} alt="soldout" />}
+      
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={7}>
