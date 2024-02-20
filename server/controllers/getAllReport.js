@@ -15,7 +15,8 @@ export const getallreportAPI = async (req, res) => {
             reportCount: product.report.length,
             image_id: product.img_id.length > 0 ? product.img_id[0] : null 
         }));
-        console.log(formattedProducts)
+        formattedProducts.sort((a, b) => b.reportCount - a.reportCount);
+
         res.status(200).json({reports : formattedProducts}); // Send the filtered products as JSON response
     } catch (error) {
         console.error(`${error.message}!!`);

@@ -4,6 +4,7 @@ import {
   Image,
   Mail,
   Search,
+  Verified,
   Work,
 } from "@mui/icons-material";
 import {
@@ -29,7 +30,7 @@ import { fetchUserDetails } from "../../Store/UserSlice";
 const StyledBox = styled(Paper)({
   overflow: "auto",
   width: "40%",
-  height: "500px",
+  height: "600px",
   margin: "20px",
   padding: "10px",
 });
@@ -78,17 +79,20 @@ const FindUser = () => {
           <CircularProgress />
         </Box>
       ) : (
-        <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        <List sx={{ width: "100%", bgcolor: "background.paper" }}>
           {users.map((user) => {
             return (
               <ListItemButton key={user._id} onClick={() => handleUserClick(user._id)}>
                 <ListItemAvatar>
-                  <Avatar src="" alt="Sharan" />
+                  <Avatar sx={{width:56, height:56, marginRight:2}} src="" alt="random" >
+                    <img src="https://picsum.photos/300/300" alt="" />
+                  </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={user.name} secondary={`ads posted ${user.ads.length}`} />
                 <ListItemAvatar>
-                  <Mail fontSize="large" sx={{ color: "dodgerblue" }} />{" "}
-                  <Delete fontSize="large" sx={{ color: "orange" }} />
+                  <Verified fontSize="large" color="success" />
+                  {/* <Mail fontSize="large" sx={{ color: "dodgerblue" }} />{" "}
+                  <Delete fontSize="large" sx={{ color: "orange" }} /> */}
                 </ListItemAvatar>
               </ListItemButton>
             );

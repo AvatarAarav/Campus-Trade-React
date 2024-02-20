@@ -8,6 +8,7 @@ const initialState = {
     _id: '',
     name: '',
     email: '',
+    college: '',
     soldOut: 0,
     reportedAds:0,
     activity : {
