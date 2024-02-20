@@ -8,7 +8,7 @@ const API = axios.create({ baseURL: url });
 export const fetchUserDetailsApi = (id) => API.post("/user", { userId: id });
 export const fetchAdminDetailsApi = (id) =>API.post("/admin", {adminId:id});
 export const fetchAdDetailsApi = (id) => API.get(`/ad/${id}`);
-export const fetchAllAdsApi = () => API.get("/products");
+export const fetchAllAdsApi = (college="-") => API.get("/products/"+college);
 export const checkLoginAPI = (admin, email, password) =>
   API.post("/user/login", { admin, email, password });
 export const sendOtpAPI = (email) => API.post("/send-otp", { email });
@@ -23,7 +23,7 @@ export const uwishlistAPI = (uid,id) => API.get(`/ad/unbuy/${id}/uid/${uid}`)
 export const updateprofileAPI = (data) => API.post("/user/UpdateProfile",data)
 export const updateadAPI = (data) => API.post("/update_form",data)
 export const reportAPI = (uid,id) => API.get(`/ad/report/${id}/uid/${uid}`)
-export const getalluserAPI = () => API.get("/allusers")
+export const getalluserAPI = (college="-") => API.get(`/allusers/${college}`)
 export const delProductAPI = (id) => API.post("/admin/delete/ad",{id});
 export const delUserAPI = (id) => API.post("/admin/delete/user",{id})
-export const getAllreportAPI = () => API.get("/admin/getReported");
+export const getAllreportAPI = (college="-") => API.get("/admin/getReported/"+college);

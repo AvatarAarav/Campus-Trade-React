@@ -26,7 +26,7 @@ function Admin() {
     <>
       <Box sx={{backgroundColor:'whitesmoke',display: 'flex',width: '100%', height:'100vh'}}>
         <FindUser flex={2} />
-        <Dashboard flex={3} reportedAds={reportedAds} soldOut={soldOut} prodCount={prodCount} userCount={userCount} revenue={revenue} />
+        <Dashboard flex={3} college={college} soldOut={soldOut} prodCount={prodCount} userCount={userCount} revenue={revenue} />
         <Profile flex={2} />
       </Box>
       <Box>

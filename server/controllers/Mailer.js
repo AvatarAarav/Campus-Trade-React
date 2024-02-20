@@ -36,4 +36,6 @@ export async function sendOTP(req, res) {
         res.status(500).send({ success: false, error: 'Failed to send OTP' });
     }
 }
+export async function sendReceipt(){
 
+}

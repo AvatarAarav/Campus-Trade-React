@@ -1,12 +1,17 @@
 import User from "../db/Models/User.js";
 export const getAllUsersAPI=async (req,res)=>{
+    const college=req.params.college;
     try {
         const page=req?.params?.page || 1;
         const LIMIT=30;
         const startIndex=(Number(page)-1)*LIMIT
-        const total=await User.countDocuments({})
-      
-        const user=await User.find().sort({_id:-1}).limit(LIMIT).skip(startIndex);
+        let query = {};
+
+        if (college && college !== "-") {
+            query = { college_name: college };
+        }
+        const total=await User.countDocuments(query)
+        const user=await User.find(query).sort({_id:-1}).limit(LIMIT).skip(startIndex);
         res.status(200).json({data:user,currentPage:Number(page),numberOfPage:Math.ceil(total/LIMIT)});//sucesful request(200) and sending data as JSON(javascript object notation)
     } catch (error) {
         console.error(`${error.message}!!`)

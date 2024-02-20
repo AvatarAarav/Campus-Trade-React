@@ -12,6 +12,11 @@ const initialState = {
     branch: '',
     ads: [],
     report: [],
+    adsPosted : 0,
+    adsBought : 0,
+    earnings: 0,
+    adsBoughtMoney: 0,
+    profit: 0,
   }
 
 }

@@ -91,7 +91,56 @@ const AnnouncementForm = () => {
 
 const CollegeList = () => {
   // Dummy data for college list
-  const colleges = [1,2,3,4,7,5,6,6,8];
+const colleges = [
+    {
+      label: 'MIT',
+      cid: 0,
+    },
+    {
+      label: 'IIT Madras',
+      cid: 1,
+    },
+    {
+      label: 'NIT Rourkela',
+      cid: 2,
+    },
+    {
+      label: 'IIIT Sri City',
+      cid: 3,
+    },
+    {
+      label: 'IIT Kharagpur',
+      cid: 4,
+    },
+    {
+      label: 'NIT Suratkal',
+      cid: 5,
+    },
+    {
+      label: 'IIIT Hyderabad',
+      cid: 6,
+    },
+    {
+      label: 'IIT Patna',
+      cid: 7,
+    },
+    {
+      label: 'NIT Bhopal',
+      cid: 8,
+    },
+    {
+      label: 'IIIT Trichy',
+      cid: 9,
+    },
+    {
+      label: 'IIT Roorkee',
+      cid: 10,
+    },
+    {
+      label: 'NIT Trichy',
+      cid: 11,
+    },
+  ];;
 
   return (
     // <Paper style={styles.paper}>
@@ -119,8 +168,8 @@ const CollegeList = () => {
                             </Avatar>
                             </ListItemAvatar>
                         <ListItemText
-                            primary="Indian Institute of Technology Sri City"
-                            secondary="Description of College 1"
+                            primary={a.label}
+                            secondary="Click to Update"
                         />
                         </ListItem>
                         <Divider />
