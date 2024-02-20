@@ -1,12 +1,24 @@
 // import Products from "../db/Models/Products";
 import Products from "../db/Models/Products.js";
-// import Products from "../db/Models/Products";
+import Users from "../db/Models/User.js";
 
 export const getallreportAPI = async (req, res) => {
     const college=req.params.college;
     try {
     
-        const allProducts = await Products.find({}); 
+
+        let query = {};
+
+        if (college && college !== "-") {
+            // Find the users with the specified college name
+            const usersWithCollege = await Users.find({ college_name: college });
+            const userIds = usersWithCollege.map(user => user._id);
+            
+            // Query for products with userId in the list of userIds
+            query = { id: { $in: userIds } };
+        }
+
+        const allProducts = await Products.find(query); 
         
       
         const pr = allProducts.filter(product => product.report.length >= 1);
