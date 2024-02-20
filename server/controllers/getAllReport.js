@@ -3,6 +3,7 @@ import Products from "../db/Models/Products.js";
 // import Products from "../db/Models/Products";
 
 export const getallreportAPI = async (req, res) => {
+    const college=req.params.college;
     try {
     
         const allProducts = await Products.find({}); 

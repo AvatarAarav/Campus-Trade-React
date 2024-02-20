@@ -5,7 +5,6 @@ export const getProductAPI=async (req,res)=>{
         const id=req.params.id;  //url parameters id
         // const userData=await Users.find({email:email})
         const product=await Products.findById(id)
-        product.views = product.views + 1
         await product.save()
         res.status(200).json(product)
     } catch (error) {

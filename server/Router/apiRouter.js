@@ -43,7 +43,7 @@ import { getAllreportAPI } from "../../CampusTradeClient/src/apis/index.js";
 import { getallreportAPI } from "../controllers/getAllReport.js";
 const router = express.Router();
 
-router.get("/products", getAllProductsAPI);
+router.get("/products/:college", getAllProductsAPI);
 
 // Set up the multer middleware to handle file uploads
 // const upload = multer({ dest: 'uploads/' });
@@ -79,7 +79,7 @@ router.post("/user/login", checkLoginAPI);
 router.get("/user/allEmail", getAllUsersEmailAPI);
 router.post("/user", getUserData);
 router.post("/admin", getAdminData);
-router.get("/allusers", getAllUsersAPI);
+router.get("/allusers/:college", getAllUsersAPI);
 router.get("/user/:id", getUserCardsAPI);
 router.post("/user/adCreate", getAdFormAPI);
 router.get("/adObject/:id", getAdObjectAPI);
@@ -107,5 +107,5 @@ router.post("/create-order", Payment);
 router.post("/ad/bought", boughtAdAPI);
 router.post("/admin/delete/ad",del_ad_adminAPI);
 router.post("/admin/delete/user",DelUserAPI)
-router.get("/admin/getReported",getallreportAPI);
+router.get("/admin/getReported/:college",getallreportAPI);
 export default router;

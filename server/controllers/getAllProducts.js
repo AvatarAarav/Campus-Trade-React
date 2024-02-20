@@ -1,5 +1,6 @@
 import Products from "../db/Models/Products.js";
 export const getAllProductsAPI=async (req,res)=>{
+    const college=req.params.college;
     try {
         const products=await Products.find().sort({_id:-1})
         res.status(200).json({data:products});//sucesful request(200) and sending data as JSON(javascript object notation)
