@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 const Adform = () => {
   const navigate = useNavigate();
   const loggedIn = useSelector((state) => state.user.loggedIn);
+  const email = useSelector(state=>state.user.userDetails.email)
   useEffect(() => {
     if (!loggedIn) {
       navigate("/");
@@ -76,6 +77,7 @@ const Adform = () => {
       price: price,
       age: age,
       description: description,
+      sellerMail:email,
       subname: subname,
       tags: tags,
       features: features,

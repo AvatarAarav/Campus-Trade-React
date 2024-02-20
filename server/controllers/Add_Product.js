@@ -101,8 +101,6 @@ export const submitForm = async (req, res) => {
       }
     }
 
-    // res.status(200).send('Files uploaded, processed, and deleted successfully.');
-
     console.log("hi there hello");
     console.log(arr);
     const p = JSON.parse(req.body.adData);
