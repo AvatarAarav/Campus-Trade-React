@@ -24,9 +24,9 @@ function Admin() {
   const {_id,name,email,college,soldOut,reportedAds,activity,prodCount,userCount,revenue}=useSelector(state=>state.admin.adminDetails)
   return (
     <>
-      <Box sx={{backgroundColor:'whitesmoke',display: 'flex',width: '100%', height:'100vh'}}>
+      <Box sx={{backgroundColor:'whitesmoke',display: 'flex',width: '100%', height:'80vh'}}>
         <FindUser flex={2} />
-        <Dashboard flex={3} reportedAds={reportedAds} soldOut={soldOut} prodCount={prodCount} userCount={userCount} revenue={revenue} />
+        <Dashboard flex={3} college={college} soldOut={soldOut} prodCount={prodCount} userCount={userCount} revenue={revenue} />
         <Profile flex={2} />
       </Box>
       <Box>

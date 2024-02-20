@@ -5,6 +5,7 @@ const AdminSchema = new mongoose.Schema(
     {
         name: String,
         email: String,
+        college:String,
         password: String,
         soldOut:{type:Number,default:0},
         activity:{

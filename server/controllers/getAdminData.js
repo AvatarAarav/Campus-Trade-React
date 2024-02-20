@@ -4,7 +4,7 @@ import Users from '../db/Models/User.js'
 export const getAdminData = async (req, res) => {
     try {
         const data = await Admins.findById(req.body.adminId)
-        const adminData={_id:data._id,name:data.name,activity:data.activity,email:data.email,reportedAds:data.reportedAds,soldOut:data.soldOut}
+        const adminData={_id:data._id,name:data.name,activity:data.activity,email:data.email,reportedAds:data.reportedAds,soldOut:data.soldOut,college:data.college}
         adminData['prodCount'] = await Products.count();
         adminData['userCount'] = await Users.count();
         // Calculate the sum of product prices
