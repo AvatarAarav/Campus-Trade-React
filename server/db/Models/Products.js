@@ -13,8 +13,8 @@ const ProductSchema = new mongoose.Schema(
         subname : String,
         tags : [String],
         features : [String],
-        views : {type: Number,default:1 },
-        likes : {type: Number,default:1 },
+        views : [String],
+        likes : [String],
         sold : {
             type:Boolean,
             default:false,

@@ -100,13 +100,11 @@ export const submitForm = async (req, res) => {
         // Handle error if needed
       }
     }
-
-    console.log("hi there hello");
-    console.log(arr);
     const p = JSON.parse(req.body.adData);
     const newProduct = await Products({
       ...p,
       img_id: arr,
+      views:[p.id]
     });
     // const udata=await Users.find({email:req.body.email})
     newProduct
