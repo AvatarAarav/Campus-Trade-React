@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Grid , Paper, TextField, Button,  Typography, List, ListItem, ListItemText, Divider, ListItemAvatar, Avatar} from '@mui/material';
 
 import { Announcement, Mail, School } from '@mui/icons-material';
+import { sendAnnouncement } from '../../apis';
 
 const styles = {
   root: {
@@ -38,7 +39,7 @@ const AnnouncementForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+    sendAnnouncement(subject, message)
   };
 
 
@@ -143,16 +144,6 @@ const colleges = [
   ];;
 
   return (
-    // <Paper style={styles.paper}>
-    //   <Typography variant="h6" gutterBottom>
-    //     Colleges
-    //   </Typography>
-    //   <ul style={{ listStyleType: 'none', padding: 0 }}>
-    //     {colleges.map((college, index) => (
-    //       <li key={index}>{college}</li>
-    //     ))}
-    //   </ul>
-    // </Paper>
     <Paper sx={{ padding: 2 }}>
           <Typography variant="h4" gutterBottom sx={{color:'grey'}}>
             <School fontSize='large' color='warning'  /> List of Top Colleges 

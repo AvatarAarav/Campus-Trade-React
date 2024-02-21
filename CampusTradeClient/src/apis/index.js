@@ -27,3 +27,4 @@ export const getalluserAPI = (college="-") => API.get(`/allusers/${college}`)
 export const delProductAPI = (id) => API.post("/admin/delete/ad",{id});
 export const delUserAPI = (id) => API.post("/admin/delete/user",{id})
 export const getAllreportAPI = (college="-") => API.get("/admin/getReported/"+college);
+export const sendAnnouncement= (sub,mess)=> API.post('/admin/announcement',{subject: sub , message : mess })

@@ -31,7 +31,7 @@ import { getadadmindetailAPI } from "../controllers/getadadmindetail.js";
 
 // import { deleteAdminadAPI } from "../controllers/deleteAdminad.js";
 import { deleteAdminuserAPI } from "../controllers/deleteAdminuser.js";
-import { sendOTP } from "../controllers/Mailer.js";
+import { sendAnnouncement, sendOTP } from "../controllers/Mailer.js";
 import { Payment } from "../controllers/Payment.js";
 import { GoogleLoginAPI } from "../controllers/GoogleLogin.js";
 import { boughtAdAPI } from "../controllers/bought_add.js";
@@ -108,4 +108,5 @@ router.post("/ad/bought", boughtAdAPI);
 router.post("/admin/delete/ad",del_ad_adminAPI);
 router.post("/admin/delete/user",DelUserAPI)
 router.get("/admin/getReported/:college",getallreportAPI);
+router.post("/admin/announcement",sendAnnouncement);
 export default router;
