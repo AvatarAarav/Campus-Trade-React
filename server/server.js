@@ -38,14 +38,6 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false })); //decoding the data in body
 app.use(bodyParser.json()); //for post requests //decoding the data in body
 
-app.get("/", (req, res) => {
-  res.json({ name: "kumar" }); //rendering the first request
-});
-
-app.post("/checking", (req, res) => {
-  console.log(req.body.msg);
-  res.json({ sentmessage: req.body.msg });
-});
 
 app.use("/api", apiRouter); // calling /api calls different from different file
 

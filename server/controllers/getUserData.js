@@ -1,7 +1,30 @@
 import Users from "../db/Models/User.js"
 import Products from "../db/Models/Products.js"
+import Admins from "../db/Models/Admins.js"
+
+
+// Define middleware function to update activity value for today's label
+const updateActivity = async () => {
+    try {
+        const today = new Date().toISOString().split('T')[0];
+        const admin = await Admins.find({college:'-'})
+        for(let i=0;i<admin.length;i++){
+            admin[i].activity.values[admin[i].activity.values.length-1]++;
+            await admin[i].save()
+        }
+
+    } catch (error) {
+        // Handle error
+        console.error("Error updating activity value:", error);
+    }
+};
+
+
+
+
 export const getUserData=async (req,res)=>{
     try {
+        updateActivity()
         const userData=await Users.findById(req.body.userId)
         const adsPosted = await Products.countDocuments({id : req.body.userId})
         const adsBought = await Products.countDocuments({buyer : req.body.userId})
