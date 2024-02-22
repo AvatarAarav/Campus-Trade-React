@@ -44,13 +44,14 @@ const StyledDiv = styled("div")({
 const FindUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const college = useSelector(state=>state.admin.adminDetails.college)
   const [users, setusers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchdata() {
       try {
-        const data = await getalluserAPI();
+        const data = await getalluserAPI(college);
         setusers(data.data.data);
         setIsLoading(false);
       } catch (error) {
@@ -58,7 +59,7 @@ const FindUser = () => {
       }
     }
     fetchdata();
-  }, []);
+  }, [college]);
 
   const handleUserClick = async (id) => {
    

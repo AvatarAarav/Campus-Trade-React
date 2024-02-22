@@ -26,6 +26,7 @@ const CardContainer = () => {
   const search = useSelector((state) => state.product.search);
   const ulog = useSelector((state) => state.user.loggedIn);
   const alog = useSelector((state) => state.admin.loggedIn);
+  const college = useSelector((state) => state.admin.adminDetails.college)
   const loggedIn = (ulog || alog);
   const [loading, setLoading] = useState(true); 
 
@@ -42,22 +43,37 @@ const CardContainer = () => {
   const [ads, setads] = useState([]);
   //   console.log("card container rendered");
 
-  useEffect(() => {
-    async function fetchdata() {
-      try {
+  async function fetchdata() {
+    try {
+      if (alog) {
+        console.log(college)
+        const data = await fetchAllAdsApi(college);
+        setads(data.data.data);
+      }
+      else {
         const data = await fetchAllAdsApi();
         setads(data.data.data);
         setLoading(false);
-        // console.log(data.data.data);
-      } catch (error) {
-        // Handle errors here
-        console.error("Error fetching data:", error);
-        
       }
+
+      // console.log(data.data.data);
+    } catch (error) {
+      // Handle errors here
+      console.error("Error fetching data:", error);
+        
     }
-    fetchdata();
-    setInterval(fetchdata, 5000);
-  }, []);
+  }
+
+  useEffect(() => {
+    const intervalId = setInterval(fetchdata, 5000);
+    return () => clearInterval(intervalId);
+  }, [college]);
+
+  // useEffect(() => {
+  //   
+  //   fetchdata();
+  //   setInterval(fetchdata, 5000);
+  // }, []);
 
   return (
     <Box
@@ -115,13 +131,13 @@ const CardContainer = () => {
           })
           .map((ad) => {
             return (
-              <Card key={ad._id} sx={{position:'relative',  width: 300, height: 400 }}>
-                {ad.sold && <img src={sold} style={{width:'200px', position:'absolute', top:'0px', left:'0px', zIndex:1}} alt="sold" />}
-                
+              <Card key={ad._id} sx={{ position: 'relative', width: 300, height: 400 }}>
+                {ad.sold && <img src={sold} style={{ width: '200px', position: 'absolute', top: '0px', left: '0px', zIndex: 1 }} alt="sold" />}
+
                 <CardActionArea onClick={() => handleOpenAd(ad._id)}>
                   <CardMedia
                     component="img"
-                   
+
                     src={`https://drive.google.com/thumbnail?authuser=0&sz=w600&id=${ad.img_id[0]}`}
                     // src = {require(`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`).default}
                     // src={`https://drive.google.com/thumbnail?authuser=0&sz=w200&id=${ad.img_id[0]}`}

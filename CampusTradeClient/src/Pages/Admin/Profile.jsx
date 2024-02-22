@@ -38,10 +38,10 @@ const Profile = () => {
   const {_id,name,email,college,soldOut,reportedAds,activity,prodCount,userCount,revenue}=useSelector(state=>state.admin.adminDetails)
   const [isLoading, setIsLoading] = useState(true); // State to track loading
   useEffect(() => {
-    dispatch(fetchReportedAds())
+    dispatch(fetchReportedAds(college))
       .then(() => setIsLoading(false)) // Set loading to false when reports are fetched
       .catch(() => setIsLoading(false)); // Handle errors if any
-  }, []);
+  }, [college]);
 
   const reports = useSelector(state => state.admin.reportedAds);
   console.log(reports);
@@ -55,7 +55,7 @@ const Profile = () => {
           </Avatar>
           <Typography variant="h4">{name} <Verified sx={{color:'green'}} /></Typography>
           <Typography variant="p" color='grey'><Shield /> {_id}</Typography>
-          {college && <Typography variant="h6" color='grey'><School /> {college}</Typography>}
+          {college!="-" && <Typography variant="h6" color='grey'><School /> {college}</Typography>}
           <Typography variant="h6" color='grey'><Mail /> {email}</Typography>
           <ButtonGroup
             variant="contained"

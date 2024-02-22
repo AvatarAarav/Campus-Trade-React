@@ -27,7 +27,7 @@ export const fetchAdDetails = createAsyncThunk("Product/fetch", async (id) => {
   try {
     // console.log(id);
     let uid=sessionStorage.getItem("id")
-    const loggedIn=localStorage.getItem("logged")
+    const loggedIn=sessionStorage.getItem("logged")
     if(loggedIn=="false"){
       uid="-"
     }

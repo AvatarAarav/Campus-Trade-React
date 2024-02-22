@@ -23,7 +23,7 @@ const Dashboard = ({college,soldOut,revenue,prodCount,userCount}) => {
   return (
     <Box sx={{ display:'flex',flexDirection:'column',alignItems:'center',gap:'20px'}}>
 
-         {college? <Typography variant='h3'>{college}</Typography>:<Typography variant='h3'>Main</Typography>}
+         {college!="-" ? <Typography variant='h3'>{college}</Typography>:<Typography variant='h3'>Main</Typography>}
         <Typography variant='h3'>Admin DashBoard</Typography>
         <Box sx={{width:'100%',display:'flex',justifyContent:'center',alignItems:'center', backgroundColor:''}}>
             
