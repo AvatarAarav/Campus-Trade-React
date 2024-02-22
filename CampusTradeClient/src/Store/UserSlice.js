@@ -38,14 +38,17 @@ export const userSlice = createSlice({
 
   reducers: {
     loginReducer: (state) => {
+      sessionStorage.setItem("logged", true);
       state.loggedIn = true
     },
     logOutReducer: (state) => {
+      sessionStorage.setItem("logged", false);
       state.loggedIn = false
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUserDetails.fulfilled, (state, action) => {
+      sessionStorage.setItem("id", action.payload._id)
       state.userDetails={
         ...action.payload
       }

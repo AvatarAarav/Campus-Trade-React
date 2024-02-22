@@ -3,9 +3,11 @@ import Users from "../db/Models/User.js";
 export const getProductAPI=async (req,res)=>{
     try {
         const id=req.params.id;  //url parameters id
-        // const userData=await Users.find({email:email})
+        const uid=req.params.uid;
         const product=await Products.findById(id)
-        await product.save()
+        if (!product.views.includes(uid) && uid!="-") {
+            product.views.push(uid);
+        }
         res.status(200).json(product)
     } catch (error) {
         console.error(`${error.message}!!`)

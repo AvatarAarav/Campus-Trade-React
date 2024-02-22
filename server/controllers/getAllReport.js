@@ -24,7 +24,7 @@ export const getallreportAPI = async (req, res) => {
         const pr = allProducts.filter(product => product.report.length >= 1);
         const formattedProducts = pr.map(product => ({
             name: product.name,
-            id: product.id, //id is of the product
+            id: product._id, //id is of the product
             reportCount: product.report.length,
             image_id: product.img_id.length > 0 ? product.img_id[0] : null 
         }));

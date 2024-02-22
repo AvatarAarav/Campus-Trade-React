@@ -15,7 +15,7 @@ import { getSearchResultAPI } from "../controllers/getSearchResult.js";
 import { getUpdateAdAPI } from "../controllers/getUpdateAd.js";
 import { updateFormAPI } from "../controllers/Update_form.js";
 import { delProductAPI } from "../controllers/deleteAd.js";
-import { buyProductApi } from "../controllers/buyProductApi.js";
+import { whishListProductApi } from "../controllers/whishListProductApi.js";
 import { ProfileUpdateAPI } from "../controllers/ProfileUpdate.js";
 import { ChangeProfileAPI } from "../controllers/ChangeProfile.js";
 import { getAdminProductAPI } from "../controllers/AdminProduct.js";
@@ -31,11 +31,11 @@ import { getadadmindetailAPI } from "../controllers/getadadmindetail.js";
 
 // import { deleteAdminadAPI } from "../controllers/deleteAdminad.js";
 import { deleteAdminuserAPI } from "../controllers/deleteAdminuser.js";
-import { sendOTP } from "../controllers/Mailer.js";
+import { sendAnnouncement, sendOTP } from "../controllers/Mailer.js";
 import { Payment } from "../controllers/Payment.js";
 import { GoogleLoginAPI } from "../controllers/GoogleLogin.js";
 import { boughtAdAPI } from "../controllers/bought_add.js";
-import { UnbuyAPI } from "../controllers/unbuy_product.js";
+import { UnWhisListAPI } from "../controllers/unWhishListproduct.js";
 // import { reportadApi } from "../controllers/report_ad.js";
 import { del_ad_adminAPI } from "../controllers/delete_ad_admin.js"; 
 import { DelUserAPI } from "../controllers/del_user_admin.js";
@@ -63,8 +63,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.get("/ad/:id", getProductAPI);
-router.get("/ad/buy/:id/uid/:uid", buyProductApi);
+router.get("/ad/:id/:uid", getProductAPI);
+router.get("/ad/buy/:id/uid/:uid", whishListProductApi);
 router.get("/ad/report/:id/uid/:uid", reportProductApi);
 router.get("/ad/remove/:id/uid/:uid", removeProductApi);
 router.get("/ad/delete/:id/mail/:eid", delProductAPI);
@@ -91,7 +91,7 @@ router.post("/user/UpdateProfile", ProfileUpdateAPI);
 router.post("/user/changeProfile", ChangeProfileAPI);
 router.post("/ad/chat/post", postAddChatAPI);
 router.get("/ad/chat/:id", getProductChatsAPI);
-router.get("/ad/unbuy/:id/uid/:uid",UnbuyAPI);
+router.get("/ad/unbuy/:id/uid/:uid",UnWhisListAPI);
 router.get("/user/adminlink/:id/admin/:aid", getuserdetailAPI);
 router.get("/admin_ads/:id/admin/:aid", getadadmindetailAPI);
 
@@ -108,4 +108,5 @@ router.post("/ad/bought", boughtAdAPI);
 router.post("/admin/delete/ad",del_ad_adminAPI);
 router.post("/admin/delete/user",DelUserAPI)
 router.get("/admin/getReported/:college",getallreportAPI);
+router.post("/admin/announcement",sendAnnouncement);
 export default router;

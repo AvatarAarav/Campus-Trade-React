@@ -7,7 +7,7 @@ const API = axios.create({ baseURL: url });
 
 export const fetchUserDetailsApi = (id) => API.post("/user", { userId: id });
 export const fetchAdminDetailsApi = (id) =>API.post("/admin", {adminId:id});
-export const fetchAdDetailsApi = (id) => API.get(`/ad/${id}`);
+export const fetchAdDetailsApi = (id,uid="-") => API.get(`/ad/${id}/${uid}`);
 export const fetchAllAdsApi = (college="-") => API.get("/products/"+college);
 export const checkLoginAPI = (admin, email, password) =>
   API.post("/user/login", { admin, email, password });
@@ -27,3 +27,4 @@ export const getalluserAPI = (college="-") => API.get(`/allusers/${college}`)
 export const delProductAPI = (id) => API.post("/admin/delete/ad",{id});
 export const delUserAPI = (id) => API.post("/admin/delete/user",{id})
 export const getAllreportAPI = (college="-") => API.get("/admin/getReported/"+college);
+export const sendAnnouncement= (sub,mess)=> API.post('/admin/announcement',{subject: sub , message : mess })

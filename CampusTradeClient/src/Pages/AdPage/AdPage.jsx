@@ -58,6 +58,8 @@ function AdPage() {
   const [reported,setreported] = useState(false);
   const ad = useSelector((state) => state.product.adDetails);
   const user = useSelector((state) => state.user.userDetails);
+  const likes = useSelector((state) => state.product.adDetails.likes.length);
+  const views = useSelector((state) => state.product.adDetails.views.length);
   const isadmin = useSelector((state) => state.admin.isAdmin);
   var isOwner = false;
   if (ad.id == user._id) {
@@ -71,9 +73,6 @@ function AdPage() {
     if (!loggedIn) {
       navigate("/");
     }
-    // console.log(user.ads)
-    console.log(ad)
-    console.log(user)
     if(user.ads.includes(ad._id)){
       setliked(true)
     }
@@ -366,12 +365,12 @@ console.log(reported)
                       data: [
                         {
                           id: 0,
-                          value: 30,
+                          value: (views-likes)*100/(views),
                           color: "#ff4081",
                         },
                         {
                           id: 1,
-                          value: 70,
+                          value: (likes)*100/(views),
                           color: "#2196f3",
                         },
                       ],
@@ -390,7 +389,7 @@ console.log(reported)
                 />
                 <Box sx={{ position: "absolute", top: "110px", left: "90px" }}>
                   <Typography variant="h3">
-                    {70}%
+                    {Math.round((likes)*100/(views))}%
                   </Typography>
                   <Typography variant="p">people liked this</Typography>
                 </Box>

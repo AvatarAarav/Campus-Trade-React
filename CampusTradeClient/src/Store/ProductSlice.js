@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAdDetailsApi } from "../apis";
+import { useSelector } from "react-redux";
 const initialState = {
   search: "",
   adDetails: {
@@ -13,10 +14,10 @@ const initialState = {
     features: [],
     img_id: [],
     date: "",
-    likes: 0,
+    likes: [],
     sold:false,
     buyer:"",
-    views: 0,
+    views: ["0"],
     sellerMail: "",
     reportcount:0,
   },
@@ -25,7 +26,12 @@ const initialState = {
 export const fetchAdDetails = createAsyncThunk("Product/fetch", async (id) => {
   try {
     // console.log(id);
-    const response = await fetchAdDetailsApi(id);
+    let uid=sessionStorage.getItem("id")
+    const loggedIn=localStorage.getItem("logged")
+    if(loggedIn=="false"){
+      uid="-"
+    }
+    const response = await fetchAdDetailsApi(id,uid);
     // console.log(response);
     return response.data;
   } catch (err) {
