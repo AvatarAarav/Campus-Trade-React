@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchAdDetails } from "../Store/ProductSlice.js";
 import sold from '../assets/sold.png'
+import CircularProgress from "@mui/material/CircularProgress";
 
 const CardContainer = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,8 @@ const CardContainer = () => {
   const ulog = useSelector((state) => state.user.loggedIn);
   const alog = useSelector((state) => state.admin.loggedIn);
   const loggedIn = (ulog || alog);
-  
+  const [loading, setLoading] = useState(true); 
+
   const navigate = useNavigate();
   const handleOpenAd = (id) => {
     if (!loggedIn) {
@@ -45,10 +47,12 @@ const CardContainer = () => {
       try {
         const data = await fetchAllAdsApi();
         setads(data.data.data);
+        setLoading(false);
         // console.log(data.data.data);
       } catch (error) {
         // Handle errors here
         console.error("Error fetching data:", error);
+        
       }
     }
     fetchdata();
@@ -66,6 +70,7 @@ const CardContainer = () => {
         marginTop: "30px",
       }}
     >
+      
       <Box
         sx={{
           width: "100%",
@@ -88,11 +93,18 @@ const CardContainer = () => {
           flexWrap: "wrap",
           overflowY: "auto",
           height: "1450px",
+          justifyContent: "center", // Center horizontally
+        alignItems: "center",     // Center vertically
+        minHeight: "calc(100vh - 200px)", // Adjust height as needed
           padding: { xs: "0px", sm: "10px" },
           backgroundColor: "whitesmoke",
         }}
       >
-        {ads
+          {loading ? (
+       
+        <CircularProgress sx={{ marginTop: "50px",
+         }} />
+      ) : (ads
           .filter((ad) => {
             if (ad.tags.includes(search)) return true;
             return (
@@ -137,8 +149,9 @@ const CardContainer = () => {
                 </CardActionArea>
               </Card>
             );
-          })}
+          }))}
       </Box>
+      
     </Box>
   );
 };
