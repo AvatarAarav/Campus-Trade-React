@@ -14,6 +14,7 @@ import {
   Slide,
   ImageListItem,
   ImageList,
+  Modal,
 } from "@mui/material";
 import { TextField, Button } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
@@ -273,6 +274,14 @@ console.log(reported)
    await delProductAPI(ad._id);
     navigate("/admin")
   }
+
+  const [open,setopen] = useState(false);
+  const handleopen = () => {
+    setopen(true);
+  }
+  const handleClose = () => {
+    setopen(false);
+  }
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginTop: "50px", position:'relative' }}>
       {ad.sold && <img src={soldout} style={{width:'300px',position:'absolute', top:'20px', right:'50px'}} alt="soldout" />}
@@ -442,18 +451,18 @@ console.log(reported)
               
 
 
-{!isadmin && 
-    <Button
-        onClick={handlereport}
-        size="large"
-        variant="contained"
-        color="warning"
-        disabled={isOwner || reported} // Disable if isOwner or reported is true
-        startIcon={<Error />}
-    >
-         {reported ? "Reported" : "report"}
-    </Button>
-}
+              {(!isadmin && !isOwner) && 
+                  <Button
+                      onClick={handlereport}
+                      size="large"
+                      variant="contained"
+                      color="warning"
+                      disabled={isOwner || reported} // Disable if isOwner or reported is true
+                      startIcon={<Error />}
+                  >
+                      {reported ? "Reported" : "Report"}
+                  </Button>
+              }
 
 
               {isadmin && 
@@ -467,6 +476,32 @@ console.log(reported)
                   Report count : {ad?.report?.length}
                 </Button>
               }
+
+              {isOwner && 
+                <Button
+                onClick={handleopen}
+                  size="large"
+                  variant="contained"
+                  color="warning"
+                  startIcon={<Error />}
+                >
+                  Delete
+                </Button>
+              }
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between',width:'580px', height:'160px', backgroundColor:'white', margin:'200px auto', padding:'30px', borderRadius:'10px'}}>
+                  <Typography variant="h5">Are you sure you want to <span style={{color:'red', fontWeight:'bold'}}>Delete</span> your product ?</Typography>
+                  <Box display='flex' justifyContent='flex-end' gap={2}>
+                    <Button variant="outlined" size="large" onClick={handleClose} color="secondary">cancel</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handledelete}>Delete</Button>
+                  </Box>
+                </Box>
+              </Modal>
               
               {isadmin && 
                 <Button

@@ -28,7 +28,6 @@ function UserData({ user, onEditProfile, postad, userRating }) {
 
   const ulog = useSelector((state) => state.user.loggedIn);
   const alog = useSelector((state) => state.admin.loggedIn);
-  const [del, setdel] = useState(false);
   const [open,setopen] = useState(false);
   const loggedIn = (ulog || alog);
   // const admin = useSelector((state) => state.admin.isadmin)
@@ -174,14 +173,13 @@ function UserData({ user, onEditProfile, postad, userRating }) {
             >
               <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between',width:'550px', height:'160px', backgroundColor:'white', margin:'200px auto', padding:'30px', borderRadius:'10px'}}>
                 <Typography variant="h5">Are you sure you want to <span style={{color:'red', fontWeight:'bold'}}>Delete</span>  the user ?</Typography>
-                <Box display='flex' justifyContent='space-between'>
-                  <Button variant="contained" size="large" onClick={handleClose} color="success">cancel</Button>
+                <Box display='flex' justifyContent='flex-end' gap={2}>
+                  <Button variant="outlined" size="large" onClick={handleClose} color="secondary">cancel</Button>
                   <Button variant="contained" size="large" color="secondary" onClick={handleuserdelete}>Delete</Button>
                 </Box>
               </Box>
             </Modal>
           </Box>
-          
         </Box>
 
         
