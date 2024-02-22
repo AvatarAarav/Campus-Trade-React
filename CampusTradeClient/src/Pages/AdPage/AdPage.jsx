@@ -261,12 +261,22 @@ console.log(reported)
     setliked(!liked);
   };
 
+  const [openR,setopenR] = useState(false);
+  const handleopenR = () => {
+    setopenR(true);
+  }
+  const handleCloseR = () => {
+    setopenR(false);
+  }
   const handlereport = async () => {
     // console.log("i am in handlereport")
- await reportAPI(user._id,ad._id)
- await dispatch(fetchUserDetails(user._id))
+    await reportAPI(user._id,ad._id)
+    await dispatch(fetchUserDetails(user._id))
 
   }
+
+
+
   const handledelete = async () =>
   {
     console.log("deleting product")
@@ -452,7 +462,7 @@ console.log(reported)
 
               {(!isadmin && !isOwner) && 
                   <Button
-                      onClick={handlereport}
+                      onClick={handleopenR}
                       size="large"
                       variant="contained"
                       color="warning"
@@ -462,6 +472,20 @@ console.log(reported)
                       {reported ? "Reported" : "Report"}
                   </Button>
               }
+              <Modal
+                open={openR}
+                onClose={handleCloseR}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between',width:'580px', height:'160px', backgroundColor:'white', margin:'200px auto', padding:'30px', borderRadius:'10px'}}>
+                  <Typography variant="h5">Are you sure you want to <span style={{color:'red', fontWeight:'bold'}}>Report</span> this product ?</Typography>
+                  <Box display='flex' justifyContent='flex-end' gap={2}>
+                    <Button variant="outlined" size="large" onClick={handleCloseR} color="secondary">cancel</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handlereport}>Delete</Button>
+                  </Box>
+                </Box>
+              </Modal>
 
 
               {isadmin && 
