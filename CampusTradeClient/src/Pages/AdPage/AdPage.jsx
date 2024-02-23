@@ -127,6 +127,7 @@ console.log(reported)
       order_id: orderId,
       handler: function (response) {
         boughtAdAPI(ad._id, user._id);
+        navigate('/user')
       },
       prefill: {
         name: "Test User",
@@ -271,7 +272,8 @@ console.log(reported)
   const handlereport = async () => {
     // console.log("i am in handlereport")
     await reportAPI(user._id,ad._id)
-    await dispatch(fetchUserDetails(user._id))
+    setopenR(false)
+    dispatch(fetchUserDetails(user._id))
 
   }
 
@@ -482,7 +484,7 @@ console.log(reported)
                   <Typography variant="h5">Are you sure you want to <span style={{color:'red', fontWeight:'bold'}}>Report</span> this product ?</Typography>
                   <Box display='flex' justifyContent='flex-end' gap={2}>
                     <Button variant="outlined" size="large" onClick={handleCloseR} color="secondary">cancel</Button>
-                    <Button variant="contained" size="large" color="secondary" onClick={handlereport}>Delete</Button>
+                    <Button variant="contained" size="large" color="secondary" onClick={handlereport}>Report</Button>
                   </Box>
                 </Box>
               </Modal>

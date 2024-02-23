@@ -46,7 +46,6 @@ const CardContainer = () => {
   async function fetchdata() {
     try {
       if (alog) {
-        console.log(college)
         const data = await fetchAllAdsApi(college);
         setads(data.data.data);
         setLoading(false)
@@ -80,7 +79,6 @@ const CardContainer = () => {
     <Box
       sx={{
         width: "100%",
-        height: "1500px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -109,7 +107,6 @@ const CardContainer = () => {
           gap: "30px",
           flexWrap: "wrap",
           overflowY: "auto",
-          height: "1450px",
           justifyContent: "center", // Center horizontally
         alignItems: "center",     // Center vertically
         minHeight: "calc(100vh - 200px)", // Adjust height as needed

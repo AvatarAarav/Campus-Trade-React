@@ -3,7 +3,6 @@ import Users from "../db/Models/User.js";
 import Admins from "../db/Models/Admins.js";
 export const reportProductApi=async (req,res)=>{
     try {
-        console.log("hi there");
         const uid=req.params.uid;
         const id=req.params.id;  //url parameters id
         const userData=await Users.findById(uid)
@@ -17,7 +16,6 @@ export const reportProductApi=async (req,res)=>{
             await Admins.updateMany({}, { $inc: { reportedAds: 1 } });
 
         }
-        await admin.save();
         await userData.save()
         await product.save()
         res.status(200).json({ad:product,user:userData});

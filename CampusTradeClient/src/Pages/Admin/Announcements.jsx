@@ -181,9 +181,9 @@ const Announcements = () => {
         <Grid item xs={6}>
           <AnnouncementForm />
         </Grid>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <CollegeList />
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );

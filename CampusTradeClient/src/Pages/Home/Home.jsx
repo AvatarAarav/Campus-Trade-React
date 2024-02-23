@@ -70,7 +70,6 @@ function Home() {
         <Box
           sx={{
             width: "100%",
-            height: "1500px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -94,7 +93,6 @@ function Home() {
               display: "flex",
               gap: "30px",
               flexWrap: "wrap",
-              height: "1500px",
               padding: { xs: "0px", sm: "40px" },
               backgroundColor: "whitesmoke",
             }}
