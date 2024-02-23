@@ -19,14 +19,17 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchAdDetails } from "../Store/ProductSlice.js";
 import sold from '../assets/sold.png'
+import CircularProgress from "@mui/material/CircularProgress";
 
 const CardContainer = () => {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.product.search);
   const ulog = useSelector((state) => state.user.loggedIn);
   const alog = useSelector((state) => state.admin.loggedIn);
+  const college = useSelector((state) => state.admin.adminDetails.college)
   const loggedIn = (ulog || alog);
-  
+  const [loading, setLoading] = useState(true); 
+
   const navigate = useNavigate();
   const handleOpenAd = (id) => {
     if (!loggedIn) {
@@ -40,32 +43,49 @@ const CardContainer = () => {
   const [ads, setads] = useState([]);
   //   console.log("card container rendered");
 
-  useEffect(() => {
-    async function fetchdata() {
-      try {
+  async function fetchdata() {
+    try {
+      if (alog) {
+        const data = await fetchAllAdsApi(college);
+        setads(data.data.data);
+        setLoading(false)
+      }
+      else {
         const data = await fetchAllAdsApi();
         setads(data.data.data);
-        // console.log(data.data.data);
-      } catch (error) {
-        // Handle errors here
-        console.error("Error fetching data:", error);
+        setLoading(false);
       }
+
+      // console.log(data.data.data);
+    } catch (error) {
+      // Handle errors here
+      console.error("Error fetching data:", error);
+        
     }
-    fetchdata();
-    setInterval(fetchdata, 5000);
-  }, []);
+  }
+
+  useEffect(() => {
+    const intervalId = setInterval(fetchdata, 5000);
+    return () => clearInterval(intervalId);
+  }, [college]);
+
+  // useEffect(() => {
+  //   
+  //   fetchdata();
+  //   setInterval(fetchdata, 5000);
+  // }, []);
 
   return (
     <Box
       sx={{
         width: "100%",
-        height: "1500px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         marginTop: "30px",
       }}
     >
+      
       <Box
         sx={{
           width: "100%",
@@ -87,12 +107,18 @@ const CardContainer = () => {
           gap: "30px",
           flexWrap: "wrap",
           overflowY: "auto",
-          height: "1450px",
+          justifyContent: "center", // Center horizontally
+        alignItems: "center",     // Center vertically
+        minHeight: "calc(100vh - 200px)", // Adjust height as needed
           padding: { xs: "0px", sm: "10px" },
           backgroundColor: "whitesmoke",
         }}
       >
-        {ads
+          {loading ? (
+       
+        <CircularProgress sx={{ marginTop: "50px",
+         }} />
+      ) : (ads
           .filter((ad) => {
             if (ad.tags.includes(search)) return true;
             return (
@@ -103,13 +129,13 @@ const CardContainer = () => {
           })
           .map((ad) => {
             return (
-              <Card key={ad._id} sx={{position:'relative',  width: 300, height: 400 }}>
-                {ad.sold && <img src={sold} style={{width:'200px', position:'absolute', top:'0px', left:'0px', zIndex:1}} alt="sold" />}
-                
+              <Card key={ad._id} sx={{ position: 'relative', width: 300, height: 400 }}>
+                {ad.sold && <img src={sold} style={{ width: '200px', position: 'absolute', top: '0px', left: '0px', zIndex: 1 }} alt="sold" />}
+
                 <CardActionArea onClick={() => handleOpenAd(ad._id)}>
                   <CardMedia
                     component="img"
-                   
+
                     src={`https://drive.google.com/thumbnail?authuser=0&sz=w600&id=${ad.img_id[0]}`}
                     // src = {require(`https://drive.google.com/thumbnail?id=${ad.img_id[0]}`).default}
                     // src={`https://drive.google.com/thumbnail?authuser=0&sz=w200&id=${ad.img_id[0]}`}
@@ -137,8 +163,9 @@ const CardContainer = () => {
                 </CardActionArea>
               </Card>
             );
-          })}
+          }))}
       </Box>
+      
     </Box>
   );
 };

@@ -8,7 +8,7 @@ const initialState = {
     _id: '',
     name: '',
     email: '',
-    college: '',
+    college: '-',
     soldOut: 0,
     reportedAds:0,
     activity : {
@@ -30,9 +30,9 @@ export const fetchAdminDetails = createAsyncThunk(
   }
 )
 export const fetchReportedAds = createAsyncThunk(
-  "reportedAds/fetch", async (id) => {
+  "reportedAds/fetch", async (college="-") => {
     try {
-      const response = await getAllreportAPI();
+      const response = await getAllreportAPI(college);
       return response.data;
     } catch (err) {
       return err.message;
