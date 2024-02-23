@@ -8,6 +8,7 @@ export const getProductAPI=async (req,res)=>{
         if (!product.views.includes(uid) && uid!="-") {
             product.views.push(uid);
         }
+        product.save()
         res.status(200).json(product)
     } catch (error) {
         console.error(`${error.message}!!`)

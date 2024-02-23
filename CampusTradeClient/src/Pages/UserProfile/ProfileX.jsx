@@ -348,7 +348,6 @@ const loggedIn = (ulog || alog);
       <Box
         sx={{
           width: "100%",
-          height: "900px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -372,11 +371,11 @@ const loggedIn = (ulog || alog);
           sx={{
             width: "100%",
             maxWidth: "1060px",
+            height:"500px",
             display: "flex",
             gap: "30px",
             flexWrap: "wrap",
             overflowY: "auto",
-            height: "700px",
             padding: { xs: "0px", sm: "40px" },
             backgroundColor: "whitesmoke",
           }}
@@ -424,7 +423,6 @@ const loggedIn = (ulog || alog);
       <Box
         sx={{
           width: "100%",
-          height: "900px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -450,9 +448,9 @@ const loggedIn = (ulog || alog);
             maxWidth: "1060px",
             display: "flex",
             gap: "30px",
+            height:"500px",
             flexWrap: "wrap",
             overflowY: "auto",
-            height: "700px",
             padding: { xs: "0px", sm: "40px" },
             backgroundColor: "whitesmoke",
           }}
@@ -497,7 +495,6 @@ const loggedIn = (ulog || alog);
       <Box
         sx={{
           width: "100%",
-          height: "900px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -522,10 +519,10 @@ const loggedIn = (ulog || alog);
             width: "100%",
             maxWidth: "1060px",
             display: "flex",
+            height:"500px",
             gap: "30px",
             flexWrap: "wrap",
             overflowY: "auto",
-            height: "700px",
             padding: { xs: "0px", sm: "40px" },
             backgroundColor: "whitesmoke",
           }}

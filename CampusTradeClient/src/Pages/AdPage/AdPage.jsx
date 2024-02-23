@@ -191,24 +191,6 @@ console.log(reported)
         timestamp: 1578366393250,
       },
       {
-        author: { username: "Bot", id: 2, avatarUrl: "" },
-        text: "Show two buttons",
-        type: "text",
-        timestamp: 1578366425250,
-        buttons: [
-          {
-            type: "URL",
-            title: "Yahoo",
-            payload: "http://www.yahoo.com",
-          },
-          {
-            type: "URL",
-            title: "Example",
-            payload: "http://www.example.com",
-          },
-        ],
-      },
-      {
         author: {
           username: "user1",
           id: 1,

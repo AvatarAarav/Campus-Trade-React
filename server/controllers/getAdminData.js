@@ -5,8 +5,15 @@ export const getAdminData = async (req, res) => {
     try {
         const data = await Admins.findById(req.body.adminId)
         const adminData={_id:data._id,name:data.name,activity:data.activity,email:data.email,reportedAds:data.reportedAds,soldOut:data.soldOut,college:data.college}
-        adminData['prodCount'] = await Products.count();
-        adminData['userCount'] = await Users.count();
+        
+        if(data.college=="-"){
+            adminData['userCount'] = await Users.count({});
+            adminData['prodCount'] = await Products.count();
+        }
+        else{
+            adminData['userCount'] = await Users.count({college:data.college});
+            adminData['prodCount'] = 3
+        }
         // Calculate the sum of product prices
         const priceSum = await Products.aggregate([
             { $group: { _id: null, totalPrice: { $sum: "$price" } } }
