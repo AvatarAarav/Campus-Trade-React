@@ -49,6 +49,7 @@ const CardContainer = () => {
         console.log(college)
         const data = await fetchAllAdsApi(college);
         setads(data.data.data);
+        setLoading(false)
       }
       else {
         const data = await fetchAllAdsApi();
