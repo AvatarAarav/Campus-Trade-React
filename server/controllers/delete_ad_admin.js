@@ -15,15 +15,6 @@ export const del_ad_adminAPI = async (req, res) => {
         // Delete the product
         await Products.deleteOne({ _id: id });
 
-        // Remove the product from the user's ads array
-        // const uid = pdata.id;
-        // const userData = await Users.findOne({ _id: uid });
-
-        // if (userData) {
-        //     userData.ads = userData.ads.filter(adId => adId.toString() !== id);
-        //     await userData.save();
-        // }
-
         res.status(200).json({ message: "product deleted" });
     } catch (error) {
         console.error(`${error.message}!!`);

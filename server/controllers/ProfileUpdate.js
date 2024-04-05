@@ -9,7 +9,7 @@ export const ProfileUpdateAPI=async (req,res)=>{
       userData.name = req.body.name;
       userData.college_name = req.body.collegeName;
       userData.save()
-      console.log(userData)
+    //   console.log(userData)
         res.status(200).json({user :userData[0]});
     } catch (error) {
         console.error(`${error.message}!!`)
