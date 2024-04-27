@@ -29,7 +29,7 @@ function Footer() {
   };
   return (
     <>
-    <Box sx={{backgroundColor:"lightgray",marginTop:'200px',display:'flex',flexDirection:{xs:'column',sm:'row'},alignItems:'center',padding:'50px 0px'}}>
+    <Box sx={{ width:'100vw',backgroundColor:"lightgray",marginTop:'200px',display:'flex',flexDirection:{xs:'column',sm:'row'},alignItems:'center',padding:'50px 0px'}}>
       <StyledBox sx={{display:{xs:'none',sm:'block',flex:3}}}>
         <Container sx={{display:'flex',alignItems:'flex-start'}}>
           <img src={logopic} />
