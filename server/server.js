@@ -74,7 +74,10 @@ io.on('connection', (socket) => {
     console.log('User disconnected');
   });
 });
-
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 
 const PORT = 8000;
 mongoose

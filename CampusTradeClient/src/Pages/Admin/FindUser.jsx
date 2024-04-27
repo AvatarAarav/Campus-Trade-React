@@ -27,6 +27,7 @@ import { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserDetails } from "../../Store/UserSlice";
+
 const StyledBox = styled(Paper)({
   overflow: "auto",
   width: "40%",
@@ -34,6 +35,7 @@ const StyledBox = styled(Paper)({
   margin: "20px",
   padding: "10px",
 });
+
 const StyledDiv = styled("div")({
   display: "flex",
   alignItems: "center",
@@ -46,7 +48,9 @@ const FindUser = () => {
   const dispatch = useDispatch();
   const college = useSelector(state=>state.admin.adminDetails.college)
   const [users, setusers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function fetchdata() {
@@ -61,19 +65,28 @@ const FindUser = () => {
     fetchdata();
   }, [college]);
 
-  const handleUserClick = async (id) => {
-   
-    await dispatch(fetchUserDetails(id))
+  useEffect(() => {
+    // Filter users based on search query
+    const filtered = users.filter(user =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  }, [searchQuery, users]);
 
-    navigate("/user");
-    
+  const handleUserClick = async (id) => {  
+    await dispatch(fetchUserDetails(id))
+    navigate("/user");    
   };
 
   return (
     <StyledBox sx={{ display: { xs: "none", sm: "block" } }}>
       <StyledDiv color="primary">
         <Search />
-        <InputBase placeholder="Find Seller" />
+        <InputBase 
+          placeholder="Find Seller" 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </StyledDiv>
       {isLoading ? (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
@@ -81,7 +94,7 @@ const FindUser = () => {
         </Box>
       ) : (
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-          {users.map((user) => {
+          {filteredUsers.map((user) => {
             return (
               <ListItemButton key={user._id} onClick={() => handleUserClick(user._id)}>
                 <ListItemAvatar>
@@ -89,7 +102,7 @@ const FindUser = () => {
                     <img src="https://picsum.photos/300/300" alt="" />
                   </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={user.name} secondary={`ads posted ${user.ads.length}`} />
+                <ListItemText primary={user.name} secondary={`ads whishlisted: ${user.ads.length}`} />
                 <ListItemAvatar>
                   <Verified fontSize="large" color="success" />
                   {/* <Mail fontSize="large" sx={{ color: "dodgerblue" }} />{" "}

@@ -149,7 +149,7 @@ const CardContainer = () => {
                       color="text.secondary"
                       component="div"
                     >
-                      {ad.name}
+                      {ad.name.substring(0,Math.min(ad.name.length,20)) + "..."}
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <Typography component="span" variant="h5">

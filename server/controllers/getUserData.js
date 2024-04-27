@@ -5,8 +5,7 @@ import Admins from "../db/Models/Admins.js"
 
 // Define middleware function to update activity value for today's label
 const updateActivity = async () => {
-    try {
-        const today = new Date().toISOString().split('T')[0];
+    try {   
         const admin = await Admins.find({college:'-'})
         for(let i=0;i<admin.length;i++){
             admin[i].activity.values[admin[i].activity.values.length-1]++;
