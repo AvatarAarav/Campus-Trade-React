@@ -2,10 +2,7 @@ import express from "express"; //module to make requests
 import bodyParser from "body-parser"; //module to read the body of post request
 import http from 'http'
 import {Server} from 'socket.io'
-
 import mongoose from "mongoose";
-import Users from "./db/Models/User.js";
-import Admins from "./db/Models/Admins.js";
 import cors from "cors";
 import apiRouter from "./Router/apiRouter.js";
 import { getUserPage } from "./controllers/getUserPage.js";
@@ -17,11 +14,16 @@ import morgan from "morgan"
 import rfs from "rotating-file-stream"
 import path from "path"
 const __dirname = dirname(fileURLToPath(import.meta.url)); //saving the directory name
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import schemas from "./db/schemas.js";
+
 var accessLogStream = rfs.createStream("access.log",
 {
     interval: '1d',
     path:path.join(__dirname,'log')
 })
+
 app.use(morgan('combined',{stream:accessLogStream}))
 
 
@@ -38,6 +40,35 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false })); //decoding the data in body
 app.use(bodyParser.json()); //for post requests //decoding the data in body
 
+// Swagger definition
+const swaggerDefinition = {
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Documentation for CAMPUSTRADE",
+    "version": "1.0.0",
+    "description": "This is the API documentation for my application."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "server"
+    }
+  ],
+  "components": {schemas}
+};
+
+// Options for the swagger docs
+const options = {
+  swaggerDefinition,
+  // Paths to files containing OpenAPI definitions
+  apis: ['./Router/*.js'],
+};
+
+// Initialize swagger-jsdoc
+const swaggerSpec = swaggerJsdoc(options);
+
+// Serve swagger
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api", apiRouter); // calling /api calls different from different file
 
@@ -74,6 +105,8 @@ io.on('connection', (socket) => {
     console.log('User disconnected');
   });
 });
+
+
 app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).send('Something broke!')

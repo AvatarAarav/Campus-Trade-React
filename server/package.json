@@ -21,7 +21,9 @@
     "nodemon": "^3.0.1",
     "razorpay": "^2.9.2",
     "rotating-file-stream": "^3.2.1",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "type": "module"
 }

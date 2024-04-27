@@ -1,112 +1,172 @@
 import express from "express";
+import multer from "multer";
 import path from "path";
-import multer from "multer"; //module to handle file submission
 import { submitForm } from "../controllers/Add_Product.js";
-import { addUserAPI } from "../controllers/register.js";
-import { checkLoginAPI } from "../controllers/login.js";
-import { getUserData } from "../controllers/getUserData.js";
-import { getAllProductsAPI } from "../controllers/getAllProducts.js";
-import { getAdFormAPI } from "../controllers/getAdForm.js";
-import { getProductAPI } from "../controllers/getProduct.js";
-import { getAdObjectAPI } from "../controllers/getAdObject.js";
-import { getUserCardsAPI } from "../controllers/getUserCards.js";
-import { getAdminData } from "../controllers/getAdminData.js";
-import { getSearchResultAPI } from "../controllers/getSearchResult.js";
-import { getUpdateAdAPI } from "../controllers/getUpdateAd.js";
 import { updateFormAPI } from "../controllers/Update_form.js";
-import { delProductAPI } from "../controllers/deleteAd.js";
-import { whishListProductApi } from "../controllers/whishListProductApi.js";
-import { ProfileUpdateAPI } from "../controllers/ProfileUpdate.js";
-import { ChangeProfileAPI } from "../controllers/ChangeProfile.js";
-import { getAdminProductAPI } from "../controllers/AdminProduct.js";
-import { getAllUsersAPI } from "../controllers/getAllUsers.js";
-import { getAdminUserAPI } from "../controllers/getAdminUser.js";
-import { removeProductApi } from "../controllers/removeProduct.js";
-import { postAddChatAPI } from "../controllers/postAddChat.js";
-import { getProductChatsAPI } from "../controllers/getProductChats.js";
-import { reportProductApi } from "../controllers/reportProductApi.js";
-import { getAllUsersEmailAPI } from "../controllers/getAllUsersEmail.js";
-import { getuserdetailAPI } from "../controllers/getuserdetail.js";
-import { getadadmindetailAPI } from "../controllers/getadadmindetail.js";
-
-// import { deleteAdminadAPI } from "../controllers/deleteAdminad.js";
-import { deleteAdminuserAPI } from "../controllers/deleteAdminuser.js";
-import { sendAnnouncement, sendOTP } from "../controllers/Mailer.js";
+import { getSearchResultAPI } from "../controllers/getSearchResult.js";
+import { sendOTP } from "../controllers/Mailer.js";
 import { Payment } from "../controllers/Payment.js";
-import { GoogleLoginAPI } from "../controllers/GoogleLogin.js";
 import { boughtAdAPI } from "../controllers/bought_add.js";
-import { UnWhisListAPI } from "../controllers/unWhishListproduct.js";
-// import { reportadApi } from "../controllers/report_ad.js";
-import { del_ad_adminAPI } from "../controllers/delete_ad_admin.js"; 
-import { DelUserAPI } from "../controllers/del_user_admin.js";
-import { getAllreportAPI } from "../../CampusTradeClient/src/apis/index.js";
-import { getallreportAPI } from "../controllers/getAllReport.js";
-const router = express.Router();
+import productRouter from './productRouter.js'
+import userRouter from './userRouter.js'
+import adminRouter from './adminRouter.js'
+import adRouter from './adRouter.js'
 
-router.get("/products/:college", getAllProductsAPI);
-
-// Set up the multer middleware to handle file uploads
-// const upload = multer({ dest: 'uploads/' });
-
+// Set up multer to handle file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // console.log("hi there")
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
   },
 });
 
 const upload = multer({ storage: storage });
 
-router.get("/ad/:id/:uid", getProductAPI);
-router.get("/ad/buy/:id/uid/:uid", whishListProductApi);
-router.get("/ad/report/:id/uid/:uid", reportProductApi);
-router.get("/ad/remove/:id/uid/:uid", removeProductApi);
-router.get("/ad/delete/:id/mail/:eid", delProductAPI);
+const router = express.Router();
+
+/**
+ * @openapi
+ * /form:
+ *   post:
+ *     tags: [Special Services]
+ *     summary: Submit a form with images
+ *     description: Allows submission of a form along with up to 5 images for a product.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *     responses:
+ *       201:
+ *         description: Form submitted successfully.
+ *       400:
+ *         description: Error in form submission.
+ */
 router.post("/form", upload.array("images", 5), submitForm);
-// router.get("/ad/report/:id/uid/:uid",reportadApi)
-router.post(
-  "/update_form",
-  updateFormAPI
-);
-router.post("/user/register", addUserAPI);
-router.post("/user/login", checkLoginAPI);
-router.get("/user/allEmail", getAllUsersEmailAPI);
-router.post("/user", getUserData);
-router.post("/admin", getAdminData);
-router.get("/allusers/:college", getAllUsersAPI);
-router.get("/user/:id", getUserCardsAPI);
-router.post("/user/adCreate", getAdFormAPI);
-router.get("/adObject/:id", getAdObjectAPI);
+
+/**
+ * @openapi
+ * /update_form:
+ *   post:
+ *     tags: [Special Services]
+ *     summary: Update a form
+ *     description: Update details of a previously submitted form.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               data:
+ *                 type: object
+ *                 additionalProperties: true
+ *     responses:
+ *       200:
+ *         description: Form updated successfully.
+ *       400:
+ *         description: Error updating form.
+ */
+router.post("/update_form", updateFormAPI);
+
+/**
+ * @openapi
+ * /search_result:
+ *   get:
+ *     tags: [Special Services]
+ *     summary: Search for products
+ *     description: Execute a search query and return products based on the search criteria.
+ *     responses:
+ *       200:
+ *         description: Search results returned successfully.
+ *       404:
+ *         description: No results found.
+ */
 router.get("/search_result", getSearchResultAPI);
-router.get("/admin_product", getAdminProductAPI);
-router.get("/search_admin_user", getAdminUserAPI);
-router.get("/user/ad_update/:email/mail/:id", getUpdateAdAPI);
-router.post("/user/UpdateProfile", ProfileUpdateAPI);
-router.post("/user/changeProfile", ChangeProfileAPI);
-router.post("/ad/chat/post", postAddChatAPI);
-router.get("/ad/chat/:id", getProductChatsAPI);
-router.get("/ad/unbuy/:id/uid/:uid",UnWhisListAPI);
-router.get("/user/adminlink/:id/admin/:aid", getuserdetailAPI);
-router.get("/admin_ads/:id/admin/:aid", getadadmindetailAPI);
 
-router.get("/user/allEmail/", getAllUsersEmailAPI);
-
-// router.get("/admin/:id/delete/:aid", deleteAdminadAPI);
-router.get("/admin/:email/deleteuser/:aid", deleteAdminuserAPI);
-
-router.post("/user/google", GoogleLoginAPI);
+/**
+ * @openapi
+ * /send-otp:
+ *   post:
+ *     tags: [Special Services]
+ *     summary: Send OTP
+ *     description: Send a one-time password (OTP) to the user's registered email for verification purposes.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *     responses:
+ *       200:
+ *         description: OTP sent successfully.
+ *       400:
+ *         description: Error sending OTP.
+ */
 router.post("/send-otp", sendOTP);
 
+/**
+ * @openapi
+ * /create-order:
+ *   post:
+ *     tags: [Special Services]
+ *     summary: Process a payment order
+ *     description: Create a payment order for purchasing a product.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/PaymentOrder'
+ *     responses:
+ *       201:
+ *         description: Order created successfully.
+ *       400:
+ *         description: Error creating order.
+ */
 router.post("/create-order", Payment);
+
+/**
+ * @openapi
+ * /ad/bought:
+ *   post:
+ *     tags: [Special Services]
+ *     summary: Record a bought advertisement
+ *     description: Mark an advertisement as bought, updating its status in the system.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               adId:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Advertisement marked as bought successfully.
+ *       404:
+ *         description: Advertisement not found.
+ */
 router.post("/ad/bought", boughtAdAPI);
-router.post("/admin/delete/ad",del_ad_adminAPI);
-router.post("/admin/delete/user",DelUserAPI)
-router.get("/admin/getReported/:college",getallreportAPI);
-router.post("/admin/announcement",sendAnnouncement);
+
+// Including other routers
+router.use(productRouter);
+router.use(userRouter);
+router.use(adminRouter);
+router.use(adRouter);
+
 export default router;
