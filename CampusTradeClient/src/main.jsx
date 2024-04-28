@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import store from './Store/store.js'
 import {Provider} from 'react-redux'
 import theme from './theme';
+import "animate.css/animate.min.css";
 
 const clientId="1055909223869-gu8cokn3qhr28lsr1ltbjus599rmprrq.apps.googleusercontent.com";
 
