@@ -11,6 +11,7 @@ import '@fontsource/roboto/700.css';
 import './App.css';
 import Home from './Pages/Home/Home';
 import AboutUs from './Pages/AboutUs/AboutUs';
+import LandingPage from './Pages/LandingPage/LandingPage';
 import AdPage from './Pages/AdPage/AdPage';
 import Admin from './Pages/Admin/Admin';
 // import UserProfile from './Pages/UserProfile/UserProfile';
@@ -28,6 +29,7 @@ function App() {
       <div className="App">
         <Navbar/>
         <Routes>
+          <Route path='/l' exact element={<LandingPage />}/>
           <Route path="/" exact element={<Home/>} />
           <Route path="/ad" element={<AdPage/>} />
           <Route path="/admin" exact element={<Admin/>} />
