@@ -21,6 +21,8 @@ import { sendOtpAPI, signUpAPI } from "../../apis";
 import { useDispatch } from "react-redux";
 import MenuItem from '@mui/material/MenuItem';
 
+import ScrollAnimation from 'react-animate-on-scroll';
+
 const style = {
   display: "flex",
   flexDirection: "column",
@@ -29,7 +31,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "330px",
+  width: "430px",
   bgcolor: "background.paper",
   borderRadius: 2,
   boxShadow: 24,
@@ -151,14 +153,17 @@ const Signup = ({ openModalSignup, handleCloseSignup, toLogin }) => {
       >
         <Fade in={openModalSignup}>
           <Box sx={style}>
+          <ScrollAnimation animateIn="animate__backInDown" animateOut = "animate__backInUp">
             <Typography
-              color="primary"
-              sx={{ fontSize: "xx-large", marginBottom: "20px" }}
-              variant="h5"
-              component="h5"
-            >
-              Signup
-            </Typography>
+                  color="secondary"
+                  sx={{ fontSize: "xx-large", marginBottom: "20px" }}
+                  variant="h5"
+                  component="h5"
+                >
+                  Signup
+              </Typography>
+          </ScrollAnimation>
+            
             <TextField
               sx={{ width: "300px", margin: "10px" }}
               // error

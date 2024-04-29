@@ -24,6 +24,9 @@ import { fetchAdDetails } from "../../Store/ProductSlice";
 import { fetchAllAdsApi } from "../../apis/index";
 import { CurrencyRupee, Edit, Mail, School } from "@mui/icons-material";
 import { delUserAPI } from "../../apis/index";
+
+import ScrollAnimation from 'react-animate-on-scroll';
+
 function UserData({ user, onEditProfile, postad, userRating }) {
 
   const ulog = useSelector((state) => state.user.loggedIn);
@@ -116,10 +119,13 @@ function UserData({ user, onEditProfile, postad, userRating }) {
         }
           
 
+          <ScrollAnimation animateIn="animate__slideInRight" animateOut = "animate__slideOutRight">
+            <Typography variant="h6" sx={{ fontSize: "50px" , fontFamily:'cursive'}}>
+                {user.name}
+            </Typography>
+          </ScrollAnimation>
 
-          <Typography variant="h6" sx={{ fontSize: "50px" , fontFamily:'cursive'}}>
-            {user.name}
-          </Typography>
+          
           <Box sx={{backgroundColor:'white', padding:'5px', borderRadius:'10px', marginBottom:'10px'}}>
             <IconButton>
               <Mail style={{color:'dodgerblue', marginRight:'10px'}} />
@@ -365,7 +371,10 @@ const loggedIn = (ulog || alog);
             backgroundColor: "lightsalmon",
           }}
         >
-          <Typography variant="h4">My Products</Typography>
+          <ScrollAnimation animateIn="animate__zoomIn">
+            <Typography variant="h4">My Products</Typography>
+          </ScrollAnimation>
+          
         </Box>
         <Box
           sx={{
@@ -440,7 +449,10 @@ const loggedIn = (ulog || alog);
             backgroundColor: "lightsalmon",
           }}
         >
-          <Typography variant="h4">Wishlist</Typography>
+          <ScrollAnimation animateIn="animate__zoomIn">
+            <Typography variant="h4">Wishlist</Typography>
+          </ScrollAnimation>
+          
         </Box>
         <Box
           sx={{
@@ -512,7 +524,10 @@ const loggedIn = (ulog || alog);
             backgroundColor: "lightsalmon",
           }}
         >
-          <Typography variant="h4">My Bought products</Typography>
+          <ScrollAnimation animateIn="animate__zoomIn">
+            <Typography variant="h4">My Bought products</Typography>
+          </ScrollAnimation>
+          
         </Box>
         <Box
           sx={{

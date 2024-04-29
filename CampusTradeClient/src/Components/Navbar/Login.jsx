@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchUserDetails, loginReducer } from "../../Store/UserSlice";
 import { adminLoginReducer, fetchAdminDetails } from "../../Store/AdminSlice";
 import { useDispatch } from "react-redux";
-
+import ScrollAnimation from 'react-animate-on-scroll';
 import GoogleLoginButton from "./GoogleLoginButton";
 import { checkLoginAPI } from "../../apis";
 
@@ -107,15 +107,18 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
               <LinearProgress />
             </Box> */}
 
-            <Typography
-              color="secondary"
-              sx={{ fontSize: "xx-large", marginBottom: "20px" }}
-              variant="h5"
-              component="h5"
-              fontFamily="cursive"
-            >
-              Login
-            </Typography>
+            <ScrollAnimation animateIn="animate__backInDown" animateOut = "animate__backInUp">  
+              <Typography
+                  color="secondary"
+                  sx={{ fontSize: "xx-large", marginBottom: "20px" }}
+                  variant="h5"
+                  component="h5"
+                  fontFamily="cursive"
+                >
+                  Login
+              </Typography>
+            </ScrollAnimation>
+            
 
             <TextField
               onChange={(e) => setemail(e.target.value)}
@@ -156,22 +159,29 @@ const Login = ({ openModalLogin, handleCloseLogin, toSignup }) => {
               {admin ? <CheckBox /> : <CheckBoxOutlineBlank />}
               Admin
             </Box>
-            <Button
-              color="secondary"
-              sx={{ width: "300px", margin: "10px" }}
-              variant="contained"
-              onClick={handleLogin}
-            >
-              Login
-            </Button>
-            <Button
-              color="secondary"
-              sx={{ width: "300px", margin: "10px" }}
-              variant="outlined"
-              onClick={toSignup}
-            >
-              Don't have a Account?
-            </Button>
+
+            
+              <Button
+                  color="secondary"
+                  sx={{ width: "300px", margin: "10px" }}
+                  variant="contained"
+                  onClick={handleLogin}
+                >
+                  Login
+              </Button>
+            
+
+            
+              <Button
+                color="secondary"
+                sx={{ width: "300px", margin: "10px" }}
+                variant="outlined"
+                onClick={toSignup}
+              >
+                Don't have a Account?
+              </Button>
+            
+           
             <GoogleLoginButton closeModal={handleCloseLogin} />
           </Box>
         </Fade>

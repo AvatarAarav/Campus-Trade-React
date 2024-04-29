@@ -26,6 +26,8 @@ import bg3 from "../../assets/bg3.jpg";
 import soldout from '../../assets/soldout.png'
 import ChatBox, { ChatFrame } from "react-chat-plugin";
 import { Navigate, useNavigate } from "react-router-dom";
+import ScrollAnimation from 'react-animate-on-scroll';
+
 import { boughtAdAPI, fetchUserDetailsApi, uwishlistAPI, wishlistAPI,delProductAPI } from "../../apis";
 import {
   Chat,
@@ -288,16 +290,23 @@ console.log(reported)
             </Paper>
           </Grid>
           <Grid item xs={12} sm={5}>
-            <Typography variant="h4" color="text.primary">
-              {ad.name}
-            </Typography>
+            <ScrollAnimation animateIn="animate__backInRight" animateOut = "animate__backOutRight">
+              <Typography variant="h4" color="text.primary">
+                  {ad.name}
+              </Typography>
+            </ScrollAnimation>
+            
             <Typography variant="subtitle1" color="text.secondary" gutterBottom>
               {ad.subname}
             </Typography>
-            <Typography variant="h4" color="green" gutterBottom>
-              {ad.price}
-              <CurrencyRupee fontSize="small" />
-            </Typography>
+
+            <ScrollAnimation animateIn="animate__backInRight" animateOut = "animate__backOutRight">
+              <Typography variant="h4" color="green" gutterBottom>
+                  {ad.price}
+                  <CurrencyRupee fontSize="small" />
+              </Typography>
+            </ScrollAnimation>
+            
             <Typography
               variant="h5"
               component="span"
@@ -524,7 +533,10 @@ console.log(reported)
               
             </Box>
             <hr />
-            <Typography variant="h6">Product Description</Typography>
+            <ScrollAnimation animateIn="animate__backInRight" animateOut = "animate__backOutRight">
+              <Typography variant="h6">Product Description</Typography>
+            </ScrollAnimation>
+            
             <Typography variant="body1" fontFamily="cursive" paragraph>
               {ad.description}
             </Typography>
