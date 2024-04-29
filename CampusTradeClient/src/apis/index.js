@@ -1,7 +1,8 @@
 import { Password } from "@mui/icons-material";
 
 import axios from "axios";
-const url = "http://localhost:8000/api/";
+// const url = "http://localhost:8000/api/";
+const url = "https://campus-trade-react.onrender.com/api"
 
 const API = axios.create({ baseURL: url });
 
@@ -28,3 +29,4 @@ export const delProductAPI = (id) => API.post("/admin/delete/ad",{id});
 export const delUserAPI = (id) => API.post("/admin/delete/user",{id})
 export const getAllreportAPI = (college="-") => API.get("/admin/getReported/"+college);
 export const sendAnnouncement= (sub,mess)=> API.post('/admin/announcement',{subject: sub , message : mess })
+export const doPayment = ()=> API.post("/create-order")

@@ -28,7 +28,7 @@ import ChatBox, { ChatFrame } from "react-chat-plugin";
 import { Navigate, useNavigate } from "react-router-dom";
 import ScrollAnimation from 'react-animate-on-scroll';
 
-import { boughtAdAPI, fetchUserDetailsApi, uwishlistAPI, wishlistAPI,delProductAPI } from "../../apis";
+import { boughtAdAPI, fetchUserDetailsApi, uwishlistAPI, wishlistAPI,delProductAPI, doPayment } from "../../apis";
 import {
   Chat,
   CurrencyRupee,
@@ -110,9 +110,7 @@ console.log(reported)
 
   const createOrder = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/create-order"
-      );
+      const response = await doPayment()
       setOrderId(response.data.id);
     } catch (error) {
       console.error("Error creating order:", error);
