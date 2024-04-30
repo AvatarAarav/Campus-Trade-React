@@ -26,7 +26,7 @@ var accessLogStream = rfs.createStream("access.log",
 })
 
 app.use(morgan('combined',{stream:accessLogStream}))
-
+app.set('view engine', 'ejs')
 
 const server = http.createServer(app);
 const io = new Server(server);
@@ -73,24 +73,12 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api", apiRouter); // calling /api calls different from different file
 
-app.get("/", (req, res) => {
-  res.render("index", { user: undefined }); //rendering the first request
-});
+
 app.get("/user/home/:userId", getUserPage);
 
 app.get("/devs/:userId", getDevsPage);
 
-app.get("/devs", (req, res) => {
-  res.render("devs", { user: undefined });
-});
 
-app.get("/login", (req, res) => {
-  res.render("login", { user: undefined });
-});
-
-app.get("/register", (req, res) => {
-  res.render("register", { user: undefined });
-});
 
 // Socket.io event handling
 io.on('connection', (socket) => {
@@ -124,12 +112,14 @@ mongoose
     }
   )
 
-
   .then(() => {
     server.listen(PORT, () => {
       console.log(`Server is listening at port ${PORT}`);
     });
+    
   })
   .catch((err) => {
     console.log(`${err} !!! Can't Connect !!!`);
   });
+  export default app
+  export { server };
