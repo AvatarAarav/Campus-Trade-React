@@ -4,8 +4,10 @@ import p from '../../assets/p1.jpg'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { School } from '@mui/icons-material';
 import ScrollAnimation from 'react-animate-on-scroll';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
+  const navigate = useNavigate()
   return (
     <Box sx={{width:'100vw',backgroundColor:'whitesmoke', height:'100vh', display:'flex',flexDirection:'row-reverse', justifyContent:'space-between'}}>
         
@@ -53,7 +55,7 @@ const LandingPage = () => {
             
             <br />
             <Box sx={{width:'100%', display:'flex', justifyContent:'center'}}>
-            <Button variant='outlined' size='large' sx={{margin:'auto'}}>Get Started</Button>
+            <Button onClick={()=>{navigate('/home')}} variant='outlined' size='large' sx={{margin:'auto'}}>Get Started</Button>
             </Box>
             
         </Box>

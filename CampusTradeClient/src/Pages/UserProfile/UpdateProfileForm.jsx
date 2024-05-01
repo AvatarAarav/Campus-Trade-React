@@ -16,7 +16,7 @@ const UpdateProfileForm = () => {
   
     const loggedIn=useSelector(state=>state.user.loggedIn)
     useEffect(()=>{
-      if(!loggedIn){navigate('/')}
+      if(!loggedIn){navigate('/home')}
     },[])
 
   const [name, setName] = useState("");

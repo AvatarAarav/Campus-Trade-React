@@ -27,7 +27,7 @@ import { updateadAPI } from "../../apis";
 const product = useSelector(state=>state.product.adDetails)
 
     useEffect(()=>{
-      if(!loggedIn){navigate('/')}
+      if(!loggedIn){navigate('/home')}
     },[])
 
 

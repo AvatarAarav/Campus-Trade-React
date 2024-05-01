@@ -18,7 +18,7 @@ import Admin from './Pages/Admin/Admin';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import ProfileX from './Pages/UserProfile/ProfileX';
-import Adform from './Pages/AdForm/Adform';
+import Adform from './Pages/AdForm/Adform'; & royalty-free stock
 import AdUpdate from './Pages/updateAdForm/updateAd';
 import UpdateProfileForm from './Pages/UserProfile/UpdateProfileForm';
 function App() {
@@ -29,8 +29,8 @@ function App() {
       <div className="App">
         <Navbar/>
         <Routes>
-          <Route path='/l' exact element={<LandingPage />}/>
-          <Route path="/" exact element={<Home/>} />
+          <Route path='/' exact element={<LandingPage />}/>
+          <Route path="/home" exact element={<Home/>} />
           <Route path="/ad" element={<AdPage/>} />
           <Route path="/admin" exact element={<Admin/>} />
           <Route path="/user" exact element={<ProfileX/>} />

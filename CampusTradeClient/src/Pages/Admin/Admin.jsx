@@ -15,7 +15,7 @@ function Admin() {
   
   const navigate=useNavigate();
   useEffect(()=>{
-    if(!adminLoggedIn){navigate('/')}
+    if(!adminLoggedIn){navigate('/home')}
   },[])
   useEffect(() => {
     window.scrollTo(0, 0)
