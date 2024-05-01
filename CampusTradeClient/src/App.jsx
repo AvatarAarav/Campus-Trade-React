@@ -18,7 +18,7 @@ import Admin from './Pages/Admin/Admin';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import ProfileX from './Pages/UserProfile/ProfileX';
-import Adform from './Pages/AdForm/Adform'; & royalty-free stock
+import Adform from './Pages/AdForm/Adform';
 import AdUpdate from './Pages/updateAdForm/updateAd';
 import UpdateProfileForm from './Pages/UserProfile/UpdateProfileForm';
 function App() {
