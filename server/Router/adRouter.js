@@ -20,7 +20,7 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AdForm'
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       201:
  *         description: Advertisement created successfully.

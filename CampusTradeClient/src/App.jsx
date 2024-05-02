@@ -9,6 +9,7 @@ import '@fontsource/roboto/700.css';
 
 
 import './App.css';
+import React from 'react';
 import Home from './Pages/Home/Home';
 import AboutUs from './Pages/AboutUs/AboutUs';
 import LandingPage from './Pages/LandingPage/LandingPage';
