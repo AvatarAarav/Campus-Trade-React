@@ -12,7 +12,7 @@ import landing3 from '../../assets/cartoon3.gif'
 
 import l1 from '../../assets/l4.png'
 import l2 from '../../assets/l2.jpg'
-import l3 from '../../assets/redis.webp'
+import l3 from '../../assets/l5.png'
 
 const LandingPage = () => {
   const navigate = useNavigate()
@@ -96,7 +96,7 @@ const LandingPage = () => {
             </ScrollAnimation>
 
             <ScrollAnimation animateIn="animate__backInRight" animateOut = "animate__backOutRight">
-              <Typography variant='h4'>Celebrate the power of connectivity and convenience with our 'On the Go Shopping' feature, empowering students to seamlessly exchange and acquire essentials wherever their academic journey takes them.</Typography>
+              <Typography sx={{backgroundColor:'#f0f4f9', padding:'25px', borderRadius:'40px', borderTopLeftRadius:'0px'}} variant='h4'>Celebrate the power of connectivity and convenience with our 'On the Go Shopping' feature, empowering students to seamlessly exchange and acquire essentials wherever their academic journey takes them.</Typography>
             </ScrollAnimation>
             
           </Box>
@@ -137,7 +137,7 @@ const LandingPage = () => {
             </ScrollAnimation>
 
             <ScrollAnimation animateIn="animate__backInRight" animateOut = "animate__backOutRight">
-              <Typography variant='h4'>Say goodbye to slow loading times and hello to instant access to product information. With Redis, we're creating a streamlined exchange experience, empowering users to make connections and transactions swiftly and seamlessly.</Typography>
+              <Typography sx={{backgroundColor:'#f0f4f9', padding:'25px', borderRadius:'40px', borderTopLeftRadius:'0px'}} variant='h4'>Say goodbye to slow loading times and hello to instant access to product information. With Redis, we're creating a streamlined exchange experience, empowering users to make connections and transactions swiftly and seamlessly.</Typography>
             </ScrollAnimation>
           </Box>
 
