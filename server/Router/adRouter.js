@@ -10,7 +10,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /user/adCreate:
+ * /api/user/adCreate:
  *   post:
  *     tags: [Ad]
  *     summary: Create a new advertisement
@@ -31,7 +31,7 @@ router.post("/user/adCreate", getAdFormAPI);
 
 /**
  * @openapi
- * /adObject/{id}:
+ * /api/adObject/{id}:
  *   get:
  *     tags: [Ad]
  *     summary: Retrieve an advertisement object
@@ -53,7 +53,7 @@ router.get("/adObject/:id", getAdObjectAPI);
 
 /**
  * @openapi
- * /user/ad_update/{email}/mail/{id}:
+ * /api/user/ad_update/{email}/mail/{id}:
  *   get:
  *     tags: [Ad]
  *     summary: Update an advertisement
@@ -81,7 +81,7 @@ router.get("/user/ad_update/:email/mail/:id", getUpdateAdAPI);
 
 /**
  * @openapi
- * /ad/chat/post:
+ * /api/ad/chat/post:
  *   post:
  *     tags: [Ad]
  *     summary: Post a chat message in an advertisement
@@ -102,7 +102,7 @@ router.post("/ad/chat/post", postAddChatAPI);
 
 /**
  * @openapi
- * /ad/chat/{id}:
+ * /api/ad/chat/{id}:
  *   get:
  *     tags: [Ad]
  *     summary: Get chat messages for an advertisement
@@ -124,7 +124,7 @@ router.get("/ad/chat/:id", getProductChatsAPI);
 
 /**
  * @openapi
- * /ad/unbuy/{id}/uid/{uid}:
+ * /api/ad/unbuy/{id}/uid/{uid}:
  *   get:
  *     tags: [Ad]
  *     summary: Remove an advertisement from the wishlist

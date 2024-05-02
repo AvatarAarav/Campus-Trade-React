@@ -14,7 +14,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /admin:
+ * /api/admin:
  *   post:
  *     tags: [Admin]
  *     summary: Access admin data
@@ -36,7 +36,7 @@ router.post("/admin", getAdminData);
 
 /**
  * @openapi
- * /allusers/{college}:
+ * /api/allusers/{college}:
  *   get:
  *     tags: [Admin]
  *     summary: List all users by college
@@ -56,7 +56,7 @@ router.get("/allusers/:college", getAllUsersAPI);
 
 /**
  * @openapi
- * /admin_product:
+ * /api/admin_product:
  *   get:
  *     tags: [Admin]
  *     summary: Get admin product data
@@ -69,7 +69,7 @@ router.get("/admin_product", getAdminProductAPI);
 
 /**
  * @openapi
- * /search_admin_user:
+ * /api/search_admin_user:
  *   get:
  *     tags: [Admin]
  *     summary: Search for an admin user
@@ -82,7 +82,7 @@ router.get("/search_admin_user", getAdminUserAPI);
 
 /**
  * @openapi
- * /admin/getReported/{college}:
+ * /api/admin/getReported/{college}:
  *   get:
  *     tags: [Admin]
  *     summary: Get reported issues by college
@@ -102,7 +102,7 @@ router.get("/admin/getReported/:college", getallreportAPI);
 
 /**
  * @openapi
- * /admin/{email}/deleteuser/{aid}:
+ * /api/admin/{email}/deleteuser/{aid}:
  *   get:
  *     tags: [Admin]
  *     summary: Delete a user by admin
@@ -128,7 +128,7 @@ router.get("/admin/:email/deleteuser/:aid", deleteAdminuserAPI);
 
 /**
  * @openapi
- * /admin/delete/ad:
+ * /api/admin/delete/ad:
  *   post:
  *     tags: [Admin]
  *     summary: Delete an advertisement by admin
@@ -150,7 +150,7 @@ router.post("/admin/delete/ad", del_ad_adminAPI);
 
 /**
  * @openapi
- * /admin/delete/user:
+ * /api/admin/delete/user:
  *   post:
  *     tags: [Admin]
  *     summary: Delete a user by admin
@@ -172,7 +172,7 @@ router.post("/admin/delete/user", DelUserAPI);
 
 /**
  * @openapi
- * /admin/announcement:
+ * /api/admin/announcement:
  *   post:
  *     tags: [Admin]
  *     summary: Send an announcement
@@ -194,7 +194,7 @@ router.post("/admin/announcement", sendAnnouncement);
 
 /**
  * @openapi
- * /admin_ads/{id}/admin/{aid}:
+ * /api/admin_ads/{id}/admin/{aid}:
  *   get:
  *     tags: [Admin]
  *     summary: Get advertisement details for admin
