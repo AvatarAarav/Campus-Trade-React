@@ -1,0 +1,5 @@
+Endpoint: /api/user/allEmail, Latency: 4075ms
+Endpoint: /api/admin_product, Latency: 928ms
+Endpoint: /api/search_admin_user, Latency: 809ms
+Endpoint: /api/user/65d785f419c16c09dcb43ea5, Latency: 921ms
+Endpoint: /api/search_result, Latency: 935ms
