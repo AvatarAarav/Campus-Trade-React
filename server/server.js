@@ -52,7 +52,11 @@ const swaggerDefinition = {
   "servers": [
     {
       "url": "http://localhost:8000",
-      "description": "server"
+      "description": "local server"
+    },
+    {
+      "url": "https://campus-trade-react.onrender.com",
+      "description": "production server"
     }
   ],
   "components": {schemas}

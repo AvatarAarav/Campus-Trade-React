@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  server:
+    build: ./server
+    container_name: serverapp_cont
+    ports:
+      - "8000:8000"
+  frontend:
+    build: ./CampusTradeClient
+    container_name: clientapp_cont
+    ports:
+      - "5173:5173"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+  

@@ -28,7 +28,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /form:
+ * /api/form:
  *   post:
  *     tags: [Special Services]
  *     summary: Submit a form with images
@@ -55,7 +55,7 @@ router.post("/form", upload.array("images", 5), submitForm);
 
 /**
  * @openapi
- * /update_form:
+ * /api/update_form:
  *   post:
  *     tags: [Special Services]
  *     summary: Update a form
@@ -80,7 +80,7 @@ router.post("/update_form", updateFormAPI);
 
 /**
  * @openapi
- * /search_result:
+ * /api/search_result:
  *   get:
  *     tags: [Special Services]
  *     summary: Search for products
@@ -95,7 +95,7 @@ router.get("/search_result", getSearchResultAPI);
 
 /**
  * @openapi
- * /send-otp:
+ * /api/send-otp:
  *   post:
  *     tags: [Special Services]
  *     summary: Send OTP
@@ -120,7 +120,7 @@ router.post("/send-otp", sendOTP);
 
 /**
  * @openapi
- * /create-order:
+ * /api/create-order:
  *   post:
  *     tags: [Special Services]
  *     summary: Process a payment order
@@ -141,7 +141,7 @@ router.post("/create-order", Payment);
 
 /**
  * @openapi
- * /ad/bought:
+ * /api/ad/bought:
  *   post:
  *     tags: [Special Services]
  *     summary: Record a bought advertisement

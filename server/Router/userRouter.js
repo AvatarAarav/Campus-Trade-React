@@ -13,7 +13,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * /user/register:
+ * /api/user/register:
  *   post:
  *     tags: [User]
  *     summary: Register a new user
@@ -34,7 +34,7 @@ router.post("/user/register", addUserAPI);
 
 /**
  * @openapi
- * /user/login:
+ * /api/user/login:
  *   post:
  *     tags: [User]
  *     summary: User login
@@ -55,7 +55,7 @@ router.post("/user/login", checkLoginAPI);
 
 /**
  * @openapi
- * /user/allEmail:
+ * /api/user/allEmail:
  *   get:
  *     tags: [User]
  *     summary: Retrieve all user emails
@@ -74,7 +74,7 @@ router.get("/user/allEmail", getAllUsersEmailAPI);
 
 /**
  * @openapi
- * /user:
+ * /api/user:
  *   post:
  *     tags: [User]
  *     summary: Get user data
@@ -96,7 +96,7 @@ router.post("/user", getUserData);
 
 /**
  * @openapi
- * /user/{id}:
+ * /api/user/{id}:
  *   get:
  *     tags: [User]
  *     summary: Get user cards
@@ -118,7 +118,7 @@ router.get("/user/:id", getUserCardsAPI);
 
 /**
  * @openapi
- * /user/UpdateProfile:
+ * /api/user/UpdateProfile:
  *   post:
  *     tags: [User]
  *     summary: Update user profile
@@ -137,7 +137,7 @@ router.post("/user/UpdateProfile", ProfileUpdateAPI);
 
 /**
  * @openapi
- * /user/changeProfile:
+ * /api/user/changeProfile:
  *   post:
  *     tags: [User]
  *     summary: Change user profile
@@ -156,7 +156,7 @@ router.post("/user/changeProfile", ChangeProfileAPI);
 
 /**
  * @openapi
- * /user/google:
+ * /api/user/google:
  *   post:
  *     tags: [User]
  *     summary: Google login
@@ -178,7 +178,7 @@ router.post("/user/google", GoogleLoginAPI);
 
 /**
  * @openapi
- * /user/adminlink/{id}/admin/{aid}:
+ * /api/user/adminlink/{id}/admin/{aid}:
  *   get:
  *     tags: [User]
  *     summary: Get detailed user information
